@@ -1,0 +1,381 @@
+$text-color: #515151;
+
+@function vwSize($size) {
+    $vwSize: $size * 100 / 1920;
+    @return #{$vwSize}vw;
+}
+
+.map-body {
+    padding-bottom: 60px;
+    .ymaps-2-1-78-balloon__content {
+        ymaps {
+            height: auto !important;
+        }
+    }
+}
+
+.discription__title {
+    line-height: 30px;
+    font-family: Montserrat;
+    color: $text-color;
+    font-size: vwSize(18);
+    font-weight: 600;
+}
+
+.map {
+    position: relative;
+    margin: vwSize(40) 0;
+    height: 400px;
+}
+
+.range-slider {
+    width: vwSize(200);
+    margin: auto vwSize(16);
+    text-align: center;
+    position: relative;
+}
+
+.range-slider svg, .range-slider input[type=range] {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.range-slider input[type=range]::-webkit-slider-tumb {
+    z-index: 2;
+    position: relative;
+    top: vwSize(2);
+    margin-top: -7px;
+}
+
+.line {
+    color: $text-color
+}
+
+.inputBox {
+    border: vwSize(1) solid #D2DFE8;
+    padding: vwSize(10) vwSize(17);
+    box-sizing: border-box
+}
+
+div .numInput {
+    text-align: left;
+    width: vwSize(50);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.filterBox {
+    top: 50%;
+    transform: translateY(-50%);
+    right: vwSize(20);
+    width: vwSize(363);
+    padding: vwSize(20);
+    box-sizing: border-box;
+}
+
+.filter {
+    margin: vwSize(15) 0;
+    .form-control {
+        padding: 0;
+    }
+    &__inpputText {
+        font-size: vwSize(16);
+        font-weight: 500;
+        color: #7E8E9D;
+        width: vwSize(140);
+    }
+    // rangel slider begin
+    &__rangeSlider {
+        margin-top: vwSize(19);
+        .vue-range-slider {
+            &.slider-component {
+                .slider {
+                    .slider-piecewise {
+                        background: #fff;
+                        border: vwSize(1) solid #D2DFE8;
+                        border-radius: 100px;
+                    }
+                    .slider-process {
+                        border: vwSize(1) solid #D2DFE8;
+                        background: rgba(126, 142, 157, 0.35);
+                        box-shadow: inset 0px 0px 0px 2px #fff;
+                        padding: vwSize(2) 0;
+                    }
+                    .slider-dot  {
+                        background: url('../images/svg/rangeSlIcon.svg') no-repeat 50% 50%, #FF9800;
+                        &.slider-always {
+                            .slider-tooltip-wrap {
+                                display: none !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // rangel slider end
+}
+
+.filterName {
+    font-size: vwSize(16);
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    line-height: vwSize(20);
+    margin: vwSize(20) 0 vwSize(11);
+}
+
+div .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
+    color: $text-color;
+    background: transparent;
+    border: vwSize(1) solid #4e555b;
+    box-sizing: border-box;
+    border-radius: vwSize(3);
+    outline: none;
+    box-shadow: none;
+}
+
+div .btn-group > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) {
+    margin: vwSize(1.5);
+}
+
+div .btn-group-toggle > .btn, .btn-group-toggle > .btn-group > .btn {
+    margin-bottom: vwSize(1.5);
+}
+
+div div .btn-secondary {
+    color: $text-color;
+    background: transparent;
+    border: vwSize(1) solid #D2DFE8;
+    box-sizing: border-box;
+    border-radius: vwSize(3) !important;
+    margin: vwSize(1.5);
+}
+
+.card-body div div .btn-secondary {
+    margin: 0;
+}
+
+div .btn-secondary:hover {
+    background: transparent;
+    color: $text-color;
+}
+
+.cityBtn {
+    display: inline-block;
+    background: #fff;
+    border: vwSize(1) solid #77C85B;
+    border-radius: vwSize(3);
+    color: #77C85B;
+    padding: vwSize(10) vwSize(17);
+}
+
+.filter {
+    .searchResult__leftRow_selectize {
+        width: 100%;
+        &.selectize-control {
+            .selectize-input {
+                width: 100% !important;
+                max-height: vwSize(40) !important;
+
+                outline: none !important;
+                margin-right: vwSize(20) !important;
+                padding: vwSize(10) vwSize(17) !important;
+                border: vwSize(1) solid #D2DFE8 !important;
+                border-radius: vwSize(3) !important;
+                background: url("../images/png/select-arrow.png") no-repeat 93.3% 50% !important;
+                box-shadow: none !important;
+
+
+                font-family: "Montserrat" !important;
+                font-style: normal !important;
+                font-weight: 500 !important;
+                font-size: vwSize(16) !important;
+                line-height: vwSize(22) !important;
+                color: #000 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                &:after {
+                    display: none !important;
+                }
+                &:hover {
+                    border: vwSize(1) solid #F64156 !important;
+                }
+                input {
+                    font-family: "Montserrat" !important;
+                    font-style: normal !important;
+                    font-weight: 500 !important;
+                    font-size: vwSize(16) !important;
+                    color: #7E8E9D !important;
+                    white-space: nowrap !important;
+                    width: 100% !important;
+                }
+                .item {
+                    position: absolute;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis !important;
+                }
+            }
+            .selectize-dropdown {
+                position: absolute !important;
+                top: 0px !important;
+
+                border: vwSize(1) solid #D2DFE8 !important;
+                border-radius: vwSize(3) !important;
+                box-shadow: none !important;
+
+                font-family: "Montserrat" !important;
+                font-style: normal !important;
+                font-weight: 500 !important;
+                font-size: vwSize(16) !important;
+
+                color: #000000 !important;
+                padding: vwSize(14) 0 0 vwSize(12);
+                background: #fff url("../images/png/select-arrow.png") no-repeat 93.3% 26px !important;
+                .active {
+                    color: #F64156 !important;
+                    background-color: transparent !important;
+                    cursor: pointer;
+                }
+                .option {
+                    margin-bottom: vwSize(19);
+                }
+                /* width */
+                ::-webkit-scrollbar {
+                    width: vwSize(3);
+                }
+
+                /* Track */
+                ::-webkit-scrollbar-track {
+                    background: white;
+                }
+
+                /* Handle */
+                ::-webkit-scrollbar-thumb {
+                    background: #F64156;
+                }
+            }
+        }
+        &.select-300.selectize-control {
+            .selectize-input {
+                width: vwSize(300) !important;
+            }
+        }
+        &.select-250.selectize-control {
+            .selectize-input {
+                width: vwSize(250) !important;
+            }
+        }
+        &.select-190.selectize-control {
+            .selectize-input {
+               width: vwSize(190) !important;
+            }
+        }
+    }
+}
+
+.houseFilter #btn-radios-2 {
+    display: inline-block;
+}
+
+.map .miniFilter {
+    top: vwSize(10);
+    right: 0;
+    width: 50%;
+    border-radius: vwSize(3);
+    -webkit-box-shadow: -23px -19px 17px -21px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: -23px -19px 17px -21px rgba(34, 60, 80, 0.2);
+    box-shadow: -23px -19px 17px -21px rgba(34, 60, 80, 0.2);
+}
+
+.app-content {
+    padding: vwSize(40) vwSize(15);
+  }
+
+.yamapMarker {
+    svg {
+        path.MarkersSvg {
+            fill: #77C85B;
+        }
+    }
+    &:hover {
+        svg {
+            path.MarkersSvg {
+                fill: #FF9800;
+            }
+        }
+    }
+}
+.marksItem {
+    display: block;
+    width: vwSize(89);
+    position: relative;
+    .markImage {
+        position: absolute;
+        top: vwSize(6);
+        left: 49.5%;
+        transform: translateX(-50%);
+        display: block;
+        overflow: hidden;
+        font-size: 0;
+        border-radius: 50%;
+        width: vwSize(75);
+        height: vwSize(75);
+        border: vwSize(3) solid #fff;
+
+        img {
+            width: 100px;
+        }
+    }
+}
+
+.buildCard {
+    display: block;
+    padding: vwSize(20);
+    &:hover {
+        text-decoration: none;
+    }
+    .buildName {
+        font-size: vwSize(18);
+        font-weight: 600;
+        color: #000;
+        line-height: vwSize(22);
+    }
+    .buildImage {
+        width: 100%;
+        margin: vwSize(15) 0 vwSize(20);
+        img {
+            width: 100%;
+        }
+    }
+    .buildText {
+        font-size: vwSize(16);
+        font-family: 'Montserrat';
+        line-height: vwSize(20);
+        color: #000;
+        font-weight: 500;
+        width: 100%;
+    }
+}
+
+div .ymaps-2-1-78-balloon__close+.ymaps-2-1-78-balloon__content {
+    margin: 0;
+    padding: 0;
+}
+
+div .ymaps-2-1-78-balloon__close {
+    float: none;
+    margin: 0;
+    position: absolute;
+    top: vwSize(10);
+    right: vwSize(15);
+}
+
+div .ymaps-2-1-78-balloon__close-button {
+    background: url(../images/svg/CloseMarkCard.svg) 50% no-repeat;
+}

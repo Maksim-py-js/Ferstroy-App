@@ -1,0 +1,306 @@
+.map-body {
+  padding-bottom: 60px; }
+
+.map-body .ymaps-2-1-78-balloon__content ymaps {
+  height: auto !important; }
+
+.discription__title {
+  line-height: 30px;
+  font-family: Montserrat;
+  color: #515151;
+  font-size: 0.9375vw;
+  font-weight: 600; }
+
+.map {
+  position: relative;
+  margin: 2.08333vw 0;
+  height: 400px; }
+
+.range-slider {
+  width: 10.41667vw;
+  margin: auto 0.83333vw;
+  text-align: center;
+  position: relative; }
+
+.range-slider svg, .range-slider input[type=range] {
+  position: absolute;
+  left: 0;
+  bottom: 0; }
+
+.range-slider input[type=range]::-webkit-slider-tumb {
+  z-index: 2;
+  position: relative;
+  top: 0.10417vw;
+  margin-top: -7px; }
+
+.line {
+  color: #515151; }
+
+.inputBox {
+  border: 0.05208vw solid #D2DFE8;
+  padding: 0.52083vw 0.88542vw;
+  box-sizing: border-box; }
+
+div .numInput {
+  text-align: left;
+  width: 2.60417vw; }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+.filterBox {
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1.04167vw;
+  width: 18.90625vw;
+  padding: 1.04167vw;
+  box-sizing: border-box; }
+
+.filter {
+  margin: 0.78125vw 0; }
+
+.filter .form-control {
+  padding: 0; }
+
+.filter__inpputText {
+  font-size: 0.83333vw;
+  font-weight: 500;
+  color: #7E8E9D;
+  width: 7.29167vw; }
+
+.filter__rangeSlider {
+  margin-top: 0.98958vw; }
+
+.filter__rangeSlider .vue-range-slider.slider-component .slider .slider-piecewise {
+  background: #fff;
+  border: 0.05208vw solid #D2DFE8;
+  border-radius: 100px; }
+
+.filter__rangeSlider .vue-range-slider.slider-component .slider .slider-process {
+  border: 0.05208vw solid #D2DFE8;
+  background: rgba(126, 142, 157, 0.35);
+  box-shadow: inset 0px 0px 0px 2px #fff;
+  padding: 0.10417vw 0; }
+
+.filter__rangeSlider .vue-range-slider.slider-component .slider .slider-dot {
+  background: url("../images/svg/rangeSlIcon.svg") no-repeat 50% 50%, #FF9800; }
+
+.filter__rangeSlider .vue-range-slider.slider-component .slider .slider-dot.slider-always .slider-tooltip-wrap {
+  display: none !important; }
+
+.filterName {
+  font-size: 0.83333vw;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.04167vw;
+  margin: 1.04167vw 0 0.57292vw; }
+
+div .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
+  color: #515151;
+  background: transparent;
+  border: 0.05208vw solid #4e555b;
+  box-sizing: border-box;
+  border-radius: 0.15625vw;
+  outline: none;
+  box-shadow: none; }
+
+div .btn-group > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) {
+  margin: 0.07813vw; }
+
+div .btn-group-toggle > .btn, .btn-group-toggle > .btn-group > .btn {
+  margin-bottom: 0.07813vw; }
+
+div div .btn-secondary {
+  color: #515151;
+  background: transparent;
+  border: 0.05208vw solid #D2DFE8;
+  box-sizing: border-box;
+  border-radius: 0.15625vw !important;
+  margin: 0.07813vw; }
+
+.card-body div div .btn-secondary {
+  margin: 0; }
+
+div .btn-secondary:hover {
+  background: transparent;
+  color: #515151; }
+
+.cityBtn {
+  display: inline-block;
+  background: #fff;
+  border: 0.05208vw solid #77C85B;
+  border-radius: 0.15625vw;
+  color: #77C85B;
+  padding: 0.52083vw 0.88542vw; }
+
+.filter .searchResult__leftRow_selectize {
+  width: 100%; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-input {
+  width: 100% !important;
+  max-height: 2.08333vw !important;
+  outline: none !important;
+  margin-right: 1.04167vw !important;
+  padding: 0.52083vw 0.88542vw !important;
+  border: 0.05208vw solid #D2DFE8 !important;
+  border-radius: 0.15625vw !important;
+  background: url("../images/png/select-arrow.png") no-repeat 93.3% 50% !important;
+  box-shadow: none !important;
+  font-family: "Montserrat" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 0.83333vw !important;
+  line-height: 1.14583vw !important;
+  color: #000 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-input:after {
+  display: none !important; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-input:hover {
+  border: 0.05208vw solid #F64156 !important; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-input input {
+  font-family: "Montserrat" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 0.83333vw !important;
+  color: #7E8E9D !important;
+  white-space: nowrap !important;
+  width: 100% !important; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-input .item {
+  position: absolute;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-dropdown {
+  position: absolute !important;
+  top: 0px !important;
+  border: 0.05208vw solid #D2DFE8 !important;
+  border-radius: 0.15625vw !important;
+  box-shadow: none !important;
+  font-family: "Montserrat" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 0.83333vw !important;
+  color: #000000 !important;
+  padding: 0.72917vw 0 0 0.625vw;
+  background: #fff url("../images/png/select-arrow.png") no-repeat 93.3% 26px !important;
+  /* width */
+  /* Track */
+  /* Handle */ }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-dropdown .active {
+  color: #F64156 !important;
+  background-color: transparent !important;
+  cursor: pointer; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-dropdown .option {
+  margin-bottom: 0.98958vw; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-dropdown ::-webkit-scrollbar {
+  width: 0.15625vw; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-dropdown ::-webkit-scrollbar-track {
+  background: white; }
+
+.filter .searchResult__leftRow_selectize.selectize-control .selectize-dropdown ::-webkit-scrollbar-thumb {
+  background: #F64156; }
+
+.filter .searchResult__leftRow_selectize.select-300.selectize-control .selectize-input {
+  width: 15.625vw !important; }
+
+.filter .searchResult__leftRow_selectize.select-250.selectize-control .selectize-input {
+  width: 13.02083vw !important; }
+
+.filter .searchResult__leftRow_selectize.select-190.selectize-control .selectize-input {
+  width: 9.89583vw !important; }
+
+.houseFilter #btn-radios-2 {
+  display: inline-block; }
+
+.map .miniFilter {
+  top: 0.52083vw;
+  right: 0;
+  width: 50%;
+  border-radius: 0.15625vw;
+  -webkit-box-shadow: -23px -19px 17px -21px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: -23px -19px 17px -21px rgba(34, 60, 80, 0.2);
+  box-shadow: -23px -19px 17px -21px rgba(34, 60, 80, 0.2); }
+
+.app-content {
+  padding: 2.08333vw 0.78125vw; }
+
+.yamapMarker svg path.MarkersSvg {
+  fill: #77C85B; }
+
+.yamapMarker:hover svg path.MarkersSvg {
+  fill: #FF9800; }
+
+.marksItem {
+  display: block;
+  width: 4.63542vw;
+  position: relative; }
+
+.marksItem .markImage {
+  position: absolute;
+  top: 0.3125vw;
+  left: 49.5%;
+  transform: translateX(-50%);
+  display: block;
+  overflow: hidden;
+  font-size: 0;
+  border-radius: 50%;
+  width: 3.90625vw;
+  height: 3.90625vw;
+  border: 0.15625vw solid #fff; }
+
+.marksItem .markImage img {
+  width: 100px; }
+
+.buildCard {
+  display: block;
+  padding: 1.04167vw; }
+
+.buildCard:hover {
+  text-decoration: none; }
+
+.buildCard .buildName {
+  font-size: 0.9375vw;
+  font-weight: 600;
+  color: #000;
+  line-height: 1.14583vw; }
+
+.buildCard .buildImage {
+  width: 100%;
+  margin: 0.78125vw 0 1.04167vw; }
+
+.buildCard .buildImage img {
+  width: 100%; }
+
+.buildCard .buildText {
+  font-size: 0.83333vw;
+  font-family: 'Montserrat';
+  line-height: 1.04167vw;
+  color: #000;
+  font-weight: 500;
+  width: 100%; }
+
+div .ymaps-2-1-78-balloon__close + .ymaps-2-1-78-balloon__content {
+  margin: 0;
+  padding: 0; }
+
+div .ymaps-2-1-78-balloon__close {
+  float: none;
+  margin: 0;
+  position: absolute;
+  top: 0.52083vw;
+  right: 0.78125vw; }
+
+div .ymaps-2-1-78-balloon__close-button {
+  background: url(../images/svg/CloseMarkCard.svg) 50% no-repeat; }
