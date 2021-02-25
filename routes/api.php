@@ -27,6 +27,8 @@ Route::apiResource('slides', 'App\Http\Controllers\SlidesController');
 Route::apiResource('advertisements', 'App\Http\Controllers\AdvertisementsController');
 Route::apiResource('footers', 'App\Http\Controllers\FootersController');
 
+Route::apiResource('developers', 'App\Http\Controllers\DevelopersController');
+
 Route::apiResource('menus', 'App\Http\Controllers\MenusController');
 Route::apiResource('menu_items', 'App\Http\Controllers\MenuItemsController');
 
