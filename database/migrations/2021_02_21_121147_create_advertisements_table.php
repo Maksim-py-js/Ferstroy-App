@@ -15,7 +15,7 @@ class CreateAdvertisementsTable extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
-            $table->string('image')->default(env("APP_URL", 'http://localhost').'/images/advertisements/no_image.jpg');
+            $table->string('image')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/advertisements/no_image.jpg');
             $table->string('sub_title');
             $table->string('title');
             $table->string('name');

@@ -15,7 +15,7 @@ class CreateResidentialComplexHousesTable extends Migration
     {
         Schema::create('residential_complex_houses', function (Blueprint $table) {
             $table->id();
-            $table->string('svg')->default(env("APP_URL", 'http://localhost').'/images/residential_complex_houses/no_image.jpg');
+            $table->string('svg')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/residential_complex_houses/no_image.jpg');
             $table->string('residential_complex_id')->nullable();
             $table->timestamps();
         });

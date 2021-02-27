@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ConstructionProgressGallery;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ConstructionProgressGalleryController extends Controller
 {
@@ -34,10 +36,11 @@ class ConstructionProgressGalleryController extends Controller
         $name = date('dmyhis');
         $extension = $file->getClientOriginalExtension();
         $fullName = ($name . '.' . $extension);
-        $file->move(public_path('images/construction_progress_gallery'), $fullName);
+
+        Storage::disk('local')->putFileAs('public/images/construction_progress_gallery/', $file, $fullName);
 
         $construction_progress_gallery = new ConstructionProgressGallery();
-        $construction_progress_gallery->image = env("APP_URL", 'http://localhost').'/images/construction_progress_gallery/' . $name . '.' . $extension;
+        $construction_progress_gallery->image = env("CLIENT_URL", 'http://localhost').'/storage/images/construction_progress_gallery/' . $name . '.' . $extension;
         $construction_progress_gallery->construction_progress_id = $request['construction_progress_id'];
         $construction_progress_gallery->save();
         return $construction_progress_gallery;
@@ -67,7 +70,7 @@ class ConstructionProgressGalleryController extends Controller
         $construction_progress_gallery = ConstructionProgressGallery::find($id);
 
         if ($request['image']) {
-            $construction_progress_gallery->image = env("APP_URL", 'http://localhost').'/images/construction_progress_gallery/'.$request['image'];
+            $construction_progress_gallery->image = env("CLIENT_URL", 'http://localhost').'/storage/images/construction_progress_gallery/'.$request['image'];
         }
         $construction_progress_gallery->construction_progress_id = $request['construction_progress_id'];
         $construction_progress_gallery->save();
@@ -91,7 +94,7 @@ class ConstructionProgressGalleryController extends Controller
             echo end ($image_value);
             $image_name = ob_get_clean();
 
-            unlink('images/construction_progress_gallery/'.$image_name);
+            File::delete('storage/images/construction_progress_gallery/'.$image_name);
 
             $construction_progress_gallery->delete();
             return "This Image was deleted";

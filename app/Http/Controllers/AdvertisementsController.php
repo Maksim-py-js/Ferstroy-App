@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Advertisement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class AdvertisementsController extends Controller
 {
@@ -32,14 +33,15 @@ class AdvertisementsController extends Controller
         ]);
 
         $file = $request->file('image');
-        $fileName = date('dmyhis');
+        $name = date('dmyhis');
         $extension = $file->getClientOriginalExtension();
-        $fullName = ($fileName . '.' . $extension);
+        $fullName = ($name . '.' . $extension);
 
         $advertisement = new Advertisement();
 
-        $file->move(public_path('images/advertisements'), $fullName);
-        $advertisement->image = env("APP_URL", 'http://localhost').'/images/advertisements/' . $fileName . '.' . $extension;
+        Storage::disk('local')->putFileAs('public/images/advertisements/', $file, $fullName);
+
+        $advertisement->image = env("CLIENT_URL", 'http://localhost').'/storage/images/advertisements/' . $name . '.' . $extension;
 
         $advertisement->sub_title = $request['sub_title'];
         $advertisement->title = $request['title'];
@@ -75,7 +77,7 @@ class AdvertisementsController extends Controller
         $advertisement = Advertisement::find($id);
 
         if ($request['image']) {
-            $advertisement->image = env("APP_URL", 'http://localhost').'/images/advertisements/'.$request['image'];
+            $advertisement->image = env("CLIENT_URL", 'http://localhost').'/storage/images/advertisements/'.$request['image'];
         }
         $advertisement->sub_title = $request['sub_title'];
         $advertisement->title = $request['title'];
@@ -102,7 +104,7 @@ class AdvertisementsController extends Controller
             echo end ($image_value);
             $image_name = ob_get_clean();
 
-            File::delete('images/advertisements/'.$image_name);
+            File::delete('storage/images/advertisements/'.$image_name);
 
             $advertisement->delete();
             return "This Advertisement was deleted";

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GalleryResidentialComplex;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryResidentialComplexesController extends Controller
 {
@@ -34,10 +36,11 @@ class GalleryResidentialComplexesController extends Controller
         $name = date('dmyhis');
         $extension = $file->getClientOriginalExtension();
         $fullName = ($name . '.' . $extension);
-        $file->move(public_path('images/gallery_residential_complexes'), $fullName);
+
+        Storage::disk('local')->putFileAs('public/images/gallery_residential_complexes/', $file, $fullName);
 
         $gallery_residential_complex = new GalleryResidentialComplex();
-        $gallery_residential_complex->image = env("APP_URL", 'http://localhost').'/images/gallery_residential_complexes/' . $name . '.' . $extension;
+        $gallery_residential_complex->image = env("CLIENT_URL", 'http://localhost').'/storage/images/gallery_residential_complexes/' . $name . '.' . $extension;
         $gallery_residential_complex->residential_complex_id = $request['residential_complex_id'];
         $gallery_residential_complex->save();
         return $gallery_residential_complex;
@@ -67,7 +70,7 @@ class GalleryResidentialComplexesController extends Controller
         $gallery_residential_complex = GalleryResidentialComplex::find($id);
 
         if ($request['image']) {
-            $gallery_residential_complex->image = env("APP_URL", 'http://localhost').'/images/gallery_residential_complexes/'.$request['image'];
+            $gallery_residential_complex->image = env("CLIENT_URL", 'http://localhost').'/storage/images/gallery_residential_complexes/'.$request['image'];
         }
         $gallery_residential_complex->residential_complex_id = $request['residential_complex_id'];
         $gallery_residential_complex->save();
@@ -91,7 +94,7 @@ class GalleryResidentialComplexesController extends Controller
             echo end ($image_value);
             $image_name = ob_get_clean();
 
-            unlink('images/gallery_residential_complexes/'.$image_name);
+            File::delete('storage/images/gallery_residential_complexes/'.$image_name);
 
             $gallery_residential_complex->delete();
             return "This Image was deleted";

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MapMarker;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class MapMarkersController extends Controller
 {
@@ -38,8 +39,9 @@ class MapMarkersController extends Controller
 
         $map_marker = new MapMarker();
 
-        $file->move(public_path('images/map_markers'), $fullName);
-        $map_marker->image = env("APP_URL", 'http://localhost').'/images/map_markers/' . $fileName . '.' . $extension;
+        Storage::disk('local')->putFileAs('public/images/map_markers/', $file, $fullName);
+
+        $map_marker->image = env("CLIENT_URL", 'http://localhost').'/storage/images/map_markers/' . $fileName . '.' . $extension;
 
         $map_marker->markerX = $request['markerX'];
         $map_marker->markerY = $request['markerY'];
@@ -72,7 +74,7 @@ class MapMarkersController extends Controller
         $map_marker = MapMarker::find($id);
 
         if ($request['image']) {
-            $map_marker->image = env("APP_URL", 'http://localhost').'/images/map_markers/'.$request['image'];
+            $map_marker->image = env("CLIENT_URL", 'http://localhost').'/storage/images/map_markers/'.$request['image'];
         }
         $map_marker->markerX = $request['markerX'];
         $map_marker->markerY = $request['markerY'];
@@ -96,7 +98,7 @@ class MapMarkersController extends Controller
             echo end ($image_value);
             $image_name = ob_get_clean();
 
-            File::delete('images/map_markers/'.$image_name);
+            File::delete('storage/images/map_markers/'.$image_name);
 
             $map_marker->delete();
             return "This Map Marker was deleted";

@@ -101,14 +101,9 @@ class ResidentialComplexesController extends Controller
 
         $residential_complex = new ResidentialComplex();
 
-        $file->move(public_path('images/residential_complex_main_image'), $fullName);
+        Storage::disk('local')->putFileAs('public/images/residential_complexes/', $file, $fullName);
 
-
-
-        $residential_complex->image = env("APP_URL", 'http://localhost').'/images/residential_complex_main_image/' . $fileName . '.' . $extension;
-
-//        Storage::put($fullName, $request->$file('image'));
-//        Storage::put('images/residential_complex_main_image/'.$fullName, $request->$file('image'));
+        $residential_complex->image = env("CLIENT_URL", 'http://localhost').'/storage/images/residential_complexes/' . $fileName . '.' . $extension;
 
         $residential_complex->name = $request['name'];
         $residential_complex->title = $request['title'];
@@ -207,6 +202,11 @@ class ResidentialComplexesController extends Controller
     public function update(Request $request, $id)
     {
         $residential_complex = ResidentialComplex::find($id);
+
+        if ($request['image']) {
+            $residential_complex->image = env("CLIENT_URL", 'http://localhost').'/storage/images/residential_complexes/'.$request['image'];
+        }
+
         $residential_complex->image = $request['image'];
         $residential_complex->name = $request['name'];
         $residential_complex->title = $request['title'];
@@ -243,7 +243,7 @@ class ResidentialComplexesController extends Controller
             echo end ($image_value);
             $image_name = ob_get_clean();
 
-            File::delete('images/residential_complex_main_image/'.$image_name);
+            File::delete('storage/images/residential_complexes/'.$image_name);
 
             $residential_complex->delete();
             return "This $residential_complex->name was deleted";

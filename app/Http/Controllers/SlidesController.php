@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Slide;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SlidesController extends Controller
 {
@@ -35,11 +36,11 @@ class SlidesController extends Controller
         $name = date('dmyhis');
         $extension = $file->getClientOriginalExtension();
         $fullName = ($name . '.' . $extension);
-        $file->move(public_path('images/slides'), $fullName);
 
+        Storage::disk('local')->putFileAs('public/images/slides/', $file, $fullName);
         $slide = new Slide();
 
-        $slide->image = env("APP_URL", 'http://localhost').'/images/slides/' . $name . '.' . $extension;
+        $slide->image = env("CLIENT_URL", 'http://localhost').'/storage/images/slides/' . $name . '.' . $extension;
 
         $slide->save();
         return $slide;
@@ -66,7 +67,13 @@ class SlidesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $slide = Slide::find($id);
+
+        if ($request['image']) {
+            $slide->image = env("CLIENT_URL", 'http://localhost').'/storage/images/slides/'.$request['image'];
+        }
+        $slide->save();
+        return $slide;
     }
 
     /**
@@ -86,7 +93,7 @@ class SlidesController extends Controller
             echo end ($image_value);
             $image_name = ob_get_clean();
 
-            File::delete('images/slides/'.$image_name);
+            File::delete('storage/images/slides/'.$image_name);
 
             $slide->delete();
             return "This Slide was deleted";

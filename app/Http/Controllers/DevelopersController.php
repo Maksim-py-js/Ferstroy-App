@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Developer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DevelopersController extends Controller
 {
@@ -26,17 +28,35 @@ class DevelopersController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'logo' => 'required|image|mimes:jpeg,png,jpg,svg',
+        ]);
+
+        $file = $request->file('logo');
+        $name = date('dmyhis');
+        $extension = $file->getClientOriginalExtension();
+        $fullName = ($name . '.' . $extension);
+
+        Storage::disk('local')->putFileAs('public/images/developers/', $file, $fullName);
+
         $developer = new Developer();
+        $developer->logo = env("CLIENT_URL", 'http://localhost').'/storage/images/developers/' . $name . '.' . $extension;
+
+
 
         $developer->name = $request['name'];
         $developer->number = $request['number'];
         $developer->rating = $request['rating'];
+        $developer->rating_votes = $request['rating_votes'];
 
         $developer->company_name = $request['company_name'];
         $developer->company_number = $request['company_number'];
         $developer->company_history = $request['company_history'];
         $developer->company_foundation_date = $request['company_foundation_date'];
         $developer->company_address = $request['company_address'];
+        $developer->company_website = $request['company_website'];
+        $developer->company_about_title = $request['company_about_title'];
+        $developer->company_about_text = $request['company_about_text'];
 
         $developer->count_workers = $request['count_workers'];
         $developer->count_machinery = $request['count_machinery'];
@@ -72,15 +92,23 @@ class DevelopersController extends Controller
     {
         $developer = Developer::find($id);
 
+        if ($request['logo']) {
+            $developer->logo = env("CLIENT_URL", 'http://localhost').'/storage/images/developers/'.$request['logo'];
+        }
+
         $developer->name = $request['name'];
         $developer->number = $request['number'];
         $developer->rating = $request['rating'];
+        $developer->rating_votes = $request['rating_votes'];
 
         $developer->company_name = $request['company_name'];
         $developer->company_number = $request['company_number'];
         $developer->company_history = $request['company_history'];
         $developer->company_foundation_date = $request['company_foundation_date'];
         $developer->company_address = $request['company_address'];
+        $developer->company_website = $request['company_website'];
+        $developer->company_about_title = $request['company_about_title'];
+        $developer->company_about_text = $request['company_about_text'];
 
         $developer->count_workers = $request['count_workers'];
         $developer->count_machinery = $request['count_machinery'];
@@ -103,6 +131,12 @@ class DevelopersController extends Controller
     {
         $developer = Developer::find($id);
         if (false != $developer) {
+            $logo_value = explode('/', $developer->logo);
+            ob_start();
+            echo end ($logo_value);
+            $logo_name = ob_get_clean();
+
+            File::delete('storage/images/developers/'.$logo_name);
             $developer->delete();
             return "This Developer was deleted";
         } else {

@@ -14,9 +14,6 @@ class AdvantagesController extends Controller
      */
     public function index()
     {
-//        $advantages = Advantage::all();
-//        return $advantages;
-
         $advantages = Advantage::all();
         $data = [];
         foreach ($advantages as $advantage_value) {

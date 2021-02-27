@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ResidentialComplexHouse;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ResidentialComplexHousesController extends Controller
 {
@@ -44,11 +46,12 @@ class ResidentialComplexHousesController extends Controller
         $name = date('dmyhis');
         $extension = $file->getClientOriginalExtension();
         $fullName = ($name . '.' . $extension);
-        $file->move(public_path('images/residential_complex_houses'), $fullName);
+
+        Storage::disk('local')->putFileAs('public/images/residential_complex_houses/', $file, $fullName);
 
         $residential_complex_house = new ResidentialComplexHouse();
 
-        $residential_complex_house->svg = env("APP_URL", 'http://localhost').'/images/residential_complex_houses/' . $name . '.' . $extension;
+        $residential_complex_house->svg = env("CLIENT_URL", 'http://localhost').'/storage/images/residential_complex_houses/' . $name . '.' . $extension;
         $residential_complex_house->residential_complex_id = $request['residential_complex_id'];
 
         $residential_complex_house->save();
@@ -87,7 +90,7 @@ class ResidentialComplexHousesController extends Controller
         $residential_complex_house = ResidentialComplexHouse::find($id);
 
         if ($request['svg']) {
-            $residential_complex_house->svg = env("APP_URL", 'http://localhost').'/images/residential_complex_houses/'.$request['svg'];
+            $residential_complex_house->svg = env("CLIENT_URL", 'http://localhost').'/storage/images/residential_complex_houses/'.$request['svg'];
         }
         $residential_complex_house->residential_complex_id = $request['residential_complex_id'];
 
@@ -111,7 +114,7 @@ class ResidentialComplexHousesController extends Controller
             echo end ($svg_value);
             $svg_name = ob_get_clean();
 
-            unlink('images/residential_complex_houses/'.$svg_name);
+            File::delete('storage/images/residential_complex_houses/'.$svg_name);
 
             $residential_complex_house->delete();
             return "This House was deleted";

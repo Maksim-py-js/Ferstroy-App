@@ -17,7 +17,7 @@ class CreateMapMarkersTable extends Migration
             $table->id();
             $table->string('markerX');
             $table->string('markerY');
-            $table->string('image')->default(env("APP_URL", 'http://localhost').'/images/map_markers/no_image.jpg');
+            $table->string('image')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/map_markers/no_image.jpg');
             $table->timestamps();
         });
     }

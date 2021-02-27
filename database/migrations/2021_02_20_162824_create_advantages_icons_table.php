@@ -15,7 +15,7 @@ class CreateAdvantagesIconsTable extends Migration
     {
         Schema::create('advantages_icons', function (Blueprint $table) {
             $table->id();
-            $table->string('icon')->default(env("APP_URL", 'http://localhost').'/images/advantages_icons/no_image.jpg');
+            $table->string('icon')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/no_image.jpg');
             $table->timestamps();
         });
     }

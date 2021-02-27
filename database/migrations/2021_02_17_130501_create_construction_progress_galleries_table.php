@@ -15,7 +15,7 @@ class CreateConstructionProgressGalleriesTable extends Migration
     {
         Schema::create('construction_progress_galleries', function (Blueprint $table) {
             $table->id();
-            $table->string('image')->default(env("APP_URL", 'http://localhost').'/images/construction_progress_gallery/no_image.jpg');
+            $table->string('image')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/construction_progress_gallery/no_image.jpg');
             $table->string('construction_progress_id')->nullable();
             $table->timestamps();
         });

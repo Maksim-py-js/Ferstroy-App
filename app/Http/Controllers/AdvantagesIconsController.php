@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AdvantagesIcon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class AdvantagesIconsController extends Controller
 {
@@ -35,10 +36,11 @@ class AdvantagesIconsController extends Controller
         $name = date('dmyhis');
         $extension = $file->getClientOriginalExtension();
         $fullName = ($name . '.' . $extension);
-        $file->move(public_path('images/advantages_icons'), $fullName);
+
+        Storage::disk('local')->putFileAs('public/images/advantages_icons/', $file, $fullName);
 
         $advantages_icon = new AdvantagesIcon();
-        $advantages_icon->icon = env("APP_URL", 'http://localhost').'/images/advantages_icons/' . $name . '.' . $extension;
+        $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/' . $name . '.' . $extension;
         $advantages_icon->save();
         return $advantages_icon;
     }
@@ -67,7 +69,7 @@ class AdvantagesIconsController extends Controller
         $advantages_icon = AdvantagesIcon::find($id);
 
         if ($request['icon']) {
-            $advantages_icon->icon = env("APP_URL", 'http://localhost').'/images/advantages_icons/'.$request['icon'];
+            $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/'.$request['icon'];
         }
         $advantages_icon->save();
         return $advantages_icon;
@@ -90,7 +92,7 @@ class AdvantagesIconsController extends Controller
             echo end ($icon_value);
             $icon_name = ob_get_clean();
 
-            File::delete('images/advantages_icons/'.$icon_name);
+            File::delete('storage/images/advantages_icons/'.$icon_name);
 
             $advantages_icon->delete();
             return "This Icon was deleted";

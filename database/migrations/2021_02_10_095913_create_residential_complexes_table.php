@@ -15,7 +15,7 @@ class CreateResidentialComplexesTable extends Migration
     {
         Schema::create('residential_complexes', function (Blueprint $table) {
             $table->id();
-            $table->string('image')->default(env("APP_URL", 'http://localhost').'/images/residential_complex_main_image/no_image.jpg');
+            $table->string('image')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/residential_complexes/no_image.jpg');
             $table->string('name');
             $table->string('title');
             $table->string('rating')->nullable();
