@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advantage;
 use App\Models\Developer;
+use App\Models\ResidentialComplex;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +19,40 @@ class DevelopersController extends Controller
     public function index()
     {
         $developers = Developer::all();
-        return $developers;
+        $data = [];
+        foreach ($developers as $developer) {
+            $advantages = $developer->advantages('developer_id')->get();
+            $developer_advantages = [];
+            foreach ($advantages as $advantage_value) {
+                $advantages_icons = $advantage_value->advantages_icons()->get();
+                $advantage = $advantage_value;
+                foreach ($advantages_icons as $advantage_icon) {
+                    $icon_id = Advantage::find($advantage_icon->icon_id);
+                }
+                array_push($developer_advantages, compact('advantage', 'advantages_icons'));
+            }
+            $comments = $developer->comments('developer_id')->get();
+
+            $years_data = $developer->years('developer_id')->get();
+            $years = [];
+            foreach ($years_data as $year_value) {
+                $residential_complexes = $year_value->residential_complexes()->get();
+                $year = $year_value;
+                foreach ($residential_complexes as $residential_complex) {
+                    $year_id = ResidentialComplex::find($residential_complex->year_id);
+                }
+                array_push($years, compact('year', 'residential_complexes'));
+            }
+
+            $developer_value = $developer;
+            array_push($data, compact(
+                'developer_value',
+                'developer_advantages',
+                'comments',
+                'years'
+            ));
+        }
+        return json_encode($data);
     }
 
     /**
@@ -78,7 +113,27 @@ class DevelopersController extends Controller
     public function show($id)
     {
         $developer = Developer::find($id);
-        return $developer;
+        $data = [];
+        $advantages = $developer->advantages('developer_id')->get();
+        $developer_advantages = [];
+        foreach ($advantages as $advantage_value) {
+            $advantages_icons = $advantage_value->advantages_icons()->get();
+            $advantage = $advantage_value;
+            foreach ($advantages_icons as $advantage_icon) {
+                $icon_id = Advantage::find($advantage_icon->icon_id);
+            }
+            array_push($developer_advantages, compact('advantage', 'advantages_icons'));
+        }
+        $comments = $developer->comments('developer_id')->get();
+        $years = $developer->years('developer_id')->get();
+        $developer_value = $developer;
+        array_push($data, compact(
+            'developer_value',
+            'developer_advantages',
+            'comments',
+            'years'
+        ));
+        return json_encode($data);
     }
 
     /**

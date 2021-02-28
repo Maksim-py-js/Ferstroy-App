@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('pages', 'App\Http\Controllers\PagesController');
 Route::apiResource('footers', 'App\Http\Controllers\FootersController');
+Route::apiResource('years', 'App\Http\Controllers\YearsController');
 
 
 Route::apiResource('menus', 'App\Http\Controllers\MenusController');

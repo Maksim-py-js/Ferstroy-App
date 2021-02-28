@@ -60,10 +60,10 @@ class ResidentialComplexesController extends Controller
                 array_push($residential_complex_advantages, compact('advantage', 'advantages_icons'));
             }
 
-            $map_marker = $residential_complex->map_marker()->get();
-            foreach ($map_marker as $map_marker_value) {
-                $marker_id = MapMarker::find($map_marker_value->marker_id);
-            }
+                $map_marker = $residential_complex->map_marker()->get();
+                foreach ($map_marker as $map_marker_value) {
+                    $marker_id = MapMarker::find($map_marker_value->marker_id);
+                }
 
 
             $residential_complex_value = $residential_complex;
@@ -120,6 +120,7 @@ class ResidentialComplexesController extends Controller
         $residential_complex->advantages_title = $request['advantages_title'];
         $residential_complex->comments_title = $request['comments_title'];
         $residential_complex->marker_id = $request['marker_id'];
+        $residential_complex->year_id = $request['year_id'];
 
         $residential_complex->save();
         return $residential_complex;
@@ -222,6 +223,7 @@ class ResidentialComplexesController extends Controller
         $residential_complex->advantages_title = $request['advantages_title'];
         $residential_complex->comments_title = $request['comments_title'];
         $residential_complex->marker_id = $request['marker_id'];
+        $residential_complex->year_id = $request['year_id'];
 
         $residential_complex->save();
         return $residential_complex;

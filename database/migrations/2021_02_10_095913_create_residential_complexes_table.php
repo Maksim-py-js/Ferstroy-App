@@ -30,6 +30,7 @@ class CreateResidentialComplexesTable extends Migration
             $table->string('advantages_title')->default('Наши приемущества');
             $table->string('comments_title')->default('Отзывы наших клиентов');
             $table->string('marker_id')->nullable();
+            $table->string('year_id')->nullable();
 
             $table->timestamps();
         });
