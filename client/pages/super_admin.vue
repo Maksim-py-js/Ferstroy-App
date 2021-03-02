@@ -97,13 +97,7 @@
                     {
                         id: 2,
                         path: "/parlament/area",
-                        name: 'Жилые комплексы',
-                        active: false
-                    },
-                    {
-                        id: 3,
-                        path: "/parlament/buildings",
-                        name: 'Здания',
+                        name: 'Объекты',
                         active: false
                     }
                 ],

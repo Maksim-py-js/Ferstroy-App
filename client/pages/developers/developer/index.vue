@@ -68,25 +68,32 @@
                     </div>
                 </div>
 
-                <div class="dev__wood text-center">
-                    <h6 class="dev__woodTitle main__title">Объекты застройщика</h6>
-                    <div class="dev__woodBody text-center">
-                        <b-row class="dev__woodYear position-relative align-items-center justify-content-center" v-for="object in objects" :key="object.year">
-                            <div class="dev__arrowYear position-absolute left-50">
-                                <img src="@/assets/images/svg/arrayYear.svg"/>
+                <!-- <div class="dev__wood">
+                    <h6 class="dev__woodTitle main__title text-center">Объекты застройщика</h6>
+                    <div class="dev__woodBody">
+                        <div class="dev__woodItem" v-for="object in objects" :key="object.year">
+                            <div class="dev__woodLinks"></div>
+                            <div class="dev__woodMiddle text-center">
+                                <div class="dev__woodYear">{{object.year}}</div>
+                                <div class="dev__woodArrow">
+                                    <img src="@/assets/images/svg/arrayYear.svg"/>
+                                </div>
                             </div>
-                            <div class="dev__woodObjects item position-absolute top-50">
+                            <div class="dev__woodLinks">
                                 <nuxt-link to="/developers/developer/object" class="dev__objectItem text-decoration-none"  v-for="item in object.data" :key="item.id">
-                                    <img :src="require(`@/assets/images/png/${item.image}`)">
+                                    <div class="dev__woodImage">
+                                        <img :src="require(`@/assets/images/png/${item.image}`)">
+                                    </div>
                                     <div class="dev__woodDevNameBox">
                                         <div class="dev__woodDevName rounded maint__text">{{item.name}}</div>
                                     </div>
+                                    <div class="line"></div>   
                                 </nuxt-link>
                             </div>
-                            <div class="dev__woodDate item">{{object.year}}</div>
-                        </b-row>
+                        </div>
                     </div>
-                </div>
+                </div> -->
+                <Wood :objects="objects"/>
 
                 <div class="reviews">
                     <div class="container_1290">
@@ -212,8 +219,14 @@
 <script>
 import Header from '@/components/main/header'
 import Footer from '@/components/main/footer'
+import Wood from '@/components/wood'
 
 export default {
+    components: { 
+        Header,
+        Footer,
+        Wood
+    },
     data() {
         return {
             objects: [
@@ -232,6 +245,16 @@ export default {
                         },
                         {
                             id: 2,
+                            name: 'Yerevan',
+                            image: 'minBuild.png'
+                        },
+                        {
+                            id: 4,
+                            name: 'Gold House',
+                            image: 'minBuild.png'
+                        },
+                        {
+                            id: 5,
                             name: 'Yerevan',
                             image: 'minBuild.png'
                         }

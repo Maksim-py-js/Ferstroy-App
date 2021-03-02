@@ -1,160 +1,158 @@
 <template>
-    <div>
-        <div no-body class="border-0">
-            <b-tabs pills card vertical class="box-size">
-                <b-tab title="Застройщики" active @click="filter = '', active= !active">
-                    <b-container fluid>
-                        <!-- User Interface controls -->
-                        <b-row class="mb-4">
-                            <b-col lg="6" class="my-1">
-                                <b-form-group
-                                    class="mb-0"
-                                >
-                                    <b-input-group size="sm">
-                                        <b-form-input
-                                            id="filter-input"
-                                            v-model="filter"
-                                            type="text"
-                                            placeholder="Поиск по таблице"
-                                        ></b-form-input>
-
-                                        <b-input-group-append>
-                                            <b-button :disabled="!filter" @click="filter = ''">Стереть</b-button>
-                                        </b-input-group-append>
-                                    </b-input-group>
-                                </b-form-group>
-                            </b-col>
-                        </b-row>
-                        <b-col>
-                            <b-pagination
-                                v-model="currentPage"
-                                :total-rows="totalRows"
-                                :per-page="perPage"
-                                align="center"
-                            ></b-pagination>
-                        </b-col>
-                        <b-col class="p-0">
-                            <b-form-group
-                                class="mb-3 mr-0 ml-0"
-                            >
-                                <b-form-select
-                                    id="per-page-select"
-                                    v-model="perPage"
-                                    :options="pageOptions"
-                                ></b-form-select>
-                            </b-form-group>
-                        </b-col>
-
-                        <!-- Main table element -->
-                        <b-table
-                            striped 
-                            hover
-                            :items="items"
-                            :fields="fields"
-                            :current-page="currentPage"
-                            :per-page="perPage"
-                            :filter="filter"
-                            :filter-included-fields="filterOn"
-                            :sort-by.sync="sortBy"
-                            :sort-desc.sync="sortDesc"
-                            :sort-direction="sortDirection"
-                            stacked="md"
-                            show-empty
-                            small
+    <div class="main">
+        <div no-body class="border-0 w-100 p-0">
+            <b-container fluid class="p-3">
+                <!-- User Interface controls -->
+                <b-row class="mb-4">
+                    <b-col lg="6" class="my-1">
+                        <b-form-group
+                            class="mb-0"
                         >
-                            <template #cell(name)="row">
-                                {{ row.value }}
-                            </template>
+                            <b-input-group size="sm">
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="filter"
+                                    type="text"
+                                    placeholder="Поиск по таблице"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                                <!-- <b-button 
+                                    variant="transparent" 
+                                    :disabled="!filter" 
+                                    @click="filter = ''"
+                                    class="m-0 bl-0 border"
+                                >
+                                      
+                                </b-button> -->
+                            </b-input-group>
+                        </b-form-group>
+                    </b-col>
+                </b-row>
+                <b-col class="p-0">
+                    <b-form-group
+                        class="mb-3 mr-0 ml-0"
+                    >
+                        <!-- <b-form-select
+                            id="per-page-select"
+                            v-model="perPage"
+                            :options="pageOptions"
+                        ></b-form-select> -->
+                        <v-selectize 
+                            id="per-page-select"
+                            v-model="perPage"
+                            :options="pageOptions"
+                            class="searchBar__selectize select-300"
+                        />
+                    </b-form-group>
+                </b-col>
 
-                            <template #cell(information)="row">
-                                <div @click="info(row.item, row.index, $event.target)" class="infoBtn border-0 rounded-circle">
-                                    <div class="h4 mb-0">
-                                        <b-icon-exclamation-circle-fill variant="secondary"></b-icon-exclamation-circle-fill>
-                                    </div>
-                                </div>
-                            </template>
+                <!-- Main table element -->
+                <b-table
+                    striped 
+                    hover
+                    :items="items"
+                    :fields="fields"
+                    :current-page="currentPage"
+                    :per-page="perPage"
+                    :filter="filter"
+                    :filter-included-fields="filterOn"
+                    :sort-by.sync="sortBy"
+                    :sort-desc.sync="sortDesc"
+                    :sort-direction="sortDirection"
+                    stacked="md"
+                    show-empty
+                    small
+                >
+                    <template #cell(name)="row">
+                        {{ row.value }}
+                    </template>
 
-                            <template #cell(history)="row">
-                                <div style="cursor: pointer" @click="active = !active">{{row.value}}</div>
-                            </template>
-
-                            
-                        </b-table>
-
-                        <b-col>
-                            <b-pagination
-                                v-model="currentPage"
-                                :total-rows="totalRows"
-                                :per-page="perPage"
-                                align="center"
-
-                            ></b-pagination>
-                        </b-col>
-
-                        <!-- Info modal -->
-                        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
-                            <ul class="model-data">
-                                <li class="model-item">
-                                    <strong class="model-itemName">Имя застройщика:</strong>
-                                    <span class="model-itemData">{{dataBuilds.name}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Рейтинг:</strong>
-                                    <span class="model-itemData">{{dataBuilds.rating}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Дата основания:</strong>
-                                    <span class="model-itemData">{{dataBuilds.foundationDate}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Количество техники:</strong>
-                                    <span class="model-itemData">{{dataBuilds.machinery}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Количество рабочих:</strong>
-                                    <span class="model-itemData">{{dataBuilds.numberWorkers}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Контакты:</strong>
-                                    <span class="model-itemData">{{dataBuilds.phone}},<br/> {{dataBuilds.address}}</span>
-                                </li>
-                            </ul>
-                        </b-modal>
-                        
-                    </b-container>
-                    <div class="dev__wood text-center" :class="{active:active}">
-                        <h6 class="dev__woodTitle main__title">Объекты застройщика</h6>
-                        <div class="dev__woodBody text-center">
-                            <b-row class="dev__woodYear position-relative align-items-center justify-content-center" v-for="object in objects" :key="object.year">
-                                <div class="dev__arrowYear position-absolute left-50">
-                                    <img src="@/assets/images/svg/arrayYear.svg"/>
-                                </div>
-                                <div class="dev__woodObjects item position-absolute top-50">
-                                    <nuxt-link to="/developers/developer/object" class="dev__objectItem text-decoration-none"  v-for="item in object.data" :key="item.id">
-                                        <img :src="require(`@/assets/images/png/${item.image}`)">
-                                        <div class="dev__woodDevNameBox">
-                                            <div class="dev__woodDevName rounded maint__text">{{item.name}}</div>
-                                        </div>
-                                    </nuxt-link>
-                                </div>
-                                <div class="dev__woodDate item">{{object.year}}</div>
-                            </b-row>
+                    <template #cell(information)="row">
+                        <div @click="info(row.item, row.index, $event.target)" class="infoBtn border-0 rounded-circle">
+                            <div class="h4 mb-0">
+                                <b-icon-exclamation-circle-fill variant="secondary"></b-icon-exclamation-circle-fill>
+                            </div>
                         </div>
-                    </div>
-                </b-tab>
-                <b-tab title="Tab 2" @click="filter = '', active= !active">
-                    content
-                </b-tab>
-                <b-tab title="Tab 3" @click="filter = '', active= !active">
-                    content
-                </b-tab>
-            </b-tabs>
+                    </template>
+
+                    <template #cell(history)="row">
+                        <div style="cursor: pointer" @click="active = !active">{{row.value}}</div>
+                    </template>
+
+                    
+                </b-table>
+
+                <b-col>
+                    <b-pagination
+                        v-model="currentPage"
+                        :total-rows="totalRows"
+                        :per-page="perPage"
+                        align="center"
+
+                    ></b-pagination>
+                </b-col>
+
+                <!-- Info modal -->
+                <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
+                    <ul class="model-data">
+                        <li class="model-item">
+                            <strong class="model-itemName">Имя застройщика:</strong>
+                            <span class="model-itemData">{{dataBuilds.name}}</span>
+                        </li>
+                        <li class="model-item">
+                            <strong class="model-itemName">Рейтинг:</strong>
+                            <span class="model-itemData">{{dataBuilds.rating}}</span>
+                        </li>
+                        <li class="model-item">
+                            <strong class="model-itemName">Дата основания:</strong>
+                            <span class="model-itemData">{{dataBuilds.foundationDate}}</span>
+                        </li>
+                        <li class="model-item">
+                            <strong class="model-itemName">Количество техники:</strong>
+                            <span class="model-itemData">{{dataBuilds.machinery}}</span>
+                        </li>
+                        <li class="model-item">
+                            <strong class="model-itemName">Количество рабочих:</strong>
+                            <span class="model-itemData">{{dataBuilds.numberWorkers}}</span>
+                        </li>
+                        <li class="model-item d-flex">
+                            <strong class="model-itemName mr-1">Контакты:</strong>
+                            <div class="model-itemData">{{dataBuilds.phone}},<br/> {{dataBuilds.address}}</div>
+                        </li>
+                    </ul>
+                </b-modal>
+                
+            </b-container>
+            <div class="dev__wood text-center" :class="{active:active}">
+                <h6 class="dev__woodTitle main__title">Объекты застройщика</h6>
+                <div class="dev__woodBody text-center">
+                    <b-row class="dev__woodYear position-relative align-items-center justify-content-center" v-for="object in objects" :key="object.year">
+                        <div class="dev__arrowYear position-absolute left-50">
+                            <img src="@/assets/images/svg/arrayYear.svg"/>
+                        </div>
+                        <div class="dev__woodObjects item position-absolute top-50">
+                            <nuxt-link to="/developers/developer/object" class="dev__objectItem text-decoration-none"  v-for="item in object.data" :key="item.id">
+                                <img :src="require(`@/assets/images/png/${item.image}`)">
+                                <div class="dev__woodDevNameBox">
+                                    <div class="dev__woodDevName rounded maint__text">{{item.name}}</div>
+                                </div>
+                            </nuxt-link>
+                        </div>
+                        <div class="dev__woodDate item">{{object.year}}</div>
+                    </b-row>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+    import 'selectize/dist/css/selectize.css'
+    import VSelectize from '@isneezy/vue-selectize'
     export default {
+        components: { 
+            VSelectize
+        },
         data() {
             return {
                 active: false,
@@ -249,7 +247,7 @@
                     foundationDate: 2005,//дата основания компании
                     numberWorkers: 5,//количество рабочих
                     constructedObjects: 6,//количество построенных объектов
-                    address: 'asdasd',//адресс офиса застройщика
+                    address: 'А.Яссавий 36/5',//адресс офиса застройщика
                     foreman: 'Захридин'//имя застройщика
                 },
                 items: [
@@ -283,7 +281,7 @@
                 totalRows: 100,
                 currentPage: 1,
                 perPage: 5,
-                pageOptions: [5, 10, 20, { value: 100, text: "Show a lot" }],
+                pageOptions: [5, 10, 20],
                 sortBy: '',
                 sortDesc: false,
                 sortDirection: 'asc',
@@ -330,6 +328,10 @@
 </script>
 
 <style>
+    .main {
+        display: flex;
+        align-items: flex-start;
+    }
     .model-data {
        padding: 0;
        list-style: none; 

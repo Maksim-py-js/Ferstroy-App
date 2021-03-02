@@ -56,9 +56,13 @@ module.exports = {
     '@plugins/chart',
     '~plugins/vue-notifications',
     '~plugins/ymapPlugin.js',
-    '~plugins/v-click-outside'
+    '~plugins/v-click-outside',
   ],
   components: true,
+
+  axios: {
+    baseURL: 'http://213.230.96.125/'
+  },
 
   modules: [
     '@nuxtjs/router',

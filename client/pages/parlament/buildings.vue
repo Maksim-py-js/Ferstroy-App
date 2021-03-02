@@ -1,148 +1,208 @@
 <template>
-    <div class="main">
-        <div no-body class="border-0 w-100 p-0">
-            <b-container fluid class="p-3">
-                <!-- User Interface controls -->
-                <b-row class="mb-4">
-                    <b-col lg="6" class="my-1">
-                        <b-form-group
-                            class="mb-0"
-                        >
-                            <b-input-group size="sm">
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="filter"
-                                    type="text"
-                                    placeholder="Поиск по таблице"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                                <!-- <b-button 
-                                    variant="transparent" 
-                                    :disabled="!filter" 
-                                    @click="filter = ''"
-                                    class="m-0 bl-0 border"
-                                >
-                                      
-                                </b-button> -->
-                            </b-input-group>
-                        </b-form-group>
-                    </b-col>
-                </b-row>
-                <b-col class="p-0">
-                    <b-form-group
-                        class="mb-3 mr-0 ml-0"
-                    >
-                        <!-- <b-form-select
-                            id="per-page-select"
-                            v-model="perPage"
-                            :options="pageOptions"
-                        ></b-form-select> -->
-                        <v-selectize 
-                            id="per-page-select"
-                            v-model="perPage"
-                            :options="pageOptions"
-                            class="searchBar__selectize select-300"
-                        />
-                    </b-form-group>
-                </b-col>
+    <div class="h-panel">
+        <div class="background-filter"></div>  
+        <b-navbar class="panel-top p-0 mb-4">
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="align-items-center justify-content-between w-100 full-bar">
+                <!-- <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
+                <nuxt-link to="/" class="header__logo admin-logo">
+                    <img src="@/assets/images/svg/logo/russian-light.svg">
+                </nuxt-link>
+                <div class="tabs p-0">
+                    <b-nav>                
+                        <b-nav-item
+                            v-for="item in tabsItem" 
+                            :key="item.id" 
+                            :to="item.path" 
+                            class="tabs-item pl-0 pt-2 pb-2" 
+                            :class="{active:item.active}"
+                        >   
+                            {{item.name}}
+                        </b-nav-item>
+                    </b-nav>
+                </div>
+                <div class="position-relative header__language admin-lenguage">
+                    <div class="header__language_block position-absolute">
+                        <b-button variant="transparent" class="header__language_btn shadow-none">Рус</b-button>
+                        <b-button variant="transparent" class="header__language_btn shadow-none">Узб</b-button>
+                    </div>
+                </div>
+            </b-navbar-nav>
 
-                <!-- Main table element -->
-                <b-table
-                    striped 
-                    hover
-                    :items="items"
-                    :fields="fields"
-                    :current-page="currentPage"
-                    :per-page="perPage"
-                    :filter="filter"
-                    :filter-included-fields="filterOn"
-                    :sort-by.sync="sortBy"
-                    :sort-desc.sync="sortDesc"
-                    :sort-direction="sortDirection"
-                    stacked="md"
-                    show-empty
-                    small
+            <b-navbar-nav class="align-items-center justify-content-between w-100 min-bar">
+                <div class="d-flex align-items-center">
+                    <div v-b-toggle.sidebar-1 style="outline: none;"><b-icon-list class="close-menu-icon"></b-icon-list></div>
+                    <div class="position-relative header__language admin-lenguage">
+                        <div class="header__language_block position-absolute">
+                            <b-button variant="transparent" class="header__language_btn shadow-none">Рус</b-button>
+                            <b-button variant="transparent" class="header__language_btn shadow-none">Узб</b-button>
+                        </div>
+                    </div>
+                </div> 
+                <b-sidebar 
+                    id="sidebar-1" 
+                    no-slide="true"
+                    shadow
+                    body-class="sidebar-body"
+                    header-class="sidebar-body"
+                    class="sidebar-bg"
+                    text-variant="light"
                 >
-                    <template #cell(name)="row">
-                        {{ row.value }}
-                    </template>
-
-                    <template #cell(information)="row">
-                        <div @click="info(row.item, row.index, $event.target)" class="infoBtn border-0 rounded-circle">
-                            <div class="h4 mb-0">
-                                <b-icon-exclamation-circle-fill variant="secondary"></b-icon-exclamation-circle-fill>
-                            </div>
+                    <div class="px-3 py-2">
+                        <div class="tabs p-0">
+                            <b-nav>                
+                                <b-nav-item
+                                    v-for="item in tabsItem" 
+                                    :key="item.id" 
+                                    :to="item.path" 
+                                    class="tabs-item pl-0 pt-2 pb-2" 
+                                    :class="{active:item.active}"
+                                >   
+                                    {{item.name}}
+                                </b-nav-item>
+                            </b-nav>
                         </div>
-                    </template>
-
-                    <template #cell(history)="row">
-                        <div style="cursor: pointer" @click="active = !active">{{row.value}}</div>
-                    </template>
-
-                    
-                </b-table>
-
-                <b-col>
-                    <b-pagination
-                        v-model="currentPage"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                        align="center"
-
-                    ></b-pagination>
-                </b-col>
-
-                <!-- Info modal -->
-                <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
-                    <ul class="model-data">
-                        <li class="model-item">
-                            <strong class="model-itemName">Имя застройщика:</strong>
-                            <span class="model-itemData">{{dataBuilds.name}}</span>
-                        </li>
-                        <li class="model-item">
-                            <strong class="model-itemName">Рейтинг:</strong>
-                            <span class="model-itemData">{{dataBuilds.rating}}</span>
-                        </li>
-                        <li class="model-item">
-                            <strong class="model-itemName">Дата основания:</strong>
-                            <span class="model-itemData">{{dataBuilds.foundationDate}}</span>
-                        </li>
-                        <li class="model-item">
-                            <strong class="model-itemName">Количество техники:</strong>
-                            <span class="model-itemData">{{dataBuilds.machinery}}</span>
-                        </li>
-                        <li class="model-item">
-                            <strong class="model-itemName">Количество рабочих:</strong>
-                            <span class="model-itemData">{{dataBuilds.numberWorkers}}</span>
-                        </li>
-                        <li class="model-item d-flex">
-                            <strong class="model-itemName mr-1">Контакты:</strong>
-                            <div class="model-itemData">{{dataBuilds.phone}},<br/> {{dataBuilds.address}}</div>
-                        </li>
-                    </ul>
-                </b-modal>
+                    </div>
+                </b-sidebar>
+                <!-- <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
+                <nuxt-link to="/" class="header__logo admin-logo">
+                    <img src="@/assets/images/svg/logo/russian-light.svg">
+                </nuxt-link>
                 
-            </b-container>
-            <div class="dev__wood text-center" :class="{active:active}">
-                <h6 class="dev__woodTitle main__title">Объекты застройщика</h6>
-                <div class="dev__woodBody text-center">
-                    <b-row class="dev__woodYear position-relative align-items-center justify-content-center" v-for="object in objects" :key="object.year">
-                        <div class="dev__arrowYear position-absolute left-50">
-                            <img src="@/assets/images/svg/arrayYear.svg"/>
-                        </div>
-                        <div class="dev__woodObjects item position-absolute top-50">
-                            <nuxt-link to="/developers/developer/object" class="dev__objectItem text-decoration-none"  v-for="item in object.data" :key="item.id">
-                                <img :src="require(`@/assets/images/png/${item.image}`)">
-                                <div class="dev__woodDevNameBox">
-                                    <div class="dev__woodDevName rounded maint__text">{{item.name}}</div>
+            </b-navbar-nav>
+        </b-navbar>
+        <b-col class="bg-light w-100 p-0">                
+            <div class="main">
+                <div no-body class="border-0 w-100 p-0">
+                    <b-container fluid class="p-3">
+                        <!-- User Interface controls -->
+                        <b-row class="mb-4">
+                            <b-col lg="6" class="my-1">
+                                <b-form-group
+                                    class="mb-0"
+                                >
+                                    <b-input-group size="sm">
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="filter"
+                                            type="text"
+                                            placeholder="Поиск по таблице"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                        <!-- <b-button 
+                                            variant="transparent" 
+                                            :disabled="!filter" 
+                                            @click="filter = ''"
+                                            class="m-0 bl-0 border"
+                                        >
+                                              
+                                        </b-button> -->
+                                    </b-input-group>
+                                </b-form-group>
+                            </b-col>
+                        </b-row>
+                        <b-col class="p-0">
+                            <b-form-group
+                                class="mb-3 mr-0 ml-0"
+                            >
+                                <!-- <b-form-select
+                                    id="per-page-select"
+                                    v-model="perPage"
+                                    :options="pageOptions"
+                                ></b-form-select> -->
+                                <v-selectize 
+                                    id="per-page-select"
+                                    v-model="perPage"
+                                    :options="pageOptions"
+                                    class="searchBar__selectize select-300"
+                                />
+                            </b-form-group>
+                        </b-col>
+
+                        <!-- Main table element -->
+                        <b-table
+                            striped 
+                            hover
+                            :items="items"
+                            :fields="fields"
+                            :current-page="currentPage"
+                            :per-page="perPage"
+                            :filter="filter"
+                            :filter-included-fields="filterOn"
+                            :sort-by.sync="sortBy"
+                            :sort-desc.sync="sortDesc"
+                            :sort-direction="sortDirection"
+                            stacked="md"
+                            show-empty
+                            small
+                        >
+                            <template #cell(name)="row">
+                                {{ row.value }}
+                            </template>
+
+                            <template #cell(information)="row">
+                                <div @click="info(row.item, row.index, $event.target)" class="infoBtn border-0 rounded-circle">
+                                    <div class="h4 mb-0">
+                                        <b-icon-exclamation-circle-fill variant="secondary"></b-icon-exclamation-circle-fill>
+                                    </div>
                                 </div>
-                            </nuxt-link>
-                        </div>
-                        <div class="dev__woodDate item">{{object.year}}</div>
-                    </b-row>
+                            </template>
+
+                            <template #cell(history)="row">
+                                <div style="cursor: pointer" @click="row.toggleDetails">{{row.value}}</div>
+                            </template>
+
+                            <template #row-details="row">
+                                <b-button size="sm" class="close_history" @click="row.toggleDetails">
+                                    <img src="@/assets/images/svg/close.svg" alt="close">
+                                </b-button>
+                                
+                          </template>
+                        </b-table>
+
+                        <b-col>
+                            <b-pagination
+                                v-model="currentPage"
+                                :total-rows="totalRows"
+                                :per-page="perPage"
+                                align="center"
+
+                            ></b-pagination>
+                        </b-col>
+
+                        <!-- Info modal -->
+                        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
+                            <ul class="model-data">
+                                <li class="model-item">
+                                    <strong class="model-itemName">Имя застройщика:</strong>
+                                    <span class="model-itemData">{{dataBuilds.name}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Рейтинг:</strong>
+                                    <span class="model-itemData">{{dataBuilds.rating}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Дата основания:</strong>
+                                    <span class="model-itemData">{{dataBuilds.foundationDate}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Количество техники:</strong>
+                                    <span class="model-itemData">{{dataBuilds.machinery}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Количество рабочих:</strong>
+                                    <span class="model-itemData">{{dataBuilds.numberWorkers}}</span>
+                                </li>
+                                <li class="model-item d-flex">
+                                    <strong class="model-itemName mr-1">Контакты:</strong>
+                                    <div class="model-itemData">{{dataBuilds.phone}},<br/> {{dataBuilds.address}}</div>
+                                </li>
+                            </ul>
+                        </b-modal>
+                    </b-container>
                 </div>
             </div>
-        </div>
+        </b-col>
     </div>
 </template>
 
@@ -156,86 +216,119 @@
         data() {
             return {
                 active: false,
-                objects: [
+                tabsItem: [
                     {
-                        year: '2020',
-                        data: [
-                            {
-                                id: 1,
-                                name: 'ЖК Фергана',
-                                image: 'minBuild.png'
-                            },
-                            {
-                                id: 3,
-                                name: 'Gold House',
-                                image: 'minBuild.png'
-                            },
-                            {
-                                id: 2,
-                                name: 'Yerevan',
-                                image: 'minBuild.png'
-                            }
-                        ]
+                        id: 1,
+                        path: "/parlament/developer_users",
+                        name: 'Застройщики',
+                        active: false
                     },
                     {
-                        year: '2019',
-                        data: [
-                            {
-                                id: 1,
-                                name: 'ЖК Фергана',
-                                image: 'minBuild.png'
-                            },
-                            {
-                                id: 3,
-                                name: 'Gold House',
-                                image: 'minBuild.png'
-                            },
-                            {
-                                id: 2,
-                                name: 'Yerevan',
-                                image: 'minBuild.png'
-                            },
-                            {
-                                id: 5,
-                                name: 'Gold House',
-                                image: 'minBuild.png'
-                            },
-                            {
-                                id: 6,
-                                name: 'Yerevan',
-                                image: 'minBuild.png'
-                            }
-                        ]
+                        id: 2,
+                        path: "/parlament/area",
+                        name: 'Жилые комплексы',
+                        active: false
                     },
                     {
-                        year: '2018',
-                        data: [
+                        id: 3,
+                        path: "/parlament/buildings",
+                        name: 'Процесс',
+                        active: true
+                    }
+                ],
+                dataProcess: [
+                    {
+                        name: 'Anol Group',//Название компании
+                        rating: 5, //рейтинг
+                        phone: '+998 90 987 43 21',//номер телефона 
+                        address: 'А.Яссавий 36/5',//адресс офиса застройщика
+                        history: [
                             {
-                                id: 1,
-                                name: 'ЖК Фергана',
-                                image: 'minBuild.png'
+                                year: '2020',
+                                data: [
+                                    {
+                                        id: 1,
+                                        name: 'ЖК Фергана',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 3,
+                                        name: 'Gold House',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 2,
+                                        name: 'Yerevan',
+                                        image: 'minBuild.png'
+                                    }
+                                ]
                             },
                             {
-                                id: 3,
-                                name: 'Gold House',
-                                image: 'minBuild.png'
+                                year: '2019',
+                                data: [
+                                    {
+                                        id: 1,
+                                        name: 'ЖК Фергана',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 3,
+                                        name: 'Gold House',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 2,
+                                        name: 'Yerevan',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 5,
+                                        name: 'Gold House',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 6,
+                                        name: 'Yerevan',
+                                        image: 'minBuild.png'
+                                    }
+                                ]
                             },
                             {
-                                id: 2,
-                                name: 'Yerevan',
-                                image: 'minBuild.png'
-                            },
-                            {
-                                id: 5,
-                                name: 'Gold House',
-                                image: 'minBuild.png'
-                            },
-                            {
-                                id: 6,
-                                name: 'Yerevan',
-                                image: 'minBuild.png'
+                                year: '2018',
+                                data: [
+                                    {
+                                        id: 1,
+                                        name: 'ЖК Фергана',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 3,
+                                        name: 'Gold House',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 2,
+                                        name: 'Yerevan',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 5,
+                                        name: 'Gold House',
+                                        image: 'minBuild.png'
+                                    },
+                                    {
+                                        id: 6,
+                                        name: 'Yerevan',
+                                        image: 'minBuild.png'
+                                    }
+                                ]
                             }
-                        ]
+                        ],//история застроек
+                        machinery: 5,//количество техники
+                        foundationDate: 2005,//дата основания компании
+                        numberWorkers: 5,//количество рабочих
+                        constructedObjects: 6,//количество построенных объектов
+                        foreman: 'Захридин'//имя застройщика
                     }
                 ],
                 dataBuilds: {
@@ -328,6 +421,97 @@
 </script>
 
 <style>
+    .close-menu-icon {
+        color: #fff;
+        font-weight: bold;
+        font-size: 30px;
+    }
+    .h-panel {
+        background: url('../../assets/images/png/slide_1-min.png') no-repeat 50% 50%/cover;
+        position: relative;
+        transition: 0.5s;
+        padding: 1.5rem;
+        min-height: 100vh;
+    }
+    .background-filter {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.8) 34.9%);
+        transition: 0.5s;
+    }
+    .panel-top .header__language_block:hover {
+        height: 56px;
+        transition: 0.5s;
+    }
+    .full-bar {
+        display: flex;
+    }
+    .tabs .nav {
+        display: flex;
+        align-items: center;
+    }
+    .tabs-item {
+        margin: 0 30px;
+    }
+    .navbar .tabs .nav .tabs-item a {
+        color: #fff;
+        font-family: "Montserrat";
+        font-size: 18px;
+        font-weight: 400;
+        padding: 0;
+        transition: 0.5s;
+    }
+    .navbar .tabs .nav .tabs-item a:hover, .navbar .tabs .nav .tabs-item.active a  {
+        color: #FF9800;
+        transition: 0.5s;
+    }
+   /* .tabs-item a:hover, .tabs-item.active a {
+        color: #FF9800;
+        transition: 0.5s;
+    }*/
+    .min-bar {
+        display: none;
+    }
+    .sidebar-body {
+        background: rgba(0, 0, 0, 0.9);
+    }
+    ul div .b-sidebar {
+        background: transparent !important;
+    }
+    @media only screen and (max-width: 900px) {
+        .h-panel {
+            padding: 10px;
+        }
+    }
+    @media only screen and (max-width: 820px) {
+        .full-bar {
+            display: none;
+        }
+        .min-bar {
+            display: flex;
+        }
+        .tabs-item {
+            margin: 0;
+        }
+        .tabs .nav {
+            display: block;
+        }
+        .admin-lenguage {
+            margin: -3px 15px 0;
+        }
+    }
+
+    tr td div .close_history {
+        display: block;
+        border: none;
+        margin: 0 0 0 auto;
+        outline: none;
+        box-shadow: none;
+    }
+
     .main {
         display: flex;
         align-items: flex-start;
@@ -345,19 +529,6 @@
         max-width: 500px;
         width: 100%;
         padding: 16px;
-    }
-    .dev__wood {
-        margin: 50px auto 67px; 
-        max-width: 1280px;
-        width: 100%;
-        display: none;
-        opacity: 0;
-        transition: 1s;
-    }
-    .dev__wood.active {
-        display: block;
-        opacity: 1;
-        transition: 0.5s;
     }
     div button, div input {
         outline: none;

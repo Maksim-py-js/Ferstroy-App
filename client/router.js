@@ -22,11 +22,13 @@ const routes = [
     component: page('developers/developer/object/house/index.vue')
   },
 
-  { path: '/parlament', name: 'parlament', component: page('parlament.vue') },
+  { path: '/parlament', name: 'parlament', component: page('parlament/developer_users.vue') },
   { path: '/parlament/area', name: 'parlament', component: page('parlament/area.vue') },
   { path: '/parlament/buildings', name: 'parlament', component: page('parlament/buildings.vue') },
-  { path: '/parlament/developer_users', name: 'parlament', component: page('parlament/developer_users.vue') }
+  { path: '/parlament/developer_users', name: 'parlament', component: page('parlament/developer_users.vue') },
 
+  { path: '/super_admin', name: 'super_admin', component: page('super_admin.vue') },
+  { path: '/super_admin/add_object', name: 'super_admin', component: page('super_admin/add_object.vue') },
 ]
 
 export function createRouter () {

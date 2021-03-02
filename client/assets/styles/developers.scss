@@ -135,119 +135,127 @@
     &__about {
         margin: 50px 0 53px;
     }
-    &__wood {
-        margin: 50px 0 67px;
-    }
-    &__woodYear {
-        margin-top: 152px;
-        &:nth-child(1) {
-            margin-top: 0;
-            .dev__arrowYear {
-                display: none;
-            }
-        }
-        &:nth-child(2n) {
-            .dev__woodObjects {
-                left: 0;
-                text-align: right;
-            }
-        }
-    }
-    &__arrowYear {
-        top: -106px;
-    }
-    &__woodTitle {
-        font-size: 30px;
-        font-weight: 500;
-        line-height: 36.57px;
-        margin-bottom: 50px;
-    }
-    &__woodDate {
-        font-size: 66px;
-        font-weight: 500;
-        font-family: 'Oswald';
-        margin: 0 30px;
-    }
-    &__woodObjects {
-        box-sizing: border-box;
-        overflow: auto;
-        white-space: nowrap;
-        max-width: 520px;
-        width: 100%;
-        padding: 100px 0 10px;
-        margin-top: -100px;
-        font-size: 0;
-        right: 0;
-        text-align: left;
-        &::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        &::-webkit-scrollbar-track {
-            background: #f6f6f6;
-            border-radius: 0;
-        }
-        &::-webkit-scrollbar-thumb {
-            background: #FF9800;
-            border-radius: 0px;
-        }
-    }
-    &__objectItem {
-        position: relative;
-        display: inline-block;
-        max-width: 150px;
-        width: 100%;
-        font-size: 0;
-        border: 2px solid transparent;
-        img {
-            font-size: 0;
-            width: 100%;
-        }
-        &:hover {
-            border: 2px solid #FF9800;
-            // .dev__woodDevNameBox {
-            //     display: block;
-            // }
-        }
-    }
-    &__woodDevNameBox {
-        display: none;
-        position: absolute;
-        top: -100px;
-    }
-    &__woodDevName {
-        background: #F6F6F6;
-        padding: 18px 31px;
-        border: 1px solid #D8DAE1;
-        font-size: 20px;
-        font-weight: 600;
-        text-transform: uppercase;
-        color: #000;
-        // transform: translate(0, 0px);
-        z-index: 100;
-        &:after {
-            content: '';
-            transform: rotate(45deg);
-            width: 22px;
-            height: 22px;
-            background: #f6f6f6;
-            border: 1px solid #D8DAE1;
-            border-top: 0px;
-            border-left: 0px;
-            position: absolute;
-            left: 15px;
-            bottom: -11px;
-        }
-    }
-    .line {
-        width: 13px;
-        height: 2px;
-        background: #000;
-        display: inline-block;
-        margin: 0 10px;
-    }
-    &__woodEmpty {
-        width: 520px;
-    }
+    // wood---------------------------------------------
+    // &__wood {
+    //     margin: 50px 0 67px;
+    // }
+   
+    // &__woodTitle {
+    //     font-size: 30px;
+    //     font-weight: 500;
+    //     line-height: 36.57px;
+    //     margin-bottom: 50px;
+    // }
+    // &__woodYear {
+    //     font-size: 66px;
+    //     font-weight: 500;
+    //     font-family: 'Oswald';
+    //     margin: 0 30px 41px;
+    //     direction: ltr;
+    // }
+    // &__woodEmpty {
+    //     max-width: 520px;
+    //     width: 100%;
+    // }
+    // &__woodItem {
+    //     margin-top: 10px;
+    //     text-align: right;
+    //     &:last-child .dev__woodArrow{
+    //         display: none;
+    //     }
+    //     &:nth-child(2n) .dev__woodLinks{
+    //         text-align: right;
+    //     }
+    //     &:nth-child(2n) {
+    //         direction: rtl;
+    //     }
+    // }
+    // &__objectItem {
+    //     position: relative;
+    //     &:last-child .line{
+    //         display: none;
+    //     }
+    // }
+    // &__woodImage {
+    //     border: 2px solid transparent;
+    //     display: inline-block;
+    //     font-size: 0;
+    //     transition: 1s;
+    //     &:hover {
+    //         transition: 1s;
+    //         border: 2px solid #FF9800;
+    //     }
+    //     &:hover .dev__woodDevNameBox { 
+    //         display: block;
+    //     }
+    //     img {
+    //         width: 100%;
+    //     }
+    // }
+    // .line {
+    //     width: 13px;
+    //     height: 2px;
+    //     background: #000;
+    //     display: inline-block;
+    //     margin: 0 11px;
+    // }
+    // &__woodMiddle {
+    //     display: inline-block;
+    //     vertical-align: top;
+    // }
+    // &__woodLinks {
+    //     padding-bottom: 10px;
+    //     width: calc(100% / 2 - 120px);
+    //     text-align: left;
+    //     display: inline-block;
+    //     vertical-align: top;
+    //     box-sizing: border-box;
+    //     overflow: auto;
+    //     white-space: nowrap;
+    //     font-size: 0;
+    //     &::-webkit-scrollbar {
+    //         width: 6px;
+    //         height: 6px;
+    //     }
+    //     &::-webkit-scrollbar-track {
+    //         background: #f6f6f6;
+    //         border-radius: 0;
+    //     }
+    //     &::-webkit-scrollbar-thumb {
+    //         background: #FF9800;
+    //         border-radius: 0px;
+    //     }
+    // }
+    // &__woodDevNameBox {
+    //     display: none;
+    //     position: absolute;
+    //     top: -131px;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    // }
+    // &__woodDevName {
+    //     background: #F6F6F6;
+    //     border: 1px solid #D8DAE1;
+    //     padding: 18px 31px;
+    //     font-size: 20px;
+    //     font-weight: 600;
+    //     text-transform: uppercase;
+    //     color: #000;
+    //     transform: translate(0, 0px);
+    //     &:after {
+    //         content: '';
+    //         transform: rotate(45deg);
+    //         width: 22px;
+    //         height: 22px;
+    //         background: #f6f6f6;
+    //         border: 1px solid #D8DAE1;
+    //         border-top: 0px;
+    //         border-left: 0px;
+    //         position: absolute;
+    //         left: 15px;
+    //         bottom: -11px;
+    //     }
+    // }
+    // wood end-----------------------------
 }
 // developer card end
