@@ -323,7 +323,7 @@
                 tabsItem: [
                     {
                         id: 1,
-                        path: "/parlament/developer_users",
+                        path: "/super_admin/add_object",
                         name: 'Застройщики',
                         active: false
                     },
@@ -720,7 +720,7 @@
         padding: 0;
         transition: 0.5s;
     }
-    .tabs-item a:hover, .tabs-item.active a {
+    .tabs-item a:hover a, .tabs-item.active a {
         color: #FF9800;
         transition: 0.5s;
     }
