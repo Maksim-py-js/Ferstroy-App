@@ -126,6 +126,33 @@
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
+                            <div class="dataItem">
+                                <div class="label">Выберете изоброжение:</div>
+                                <!-- <input type="file" @change="onFileChangeTwo" /> -->
+                                <form ref="formData">
+                                        <b-form-group            
+                                            id="input"
+                                        >
+                                            <b-form-file 
+                                                id="input-file" 
+                                                v-model="form.selectImg"
+                                            ></b-form-file>
+                                    </b-form-group>
+                                </form>
+
+                                <!-- <div class="addImage d-flex flex-wrap align-items-center mt-4" v-if="form.previewImg.length > 0">
+                                    <div class="imageBox" v-for="img in form.selectImg" :key="img.id">
+                                        <div class="img">
+                                            <img :src="img.name" alt="item">
+                                        </div>
+                                        <div class="imageBg" @click="daleteImage(img.id)">
+                                            <b-button variant="transparent" class="imageClose shadow-none p-0">
+                                                <img src="@/assets/images/svg/deleteEl.svg" alt="delete">
+                                            </b-button>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
                             <b-row class="align-items-center pl-3 mt-4">
                                 <b-button variant="primary" v-b-modal.postApprove>
                                     Подтвердить!
@@ -148,6 +175,10 @@
                                 <li class="model-item d-flex">
                                     <strong class="model-itemName mr-1">Контакты:</strong>
                                     <div class="model-itemData">{{form.number}},<br/> {{form.address}}</div>
+                                </li>
+                                <li class="model-item d-flex">
+                                    <strong class="model-itemName mr-1">Изоброжения:</strong>
+                                    <div class="model-itemData">{{form.selectImg}}</div>
                                 </li>
                             </ul>
                             <b-row class="align-items-center pl-3 mt-4">
@@ -297,7 +328,6 @@
                                 :total-rows="totalRows"
                                 :per-page="perPage"
                                 align="center"
-
                             ></b-pagination>
                         </b-col>
                     </b-container>
@@ -537,7 +567,10 @@
                     companyName: '',
                     number: '',
                     address: '',
-                    email: ''
+                    email: '',
+                    selectImg: [],
+                    marker_id: '1',
+                    year_id: '1'
                 }
             }
         },
@@ -656,7 +689,40 @@
                     // });
                     this.loadObjects();
                 });
-            }
+            },
+            // form
+            onFileChange(e) {
+                console.log(this.form.selectImg);
+                // const file = this.form.selectImg;
+                // this.url = URL.createObjectURL(file);
+                // this.form.previewImg.push({
+                //     name: this.url,
+                //     id: Math.floor(Math.random() * Math.floor(1000))
+                // });
+                console.log('выбранный файл:' + this.form.selectImg, 'Превью:' + this.form.previewImg);
+            },
+            onFileChangeTwo(e) {
+                console.log(e.target.files);
+                const file = e.target.files[0];
+                this.url = URL.createObjectURL(file);
+                this.form.previewImg.push({
+                    name: this.url,
+                    id: Math.floor(Math.random() * Math.floor(1000))
+                });
+            },
+            daleteImage(id) {
+                let arr = this.form.selectImg;
+                arr.forEach(item => {
+                    // item.id == id ?  : console.log('false');
+                    if (item.id == id) {
+                        const index =  arr.indexOf(item);
+                        let removed = arr.splice(index, 1);
+                        // var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+                        // var removed = myFish.splice(1, 1);
+                        // console.log(myFish);
+                    }
+                })
+            },
         }
     }
 </script>

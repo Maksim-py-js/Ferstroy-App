@@ -80,9 +80,6 @@
 
 <!-- @click="item.active = !item.active" -->
 <script>
-    import Buildings from '@/components/parlament/Buildings'
-    import DeveloperUsers from '@/components/parlament/developer_users'
-    import Area from '@/components/parlament/area'
     export default {
         data() {
             return {
