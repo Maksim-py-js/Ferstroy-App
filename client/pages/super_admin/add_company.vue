@@ -3,7 +3,7 @@
         <div class="background-filter"></div>  
         <b-navbar class="panel-top p-0 mb-4">
             <b-navbar-nav class="align-items-center justify-content-between w-100 full-bar">
-                <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb>
+                <!-- <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
                 <nuxt-link to="/" class="header__logo admin-logo">
                     <img src="@/assets/images/svg/logo/russian-light.svg">
                 </nuxt-link>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </b-sidebar>
-                <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb>
+                <!-- <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
                 <nuxt-link to="/" class="header__logo admin-logo">
                     <img src="@/assets/images/svg/logo/russian-light.svg">
                 </nuxt-link>
@@ -74,29 +74,28 @@
             <div class="main">
                 <div no-body class="border-0 w-100 p-0">
                     <b-container fluid class="p-3">
-
                         <b-row class="align-items-center mb-4 pt-3 pl-3">
-                            <span>Добавить ЖК: </span>
+                            <span>Добавить Застройщика: </span>
                             <b-button variant="primary" class="ml-2"  @click="$bvModal.show('post')">
                                 <b-icon-plus variant="light"></b-icon-plus>
                             </b-button>
                         </b-row>
                         <b-modal id="post" hide-header="true" hide-footer="true" centered>
                             <h2 class="panelName">
-                                Редактирование объекта:
+                                Добовление данных застройщика:
                             </h2>
                             <div class="dataItem">
-                                <div class="label">Название объекта:</div>
+                                <div class="label">Имя застройщика:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.companyName"
+                                    v-model="form.developerName"
                                     type="text"
-                                    placeholder="ЖК мир"
+                                    placeholder="Имя"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Телефон:</div>
+                                <div class="label">Телефон застройщика:</div>
                                 <b-form-input
                                     id="filter-input"
                                     v-model="form.number"
@@ -106,52 +105,56 @@
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Адресс:</div>
+                                <div class="label">Адресс офиса:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.address"
+                                    v-model="form.company_address"
                                     type="text"
                                     placeholder="ул. А.Яссовий 39/10"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Электронная почта:</div>
+                                <div class="label">Дата основания:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.email"
+                                    v-model="form.company_foundation_date"
                                     type="text"
-                                    placeholder="primer@gmail.com"
+                                    placeholder="12.03.2020"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Выберете изоброжение:</div>
-                                <!-- <input type="file" @change="onFileChangeTwo" /> -->
-                                <form ref="formData">
-                                        <b-form-group            
-                                            id="input"
-                                        >
-                                            <b-form-file 
-                                                id="input-file" 
-                                                v-model="form.selectImg"
-                                            ></b-form-file>
-                                    </b-form-group>
-                                </form>
-
-                                <!-- <div class="addImage d-flex flex-wrap align-items-center mt-4" v-if="form.previewImg.length > 0">
-                                    <div class="imageBox" v-for="img in form.selectImg" :key="img.id">
-                                        <div class="img">
-                                            <img :src="img.name" alt="item">
-                                        </div>
-                                        <div class="imageBg" @click="daleteImage(img.id)">
-                                            <b-button variant="transparent" class="imageClose shadow-none p-0">
-                                                <img src="@/assets/images/svg/deleteEl.svg" alt="delete">
-                                            </b-button>
-                                        </div>
-                                    </div>
-                                </div> -->
+                                <div class="label">Количство рабочих:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="form.count_workers"
+                                    type="text"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
                             </div>
+                            <div class="dataItem">
+                                <div class="label">Количство рабочей техники:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="form.count_machinery"
+                                    type="text"
+                                    placeholder="1000"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <form ref="formData">
+                                <b-form-group            
+                                    id="input"
+                                >
+                                    <b-form-file 
+                                        id="input-file" 
+                                        v-model="form.selectLogo"
+                                    ></b-form-file>
+                                </b-form-group>
+                            </form>
+
                             <b-row class="align-items-center pl-3 mt-4">
                                 <b-button variant="primary" v-b-modal.postApprove>
                                     Подтвердить!
@@ -164,24 +167,32 @@
                         <b-modal id="postApprove" hide-header hide-footer centered>
                             <ul class="model-data">
                                 <li class="model-item">
-                                    <strong class="model-itemName">Название объекта:</strong>
-                                    <span class="model-itemData">{{form.companyName}}</span>
+                                    <strong class="model-itemName">Имя застройщика:</strong>
+                                    <span class="model-itemData">{{form.developerName}}</span>
                                 </li>
                                 <li class="model-item">
-                                    <strong class="model-itemName">Электронная почта:</strong>
-                                    <span class="model-itemData">{{form.email}}</span>
+                                    <strong class="model-itemName">Дата основания:</strong>
+                                    <span class="model-itemData">{{form.company_foundation_date}}</span>
                                 </li>
                                 <li class="model-item d-flex">
                                     <strong class="model-itemName mr-1">Контакты:</strong>
-                                    <div class="model-itemData">{{form.number}},<br/> {{form.address}}</div>
+                                    <div class="model-itemData">{{form.number}},<br/> {{form.company_address}}</div>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Количство рабочих:</strong>
+                                    <span class="model-itemData">{{form.count_workers}}</span>
+                                </li>
+                                <li class="model-item d-flex">
+                                    <strong class="model-itemName mr-1">Количство рабочей техники:</strong>
+                                    <div class="model-itemData">{{form.count_machinery}}</div>
                                 </li>
                                 <li class="model-item d-flex">
                                     <strong class="model-itemName mr-1">Изоброжения:</strong>
-                                    <div class="model-itemData">{{form.selectImg}}</div>
+                                    <div class="model-itemData">{{form.selectLogo}}</div>
                                 </li>
                             </ul>
                             <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" class="ml-2" @click="postObject(), $bvModal.hide('postApprove'), $bvModal.hide('post')">
+                                <b-button variant="primary" class="ml-2" @click="postCompany(), $bvModal.hide('postApprove'), $bvModal.hide('post')">
                                     Добавить
                                 </b-button>
                                 <b-button class="ml-4" @click="$bvModal.hide('postApprove')">
@@ -237,7 +248,7 @@
                         <b-table
                             striped 
                             hover
-                            :items="residential_complex"
+                            :items="developers"
                             :fields="fields"
                             :current-page="currentPage"
                             :per-page="perPage"
@@ -277,14 +288,110 @@
                             </template>
 
                             <template #cell(edit)="row">
-                                <b-button variant="success" @click="edit(row.item, row.index, $event.target), $bvModal.show('editForm')">
+                                <b-button variant="primary" @click="$bvModal.show('postObject')">
+                                    <b-icon-plus variant="light"></b-icon-plus>
+                                </b-button>
+                                <b-button variant="success" @click="$bvModal.show('editForm'), idPatchCompany=row.item.developer_value.id, edit(row.item, row.index, $event.target)">
                                     <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                 </b-button>
-                                <b-button variant="primary" @click="$bvModal.show('deleteObj'), idDeleteObj=row.item.residential_complex_value.id">
+                                <b-button variant="primary" @click="$bvModal.show('deleteComp'), idDeleteCompany=row.item.developer_value.id">
                                     <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
                                 </b-button>
                             </template>
                         </b-table>
+
+                        <!-- add object modal -->
+                        <b-modal id="postObject" hide-header="true" hide-footer="true" centered>
+                            <h2 class="panelName">
+                                Добовление объекта:
+                            </h2>
+                            <div class="dataItem">
+                                <div class="label">Название объекта:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="form.companyName"
+                                    type="text"
+                                    placeholder="ЖК Мир"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Телефон:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="form.number"
+                                    type="text"
+                                    placeholder="+998 (90) 999-99-99"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Адресс офиса:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="form.address"
+                                    type="text"
+                                    placeholder="ул. А.Яссовий 39/10"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Электронная почта:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="form.email"
+                                    type="text"
+                                    placeholder="primer@gmail.com"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Выберете изоброжение:</div>
+                                <!-- <input type="file" @change="onFileChangeTwo" /> -->
+                                <form ref="formData">
+                                        <b-form-group            
+                                            id="input"
+                                        >
+                                            <b-form-file 
+                                                id="input-file" 
+                                                v-model="form.selectLogo"
+                                            ></b-form-file>
+                                    </b-form-group>
+                                </form>
+                            </div>
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button variant="primary" v-b-modal.postObjectApprove>
+                                    Подтвердить!
+                                </b-button>
+                                <b-button class="ml-4" @click="$bvModal.hide('postObject')">
+                                    Отмена
+                                </b-button>
+                            </b-row>
+                        </b-modal>
+                        <b-modal id="postObjectApprove" hide-header hide-footer centered>
+                            <ul class="model-data">
+                                <li class="model-item">
+                                    <strong class="model-itemName">Имя застройщика:</strong>
+                                    <span class="model-itemData">{{form.companyName}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Электронная почта:</strong>
+                                    <span class="model-itemData">{{form.email}}</span>
+                                </li>
+                                <li class="model-item d-flex">
+                                    <strong class="model-itemName mr-1">Контакты:</strong>
+                                    <div class="model-itemData">{{form.number}},<br/> {{form.address}}</div>
+                                </li>
+                            </ul>
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button variant="primary" class="ml-2" @click="postObject(), $bvModal.hide('postObjectApprove'), $bvModal.hide('postObject')">
+                                    Добавить
+                                </b-button>
+                                <b-button class="ml-4" @click="$bvModal.hide('postObjectApprove')">
+                                    Назад
+                                </b-button>
+                            </b-row>
+                        </b-modal>
 
                         <!-- Info modal -->
                         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
@@ -325,7 +432,7 @@
                                 <div class="label">Название объекта:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.companyName"
+                                    v-model="editModal.companyName"
                                     type="text"
                                     placeholder="ЖК мир"
                                     class="searchBar__input br-0"
@@ -335,7 +442,7 @@
                                 <div class="label">Телефон:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.number"
+                                    v-model="editModal.number"
                                     type="text"
                                     placeholder="+998 (90) 999-99-99"
                                     class="searchBar__input br-0"
@@ -345,7 +452,7 @@
                                 <div class="label">Адресс:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.address"
+                                    v-model="editModal.address"
                                     type="text"
                                     placeholder="ул. А.Яссовий 39/10"
                                     class="searchBar__input br-0"
@@ -355,7 +462,7 @@
                                 <div class="label">Электронная почта:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.email"
+                                    v-model="editModal.email"
                                     type="text"
                                     placeholder="primer@gmail.com"
                                     class="searchBar__input br-0"
@@ -370,7 +477,7 @@
                                         >
                                             <b-form-file 
                                                 id="input-file" 
-                                                v-model="form.selectImg"
+                                                v-model="editModal.selectLogo"
                                             ></b-form-file>
                                     </b-form-group>
                                 </form>
@@ -388,19 +495,19 @@
                             <ul class="model-data">
                                 <li class="model-item">
                                     <strong class="model-itemName">Название объекта:</strong>
-                                    <span class="model-itemData">{{form.companyName}}</span>
+                                    <span class="model-itemData">{{editModal.companyName}}</span>
                                 </li>
                                 <li class="model-item">
                                     <strong class="model-itemName">Электронная почта:</strong>
-                                    <span class="model-itemData">{{form.email}}</span>
+                                    <span class="model-itemData">{{editModal.email}}</span>
                                 </li>
                                 <li class="model-item d-flex">
                                     <strong class="model-itemName mr-1">Контакты:</strong>
-                                    <div class="model-itemData">{{form.number}},<br/> {{form.address}}</div>
+                                    <div class="model-itemData">{{editModal.number}},<br/> {{editModal.address}}</div>
                                 </li>
                                 <li class="model-item d-flex">
                                     <strong class="model-itemName mr-1">Изоброжения:</strong>
-                                    <div class="model-itemData">{{form.selectImg}}</div>
+                                    <div class="model-itemData">{{editModal.selectLogo}}</div>
                                 </li>
                             </ul>
                             <b-row class="align-items-center pl-3 mt-4">
@@ -414,13 +521,13 @@
                         </b-modal>
 
                         <!-- delete modal -->
-                        <b-modal id="deleteObj" hide-header="true" hide-footer="true" centered>
+                        <b-modal id="deleteComp" hide-header="true" hide-footer="true" centered>
                             <h1>Вы уверены что хотите удалить объект?</h1>
                             <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" class="ml-2" @click="deleteObject(), $bvModal.hide('deleteObj')">
+                                <b-button variant="primary" class="ml-2" @click="deleteCompany(), $bvModal.hide('deleteComp')">
                                     Удалить
                                 </b-button>
-                                <b-button class="ml-4" @click="$bvModal.hide('deleteObj')">
+                                <b-button class="ml-4" @click="$bvModal.hide('deleteComp')">
                                     Отмена
                                 </b-button>
                             </b-row>
@@ -457,15 +564,15 @@
                 tabsItem: [
                     {
                         id: 1,
-                        path: "/super_admin/add_object",
+                        path: "/super_admin/add_company",
                         name: 'Застройщики',
-                        active: false
+                        active: true
                     },
                     {
                         id: 2,
-                        path: "/super_admin/add_object",
+                        path: "/super_admin/edit_object",
                         name: 'Жилые комплексы',
-                        active: true
+                        active: false
                     }
                 ],
                 dataTables: [
@@ -628,11 +735,11 @@
                     }
                 ],
                 fields: [
-                    { key: 'residential_complex_value.name', label: 'Жилой комплекс', sortable: true },
-                    { key: 'residential_complex_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
-                    { key: 'residential_complex_value.number', label: 'Контакт', sortable: false, class: 'centerBlock' },
+                    { key: 'developer_value.name', label: 'Имя', sortable: true },
+                    { key: 'developer_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
+                    { key: 'developer_value.number', label: 'Номер', sortable: false, class: 'centerBlock' },
                     { key: 'information', label: 'Доп. информация', sortable: false, class: 'centerBlock' },
-                    { key: 'residential_complex_value.history', label: 'История', sortable: false, class: 'centerBlock' },
+                    { key: 'developer_value.history', label: 'История', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
                 totalRows: 100,
@@ -659,16 +766,24 @@
                     content: ''
                 },
                 editModal: {
-                    title: 'title',
+                    companyName: '',
+                    number: '',
+                    address: '',
+                    email: '',
+                    selectImg: [],
                     id: 'edit',
                     content: ''
                 },
                 // axios
                 residential_complex: [],
                 residential_complex_value: [],
+                developers: [],
+                developer_value: [],
                 // form
-                idDeleteObj: null,
+                idDeleteCompany: null,
+                idPatchCompany: null,
                 form: {
+                    // object
                     companyName: '',
                     number: '',
                     address: '',
@@ -682,6 +797,23 @@
                     title: "Новосторйки в центре Киргили",
                     rating: "5",
                     advantages_title: "Наши приемущества",
+
+                    // developer
+                    developerName: '',
+                    selectLogo: [],
+                    rating_votes: '5',
+                    company_number: '',
+                    company_history: '2019-2021',
+                    company_foundation_date: '',
+                    company_address: '',
+                    company_website: 'www.site.com',
+                    company_about_title: 'company_about_title',
+                    company_about_text: 'company_about_text',
+                    count_workers: '',
+                    count_machinery: '',
+                    count_objects: '10',
+                    count_constructed_objects: '100',
+                    count_under_constructed_objects: '200',
                 }
             }
         },
@@ -696,21 +828,21 @@
             }
         },
         mounted() {
-            this.loadObjects();
+            this.loadCompanies();
         },
         methods: {
             info(item, index, button) {
-                this.infoModal.title = `${item.residential_complex_value.name}`
-                this.infoModal.rating = `${item.residential_complex_value.rating}`
-                this.infoModal.phone = `${item.residential_complex_value.number}`
-                this.infoModal.address = `${item.residential_complex_value.address}`
-                // this.infoModal.history = `${item.residential_complex_value.history}`
-                // this.infoModal.machinery = `${item.residential_complex_value.machinery}`
-                // this.infoModal.foundationDate = `${item.residential_complex_value.foundationDate}`
-                // this.infoModal.numberWorkers = `${item.residential_complex_value.numberWorkers}`
-                // this.infoModal.constructedObjects = `${item.residential_complex_value.constructedObjects}`
-                this.infoModal.comapanyName = `${item.residential_complex_value.name}`
-                // this.infoModal.foreman = `${item.residential_complex_value.foreman}`
+                this.infoModal.title = `${item.developer_value.name}`
+                this.infoModal.rating = `${item.developer_value.rating}`
+                this.infoModal.phone = `${item.developer_value.number}`
+                this.infoModal.address = `${item.developer_value.address}`
+                // this.infoModal.history = `${item.developer_value.history}`
+                // this.infoModal.machinery = `${item.developer_value.machinery}`
+                // this.infoModal.foundationDate = `${item.developer_value.foundationDate}`
+                // this.infoModal.numberWorkers = `${item.developer_value.numberWorkers}`
+                // this.infoModal.constructedObjects = `${item.developer_value.constructedObjects}`
+                this.infoModal.comapanyName = `${item.developer_value.name}`
+                // this.infoModal.foreman = `${item.developer_value.foreman}`
                 this.infoModal.content = JSON.stringify(item, null, 2)
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button)
             },
@@ -729,8 +861,11 @@
                 this.infoModal.foreman = ''
             },
             edit(item, index, button) {
-                console.log(this.residential_complex);
-                this.editModal.title = `${item.residential_complex_value.name}`
+                this.editModal.companyName = `${item.developer_value.name}`
+                this.editModal.number = `${item.developer_value.number}`
+                this.editModal.address = `${item.developer_value.address}`
+                this.editModal.email = `${item.developer_value.email}`
+                this.editModal.selectLogo = `${item.developer_value.image}`
                 this.editModal.content = JSON.stringify(item, null, 2)
                 this.$root.$emit('bv::show::modal', this.editModal.id, button)
             },
@@ -740,28 +875,129 @@
                 this.currentPage = 1
             },
             // axios
-            async loadObjects() {
+            async loadCompanies() {
                 axios
-                    .get('http://213.230.96.125/api/residential_complexes')
+                    .get('http://213.230.96.125/api/developers')
                     .then(response => {
-                        this.residential_complex = response.data; 
+                        this.developers = response.data; 
                     })
                     .then(response => {
                         // this.allCompany();
                         // this.allObjects();
-                        let data = this.residential_complex;
+                        let data = this.developers;
                         data.forEach(item => {
-                            this.residential_complex_value.push(item.residential_complex_value);
+                            this.developer_value.push(item.developer_value);
                         })
-                        console.log(this.residential_complex_value);
+                        console.log(this.developer_value);
                     })
                     .then(() => {
-                        this.totalRows = this.residential_complex.length
+                        this.totalRows = this.developers.length
                     })
+            },
+            async postCompany() {
+                const formData = new FormData();
+
+                formData.append("logo", this.form.selectLogo, this.form.selectLogo.name);
+
+                formData.append("name", this.form.developerName);
+                formData.append("number", this.form.number);
+                formData.append("rating", this.form.rating);
+                formData.append("rating_votes", this.form.rating_votes);
+                formData.append("company_name", this.form.companyName);
+                formData.append("company_number", this.form.company_number);
+                formData.append("company_history", this.form.company_history);
+                formData.append("company_foundation_date", this.form.company_foundation_date);
+                formData.append("company_address", this.form.company_address);
+                formData.append("company_website", this.form.company_website);
+                formData.append("company_about_title", this.form.company_about_title);
+                formData.append("company_about_text", this.form.company_about_text);
+                formData.append("count_workers", this.form.count_workers);
+                formData.append("count_machinery", this.form.count_machinery);
+                formData.append("count_objects", this.form.count_objects);
+                formData.append("count_constructed_objects", this.form.count_constructed_objects);
+                formData.append("count_under_constructed_objects", this.form.count_under_constructed_objects);
+
+                this.$axios.$post('/api/developers', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    if (response.created_at) {
+                        console.log(this.form.selectLogo);
+
+                        this.form.comapanyName = '';
+                        this.form.number = '';
+                        this.form.address = '';
+                        this.form.email = '';
+                        this.form.developerName = '';
+                        this.form.company_number = '';
+                        this.form.company_foundation_date = '';
+                        this.form.company_address = '';
+                        this.form.count_workers = '';
+                        this.form.count_machinery = '';
+
+                        this.loadCompanies();
+                        // this.$notify({
+                        //     group: 'admin-notification',
+                        //     title: 'Post successfully created',
+                        //     type: 'success'
+                        // });
+                    }
+                })
+            },
+            async patchCompany() {
+                const formData = new FormData();
+                formData.append("image", this.editModal.selectLogo, this.editModal.selectLogo.name);
+
+                formData.append("name", this.editModal.companyName);
+                formData.append("title", this.form.title);
+                formData.append("rating", this.form.rating);
+                formData.append("number", this.editModal.number);
+                formData.append("address", this.editModal.address);
+                formData.append("email", this.editModal.email);
+                formData.append("about_title", this.form.about_title);
+                formData.append("about_description", this.form.about_description);
+                formData.append("advantages_title", this.form.advantages_title);
+                formData.append("comments_title", this.form.comments_title);
+                formData.append("marker_id", this.form.marker_id);
+                formData.append("year_id", this.form.year_id);
+
+                this.$axios.$patch(`/api/developers/${this.idPatchCompany}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    if (response.created_at) {
+                        this.editModal.comapanyName = '';
+                        this.editModal.number = '';
+                        this.editModal.address = '';
+                        this.editModal.email = '';
+
+                        // this.$notify({
+                        //     group: 'admin-notification',
+                        //     title: 'Post successfully created',
+                        //     type: 'success'
+                        // });
+                    }
+                })
+                console.log(this.idPatchCompany);
+            },
+            async deleteCompany() {
+                console.log(this.idDeleteCompany);
+                await this.$axios.delete(`/api/developers/${this.idDeleteCompany}`).then(response => {
+                    // this.$notify({
+                    //     group: 'admin-notification',
+                    //     title: 'Product was deleted',
+                    //     type: 'success'
+                    // });
+                    this.loadCompanies();
+                });
             },
             async postObject() {
                 const formData = new FormData();
-                formData.append("image", this.form.selectImg, this.form.selectImg.name);
+                formData.append("image", this.form.selectLogo, this.form.selectLogo.name);
 
                 formData.append("name", this.form.companyName);
                 formData.append("title", this.form.title);
@@ -788,6 +1024,7 @@
                         this.form.address = '';
                         this.form.email = '';
 
+                        this.loadCompanies();
                         // this.$notify({
                         //     group: 'admin-notification',
                         //     title: 'Post successfully created',
@@ -795,73 +1032,17 @@
                         // });
                     }
                 })
-            },
-            async patchObject() {
-                await this.$axios.delete(`/api/residential_complexes/${this.idDeleteObj}`).then(response => {
-                    // this.$notify({
-                    //     group: 'admin-notification',
-                    //     title: 'Product was deleted',
-                    //     type: 'success'
-                    // });
-                    this.loadObjects();
-                });
-                const formData = new FormData();
-                formData.append("image", this.form.selectImg, this.form.selectImg.name);
-
-                formData.append("name", this.form.companyName);
-                formData.append("title", this.form.title);
-                formData.append("rating", this.form.rating);
-                formData.append("number", this.form.number);
-                formData.append("address", this.form.address);
-                formData.append("email", this.form.email);
-                formData.append("about_title", this.form.about_title);
-                formData.append("about_description", this.form.about_description);
-                formData.append("advantages_title", this.form.advantages_title);
-                formData.append("comments_title", this.form.comments_title);
-                formData.append("marker_id", this.form.marker_id);
-                formData.append("year_id", this.form.year_id);
-
-                this.$axios.$patch('/api/residential_complexes/${this.idPatchObj}', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                .then(response => {
-                    if (response.created_at) {
-                        this.form.comapanyName = '';
-                        this.form.number = '';
-                        this.form.address = '';
-                        this.form.email = '';
-
-                        // this.$notify({
-                        //     group: 'admin-notification',
-                        //     title: 'Post successfully created',
-                        //     type: 'success'
-                        // });
-                    }
-                })
-                console.log('patch');
-            },
-            async deleteObject() {
-                await this.$axios.delete(`/api/residential_complexes/${this.idDeleteObj}`).then(response => {
-                    // this.$notify({
-                    //     group: 'admin-notification',
-                    //     title: 'Product was deleted',
-                    //     type: 'success'
-                    // });
-                    this.loadObjects();
-                });
             },
             // form
             onFileChange(e) {
-                console.log(this.form.selectImg);
-                // const file = this.form.selectImg;
+                console.log(this.form.selectLogo);
+                // const file = this.form.selectLogo;
                 // this.url = URL.createObjectURL(file);
                 // this.form.previewImg.push({
                 //     name: this.url,
                 //     id: Math.floor(Math.random() * Math.floor(1000))
                 // });
-                console.log('выбранный файл:' + this.form.selectImg, 'Превью:' + this.form.previewImg);
+                console.log('выбранный файл:' + this.form.selectLogo, 'Превью:' + this.form.previewImg);
             },
             onFileChangeTwo(e) {
                 console.log(e.target.files);
@@ -873,7 +1054,7 @@
                 });
             },
             daleteImage(id) {
-                let arr = this.form.selectImg;
+                let arr = this.form.selectLogo;
                 arr.forEach(item => {
                     // item.id == id ?  : console.log('false');
                     if (item.id == id) {
@@ -948,7 +1129,7 @@
         padding: 0;
         transition: 0.5s;
     }
-    .tabs-item a:hover a, .tabs-item.active a {
+    .navbar .tabs .nav .tabs-item a:hover, .navbar .tabs .nav .tabs-item.active a {
         color: #FF9800;
         transition: 0.5s;
     }
