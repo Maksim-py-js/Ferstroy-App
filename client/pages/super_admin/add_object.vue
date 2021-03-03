@@ -1,7 +1,7 @@
 <template>
     <div class="h-panel">
         <div class="background-filter"></div>  
-        <!-- <b-navbar class="panel-top p-0 mb-4">
+        <b-navbar class="panel-top p-0 mb-4">
             <b-navbar-nav class="align-items-center justify-content-between w-100 full-bar">
                 <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb>
                 <nuxt-link to="/" class="header__logo admin-logo">
@@ -69,7 +69,7 @@
                 </nuxt-link>
                 
             </b-navbar-nav>
-        </b-navbar> -->
+        </b-navbar>
         <b-col class="bg-light w-100 p-0">                
             <div class="main">
                 <div no-body class="border-0 w-100 p-0">
@@ -797,41 +797,49 @@
                 })
             },
             async patchObject() {
-                // const formData = new FormData();
-                // formData.append("image", this.form.selectImg, this.form.selectImg.name);
+                await this.$axios.delete(`/api/residential_complexes/${this.idDeleteObj}`).then(response => {
+                    // this.$notify({
+                    //     group: 'admin-notification',
+                    //     title: 'Product was deleted',
+                    //     type: 'success'
+                    // });
+                    this.loadObjects();
+                });
+                const formData = new FormData();
+                formData.append("image", this.form.selectImg, this.form.selectImg.name);
 
-                // formData.append("name", this.form.companyName);
-                // formData.append("title", this.form.title);
-                // formData.append("rating", this.form.rating);
-                // formData.append("number", this.form.number);
-                // formData.append("address", this.form.address);
-                // formData.append("email", this.form.email);
-                // formData.append("about_title", this.form.about_title);
-                // formData.append("about_description", this.form.about_description);
-                // formData.append("advantages_title", this.form.advantages_title);
-                // formData.append("comments_title", this.form.comments_title);
-                // formData.append("marker_id", this.form.marker_id);
-                // formData.append("year_id", this.form.year_id);
+                formData.append("name", this.form.companyName);
+                formData.append("title", this.form.title);
+                formData.append("rating", this.form.rating);
+                formData.append("number", this.form.number);
+                formData.append("address", this.form.address);
+                formData.append("email", this.form.email);
+                formData.append("about_title", this.form.about_title);
+                formData.append("about_description", this.form.about_description);
+                formData.append("advantages_title", this.form.advantages_title);
+                formData.append("comments_title", this.form.comments_title);
+                formData.append("marker_id", this.form.marker_id);
+                formData.append("year_id", this.form.year_id);
 
-                // this.$axios.$post('/api/residential_complexes', formData, {
-                //     headers: {
-                //         'Content-Type': 'multipart/form-data'
-                //     }
-                // })
-                // .then(response => {
-                //     if (response.created_at) {
-                //         this.form.comapanyName = '';
-                //         this.form.number = '';
-                //         this.form.address = '';
-                //         this.form.email = '';
+                this.$axios.$patch('/api/residential_complexes/${this.idPatchObj}', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    if (response.created_at) {
+                        this.form.comapanyName = '';
+                        this.form.number = '';
+                        this.form.address = '';
+                        this.form.email = '';
 
-                //         // this.$notify({
-                //         //     group: 'admin-notification',
-                //         //     title: 'Post successfully created',
-                //         //     type: 'success'
-                //         // });
-                //     }
-                // })
+                        // this.$notify({
+                        //     group: 'admin-notification',
+                        //     title: 'Post successfully created',
+                        //     type: 'success'
+                        // });
+                    }
+                })
                 console.log('patch');
             },
             async deleteObject() {
