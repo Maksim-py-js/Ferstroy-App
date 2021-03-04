@@ -27,8 +27,9 @@ const routes = [
   { path: '/parlament/buildings', name: 'parlament', component: page('parlament/buildings.vue') },
   { path: '/parlament/developer_users', name: 'parlament', component: page('parlament/developer_users.vue') },
 
-  { path: '/super_admin', name: 'super_admin', component: page('super_admin/add_object.vue') },
-  { path: '/super_admin/add_object', name: 'super_admin', component: page('super_admin/add_object.vue') },
+  { path: '/super_admin', name: 'super_admin', component: page('super_admin/add_company.vue') },
+  { path: '/super_admin/edit_object', name: 'super_admin', component: page('super_admin/edit_object.vue') },
+  { path: '/super_admin/add_company', name: 'super_admin', component: page('super_admin/add_company.vue') }
 ]
 
 export function createRouter () {
