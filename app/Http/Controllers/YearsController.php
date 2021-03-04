@@ -37,7 +37,6 @@ class YearsController extends Controller
     {
         $year = new Year();
         $year->name = $request['name'];
-        $year->developer_id = $request['developer_id'];
         $year->save();
         return $year;
     }
@@ -65,7 +64,6 @@ class YearsController extends Controller
     {
         $year = Year::find($id);
         $year->name = $request['name'];
-        $year->developer_id = $request['developer_id'];
         $year->save();
         return $year;
     }
