@@ -805,8 +805,9 @@
                     // developer
                     developerName: '',
                     selectLogo: [],
+                    company_name: 'assdassd',
                     rating_votes: '5',
-                    company_number: '',
+                    company_number: '+998 (90) 456-56-67',
                     company_history: '2019-2021',
                     company_foundation_date: '',
                     company_address: '',
@@ -839,7 +840,7 @@
                 this.infoModal.title = `${item.developer_value.name}`
                 this.infoModal.rating = `${item.developer_value.rating}`
                 this.infoModal.phone = `${item.developer_value.number}`
-                this.infoModal.address = `${item.developer_value.address}`
+                this.infoModal.address = `${item.developer_value.company_address}`
                 // this.infoModal.history = `${item.developer_value.history}`
                 // this.infoModal.machinery = `${item.developer_value.machinery}`
                 // this.infoModal.foundationDate = `${item.developer_value.foundationDate}`
@@ -907,7 +908,7 @@
                 formData.append("number", this.form.number);
                 formData.append("rating", this.form.rating);
                 formData.append("rating_votes", this.form.rating_votes);
-                formData.append("company_name", this.form.companyName);
+                formData.append("company_name", this.form.company_name);
                 formData.append("company_number", this.form.company_number);
                 formData.append("company_history", this.form.company_history);
                 formData.append("company_foundation_date", this.form.company_foundation_date);
@@ -1137,7 +1138,7 @@
         transition: 0.5s;
     }
     .navbar .tabs .nav .tabs-item a:hover, .navbar .tabs .nav .tabs-item.active a {
-        color: #FF9800;
+        color: blue;
         transition: 0.5s;
     }
    /* .tabs-item a:hover, .tabs-item.active a {
