@@ -1138,7 +1138,7 @@
         transition: 0.5s;
     }
     .navbar .tabs .nav .tabs-item a:hover, .navbar .tabs .nav .tabs-item.active a {
-        color: blue;
+        color: #FF9800;
         transition: 0.5s;
     }
    /* .tabs-item a:hover, .tabs-item.active a {
