@@ -938,8 +938,6 @@
                         this.form.company_number = '';
                         this.form.company_foundation_date = '';
                         this.form.company_address = '';
-                        this.form.count_workers = '';
-                        this.form.count_machinery = '';
 
                         this.loadCompanies();
                         // this.$notify({
