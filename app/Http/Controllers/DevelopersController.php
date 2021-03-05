@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Advantage;
 use App\Models\Developer;
 use App\Models\ResidentialComplex;
+use App\Models\Year;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -32,24 +33,23 @@ class DevelopersController extends Controller
                 array_push($developer_advantages, compact('advantage', 'advantages_icons'));
             }
             $comments = $developer->comments('developer_id')->get();
+            $residential_complexes = $developer->residential_complexes('developer_id')->get();
 
-            $years_data = $developer->years('developer_id')->get();
-            $years = [];
-            foreach ($years_data as $year_value) {
-                $residential_complexes = $year_value->residential_complexes()->get();
-                $year = $year_value;
-                foreach ($residential_complexes as $residential_complex) {
-                    $year_id = ResidentialComplex::find($residential_complex->year_id);
-                }
-                array_push($years, compact('year', 'residential_complexes'));
+            $years_data = [];
+            foreach ($residential_complexes as $residential_complex) {
+                $year = Year::find($residential_complex->year_id);
+                $year_residential_complexes = $year->residential_complexes('year_id')->get();
+                array_push($years_data, compact('year', 'year_residential_complexes'));
             }
+            $years = array_unique($years_data, SORT_REGULAR);
 
             $developer_value = $developer;
             array_push($data, compact(
                 'developer_value',
                 'developer_advantages',
                 'comments',
-                'years'
+                'years',
+                'residential_complexes'
             ));
         }
         return json_encode($data);
@@ -125,13 +125,23 @@ class DevelopersController extends Controller
             array_push($developer_advantages, compact('advantage', 'advantages_icons'));
         }
         $comments = $developer->comments('developer_id')->get();
-        $years = $developer->years('developer_id')->get();
+        $residential_complexes = $developer->residential_complexes('developer_id')->get();
+
+        $years_data = [];
+        foreach ($residential_complexes as $residential_complex) {
+            $year = Year::find($residential_complex->year_id);
+            $year_residential_complexes = $year->residential_complexes('year_id')->get();
+            array_push($years_data, compact('year', 'year_residential_complexes'));
+        }
+        $years = array_unique($years_data, SORT_REGULAR);
+
         $developer_value = $developer;
         array_push($data, compact(
             'developer_value',
             'developer_advantages',
             'comments',
-            'years'
+            'years',
+            'residential_complexes'
         ));
         return json_encode($data);
     }

@@ -117,10 +117,17 @@ class ResidentialComplexesController extends Controller
         $residential_complex->about_title = $request['about_title'];
         $residential_complex->about_description = $request['about_description'];
 
+        $residential_complex->count_workers = $request['count_workers'];
+        $residential_complex->count_machinery = $request['count_machinery'];
+
+        $residential_complex->construction_start_date = $request['construction_start_date'];
+        $residential_complex->construction_finish_date = $request['construction_finish_date'];
+
         $residential_complex->advantages_title = $request['advantages_title'];
         $residential_complex->comments_title = $request['comments_title'];
         $residential_complex->marker_id = $request['marker_id'];
         $residential_complex->year_id = $request['year_id'];
+        $residential_complex->developer_id = $request['developer_id'];
 
         $residential_complex->save();
         return $residential_complex;
@@ -220,10 +227,17 @@ class ResidentialComplexesController extends Controller
         $residential_complex->about_title = $request['about_title'];
         $residential_complex->about_description = $request['about_description'];
 
+        $residential_complex->count_workers = $request['count_workers'];
+        $residential_complex->count_machinery = $request['count_machinery'];
+
+        $residential_complex->construction_start_date = $request['construction_start_date'];
+        $residential_complex->construction_finish_date = $request['construction_finish_date'];
+
         $residential_complex->advantages_title = $request['advantages_title'];
         $residential_complex->comments_title = $request['comments_title'];
         $residential_complex->marker_id = $request['marker_id'];
         $residential_complex->year_id = $request['year_id'];
+        $residential_complex->developer_id = $request['developer_id'];
 
         $residential_complex->save();
         return $residential_complex;

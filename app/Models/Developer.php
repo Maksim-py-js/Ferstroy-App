@@ -15,6 +15,9 @@ class Developer extends Model
         return $this->hasMany('App\Models\Comment', 'developer_id');
     }
     public function years() {
-        return $this->hasMany('App\Models\Year', 'developer_id');
+        return $this->belongsTo('App\Models\Year', 'year_id');
+    }
+    public function residential_complexes() {
+        return $this->hasMany('App\Models\ResidentialComplex', 'developer_id');
     }
 }
