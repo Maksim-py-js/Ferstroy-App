@@ -30,11 +30,11 @@
         box-sizing: border-box;
         border: 2px solid #cecece3a;
         background: url(../images/png/devCardBg.png) no-repeat 50% 50%/cover;
-        // transition: 1s;
+        transition: 1s;
         &:hover {
             border: 2px solid #FF9800;
-            // transform: translateY(-10px);
-            // transition: 1s;
+            transform: translateY(-5px);
+            transition: 1s;
         }
     }
     &__logo {

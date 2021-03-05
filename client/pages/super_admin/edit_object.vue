@@ -83,7 +83,7 @@
                         </b-row> -->
                         <!-- <b-modal id="post" hide-header="true" hide-footer="true" centered>
                             <h2 class="panelName">
-                                Редактирование объекта:
+                                Добовление объекта:
                             </h2>
                             <div class="dataItem">
                                 <div class="label">Название объекта:</div>

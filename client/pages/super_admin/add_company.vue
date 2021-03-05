@@ -288,7 +288,7 @@
                             </template>
 
                             <template #cell(edit)="row">
-                                <b-button variant="primary" @click="$bvModal.show('postObject')">
+                                <b-button variant="primary" @click="$bvModal.show('postObject'), form.developer_id=row.item.developer_value.id">
                                     <b-icon-plus variant="light"></b-icon-plus>
                                 </b-button>
                                 <b-button variant="success" @click="$bvModal.show('editForm'), idPatchCompany=row.item.developer_value.id, edit(row.item, row.index, $event.target)">
@@ -782,6 +782,7 @@
                 // form
                 idDeleteCompany: null,
                 idPatchCompany: null,
+                idPostObject: null,
                 form: {
                     // object
                     companyName: '',
@@ -797,6 +798,9 @@
                     title: "Новосторйки в центре Киргили",
                     rating: "5",
                     advantages_title: "Наши приемущества",
+                    construction_start_date: "20.12.2017",
+                    construction_finish_date: "20.12.2022",
+                    developer_id: "1",
 
                     // developer
                     developerName: '',
@@ -1011,6 +1015,11 @@
                 formData.append("comments_title", this.form.comments_title);
                 formData.append("marker_id", this.form.marker_id);
                 formData.append("year_id", this.form.year_id);
+                formData.append("count_workers", this.form.count_workers);
+                formData.append("count_machinery", this.form.count_machinery);
+                formData.append("construction_start_date", this.form.construction_start_date);
+                formData.append("construction_finish_date", this.form.construction_finish_date);
+                formData.append("developer_id", this.form.developer_id);
 
                 this.$axios.$post('/api/residential_complexes', formData, {
                     headers: {
