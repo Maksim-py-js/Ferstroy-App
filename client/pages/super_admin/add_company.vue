@@ -346,6 +346,12 @@
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
+                                <div class="label">Дата застройки:</div>
+                                <b-col md="auto" class="p-0">
+                                    <b-calendar v-model="value" hide-header="hideHeader" @context="onContext" locale="en-US"></b-calendar>
+                                </b-col>
+                            </div>
+                            <div class="dataItem">
                                 <div class="label">Выберете изоброжение:</div>
                                 <!-- <input type="file" @change="onFileChangeTwo" /> -->
                                 <form ref="formData">
@@ -384,7 +390,7 @@
                                 </li>
                             </ul>
                             <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" class="ml-2" @click="postObject(), $bvModal.hide('postObjectApprove'), $bvModal.hide('postObject')">
+                                <b-button variant="primary" class="ml-2" @click="postDate(), $bvModal.hide('postObjectApprove'), $bvModal.hide('postObject')">
                                     Добавить
                                 </b-button>
                                 <b-button class="ml-4" @click="$bvModal.hide('postObjectApprove')">
@@ -783,6 +789,10 @@
                 idDeleteCompany: null,
                 idPatchCompany: null,
                 idPostObject: null,
+                value: '',
+                context: null,
+                dateArr: [],
+                dateId: null,
                 form: {
                     // object
                     companyName: '',
@@ -1013,7 +1023,7 @@
                 formData.append("advantages_title", this.form.advantages_title);
                 formData.append("comments_title", this.form.comments_title);
                 formData.append("marker_id", this.form.marker_id);
-                formData.append("year_id", this.form.year_id);
+                formData.append("year_id", this.dateId);
                 formData.append("count_workers", this.form.count_workers);
                 formData.append("count_machinery", this.form.count_machinery);
                 formData.append("construction_start_date", this.form.construction_start_date);
@@ -1041,7 +1051,40 @@
                     }
                 })
             },
+            async postDate() {
+                const formData = new FormData();
+                formData.append("name", this.context.activeYMD);
+                // console.log('this.context');
+                this.$axios.$post('/api/years', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    if (response.created_at) {
+                        this.$axios.$get('/api/years')
+                        .then(response => {
+                            response.forEach(item => {
+                                if (item.year_value.name == this.context.activeYMD) {
+                                    this.dateId = item.year_value.id;
+                                    this.postObject();
+                                }
+                            })
+                            console.log(this.dateId);
+                        })
+                        this.loadCompanies();
+                        // this.$notify({
+                        //     group: 'admin-notification',
+                        //     title: 'Post successfully created',
+                        //     type: 'success'
+                        // });
+                    }
+                })
+            },
             // form
+            onContext(ctx) {
+                this.context = ctx
+            },
             onFileChange(e) {
                 console.log(this.form.selectLogo);
                 // const file = this.form.selectLogo;
