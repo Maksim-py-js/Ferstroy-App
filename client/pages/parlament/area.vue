@@ -123,7 +123,7 @@
                         <b-table
                             striped 
                             hover
-                            :items="dataTables"
+                            :items="OBJECTS"
                             :fields="fields"
                             :current-page="currentPage"
                             :per-page="perPage"
@@ -149,7 +149,7 @@
                             </template>
 
                             <template #cell(history)="row">
-                                <div style="cursor: pointer" @click="row.toggleDetails">{{row.value}}</div>
+                                <div style="cursor: pointer" @click="row.toggleDetails">2020-2025</div>
                             </template>
 
                             <template #row-details="row">
@@ -159,7 +159,7 @@
                                 <div class="woodBox">
                                     <Wood :objects="row.item.historyWood"/>
                                 </div>
-                          </template>
+                            </template>
                         </b-table>
 
                         <!-- Info modal -->
@@ -212,6 +212,7 @@
     import 'selectize/dist/css/selectize.css'
     import VSelectize from '@isneezy/vue-selectize'
     import Wood from '@/components/wood'
+    import {mapActions, mapGetters} from 'vuex'
     export default {
         components: { 
             VSelectize,
@@ -240,171 +241,11 @@
                         active: false
                     }
                 ],
-                dataTables: [
-                    {
-                        comapanyName: 'Anol Group',//Название компании
-                        rating: 5, //рейтинг
-                        phone: '+998 90 987 43 21',//номер телефона 
-                        address: 'А.Яссавий 36/5',//адресс офиса застройщика
-                        historyWood: [
-                            {
-                                year: '2020',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2019',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2018',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            }
-                        ],//история застроек
-                        history: '2018-2020',
-                        machinery: 5,//количество техники
-                        foundationDate: 2005,//дата основания компании
-                        numberWorkers: 5,//количество рабочих
-                        constructedObjects: 6,//количество построенных объектов
-                        foreman: 'Захридин'//имя застройщика
-                    },{
-                        comapanyName: 'Stroy Company',//Название компании
-                        rating: 3, //рейтинг
-                        phone: '+998 95 456 34 09',//номер телефона 
-                        address: 'Кадыри 10.7',//адресс офиса застройщика
-                        historyWood: [
-                            {
-                                year: '2019',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2018',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            }
-                        ],//дерево истории застроек
-                        history: '2018-2019',
-                        machinery: 100,//количество техники
-                        foundationDate: 2003,//дата основания компании
-                        numberWorkers: 1000,//количество рабочих
-                        constructedObjects: 12,//количество построенных объектов
-                        foreman: 'Бобур'//имя застройщика
-                    }
-                ],
                 fields: [
-                    { key: 'comapanyName', label: 'Жилой комплекс', sortable: true },
-                    { key: 'rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
-                    { key: 'phone', label: 'Контакт', sortable: false, class: 'centerBlock' },
-                    { key: 'information', label: 'Доп. информация', sortable: false, class: 'centerBlock' },
-                    { key: 'history', label: 'История', sortable: false, class: 'centerBlock' },
+                    { key: 'residential_complex_value.name', label: 'Жилой комплекс', sortable: true },
+                    { key: 'residential_complex_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
+                    { key: 'residential_complex_value.number', label: 'Контакт', sortable: false, class: 'centerBlock' },
+                    { key: 'information', label: 'Доп. информация', sortable: false, class: 'centerBlock' }
                 ],
                 totalRows: 100,
                 currentPage: 1,
@@ -425,7 +266,6 @@
                     machinery: 0,
                     foundationDate: 0,
                     numberWorkers: 0,
-                    constructedObjects: 0,
                     foreman: 'foreman',
                     content: ''
                 }
@@ -439,25 +279,31 @@
                 .map(f => {
                     return { text: f.label, value: f.key }
                 })
-            }
+            },
+            ...mapGetters('dataBase/objects', [
+                'OBJECTS'
+            ])
         },
         mounted() {
             // Set the initial number of items
-            this.totalRows = this.dataTables.length
+            this.GET_OBJECTS_FROM_API();
+            this.totalRows = this.OBJECTS.length;
         },
         methods: {
+            ...mapActions('dataBase/objects', [
+                'GET_OBJECTS_FROM_API'
+            ]),
             info(item, index, button) {
-                this.infoModal.title = `${item.comapanyName}`
-                this.infoModal.rating = `${item.rating}`
-                this.infoModal.phone = `${item.phone}`
-                this.infoModal.address = `${item.address}`
-                this.infoModal.history = `${item.history}`
-                this.infoModal.machinery = `${item.machinery}`
-                this.infoModal.foundationDate = `${item.foundationDate}`
-                this.infoModal.numberWorkers = `${item.numberWorkers}`
-                this.infoModal.constructedObjects = `${item.constructedObjects}`
-                this.infoModal.comapanyName = `${item.comapanyName}`
-                this.infoModal.foreman = `${item.foreman}`
+                this.infoModal.title = `${item.residential_complex_value.name}`
+                this.infoModal.rating = `${item.residential_complex_value.rating}`
+                this.infoModal.phone = `${item.residential_complex_value.number}`
+                this.infoModal.address = `${item.residential_complex_value.address}`
+                this.infoModal.history = `${item.residential_complex_value.history}`
+                this.infoModal.machinery = `${item.residential_complex_value.count_machinery}`
+                this.infoModal.foundationDate = `${item.residential_complex_value.construction_start_date}`
+                this.infoModal.numberWorkers = `${item.residential_complex_value.count_workers}`
+                this.infoModal.comapanyName = `${item.residential_complex_value.name}`
+                this.infoModal.foreman = `${item.residential_complex_value.foreman}`
                 this.infoModal.content = JSON.stringify(item, null, 2)
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button)
             },
@@ -471,7 +317,6 @@
                 this.infoModal.machinery = ''
                 this.infoModal.foundationDate = ''
                 this.infoModal.numberWorkers = ''
-                this.infoModal.constructedObjects = ''
                 this.infoModal.comapanyName = ''
                 this.infoModal.foreman = ''
             },

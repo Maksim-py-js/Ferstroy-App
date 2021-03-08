@@ -2,18 +2,18 @@
 	<div class="wood">
         <h6 class="woodTitle main__title text-center">Объекты застройщика</h6>
         <div class="woodBody">
-            <div class="woodItem" v-for="object in objects" :key="object.year">
+            <div class="woodItem" v-for="object in woodData" :key="object.year.id">
                 <div class="woodLinks"></div>
                 <div class="woodMiddle text-center">
-                    <div class="woodYear">{{object.year}}</div>
+                    <div class="woodYear">{{object.year.name}}</div>
                     <div class="woodArrow">
                         <img src="@/assets/images/svg/arrayYear.svg"/>
                     </div>
                 </div>
                 <div class="woodLinks">
-                    <nuxt-link to="/developers/developer/object" class="objectItem text-decoration-none"  v-for="item in object.data" :key="item.id">
+                    <nuxt-link to="/developers/developer/object" class="objectItem text-decoration-none"  v-for="item in object.year_residential_complexes" :key="item.id">
                         <div class="woodImage">
-                            <img :src="require(`@/assets/images/png/${item.image}`)">
+                            <img :src="item.image">
                         </div>
                         <div class="woodDevNameBox">
                             <div class="woodDevName rounded maint__text">{{item.name}}</div>
@@ -31,9 +31,25 @@
 	    props: ['objects'],
 		metaInfo () {
 			return {
-				objects: this.objects
+				objects: this.object
 			}
-	    }
+	    },
+        data() {
+            return {
+                woodData: null
+            }
+        },
+        mounted() {
+            this.getWood();
+        },
+        methods: {
+            
+            getWood() {
+                this.woodData = this.objects.years;
+                // let arr = this.objects;
+                // console.log(arr);
+            }
+        }
 	}
 </script>
 
@@ -81,11 +97,17 @@
     .woodImage {
         border: 2px solid transparent;
         display: inline-block;
+        vertical-align: middle;
         font-size: 0;
         transition: 1s;
-        img {
-            width: 100%;
-        }
+        max-width: 150px;
+        width: 100%;
+        max-height: 150px;
+        height: 100%;
+        overflow: hidden;
+    }
+    .woodImage img {
+        width: 100%;
     }
     .woodImage:hover {
         transition: 1s;
@@ -100,6 +122,7 @@
         background: #000;
         display: inline-block;
         margin: 0 11px;
+        vertical-align: middle;
     }
     .woodMiddle {
         display: inline-block;

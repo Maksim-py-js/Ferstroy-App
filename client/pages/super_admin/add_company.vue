@@ -95,6 +95,16 @@
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
+                                <div class="label">Название компании:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="form.company_name"
+                                    type="text"
+                                    placeholder="Имя"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
                                 <div class="label">Телефон застройщика:</div>
                                 <b-form-input
                                     id="filter-input"
@@ -273,8 +283,8 @@
                                 </div>
                             </template>
 
-                            <template #cell(history)="row">
-                                <div style="cursor: pointer" @click="row.toggleDetails">{{row.value}}</div>
+                            <template #cell(years)="row">
+                                <div style="cursor: pointer" @click="row.toggleDetails">2020-20205</div>
                             </template>
 
                             <template #row-details="row">
@@ -282,8 +292,7 @@
                                     <img src="@/assets/images/svg/close.svg" alt="close">
                                 </b-button>
                                 <div class="woodBox">
-                                    <!-- <Wood :objects="row.item.historyWood"/> -->
-                                    asd
+                                    <Wood :objects="row.item"/>
                                 </div>
                             </template>
 
@@ -348,7 +357,13 @@
                             <div class="dataItem">
                                 <div class="label">Дата застройки:</div>
                                 <b-col md="auto" class="p-0">
-                                    <b-calendar v-model="value" hide-header="hideHeader" @context="onContext" locale="en-US"></b-calendar>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="form.year"
+                                        type="text"
+                                        placeholder="2020"
+                                        class="searchBar__input br-0"
+                                    ></b-form-input>
                                 </b-col>
                             </div>
                             <div class="dataItem">
@@ -559,6 +574,7 @@
     import VSelectize from '@isneezy/vue-selectize'
     import Wood from '@/components/wood'
     import axios from 'axios'
+    import {mapActions, mapGetters} from 'vuex'
     export default {
         components: { 
             VSelectize,
@@ -581,171 +597,12 @@
                         active: false
                     }
                 ],
-                dataTables: [
-                    {
-                        comapanyName: 'Anol Group',//Название компании
-                        rating: 5, //рейтинг
-                        phone: '+998 90 987 43 21',//номер телефона 
-                        address: 'А.Яссавий 36/5',//адресс офиса застройщика
-                        historyWood: [
-                            {
-                                year: '2020',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2019',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2018',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            }
-                        ],//история застроек
-                        history: '2018-2020',
-                        machinery: 5,//количество техники
-                        foundationDate: 2005,//дата основания компании
-                        numberWorkers: 5,//количество рабочих
-                        constructedObjects: 6,//количество построенных объектов
-                        foreman: 'Захридин'//имя застройщика
-                    },{
-                        comapanyName: 'Stroy Company',//Название компании
-                        rating: 3, //рейтинг
-                        phone: '+998 95 456 34 09',//номер телефона 
-                        address: 'Кадыри 10.7',//адресс офиса застройщика
-                        historyWood: [
-                            {
-                                year: '2019',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2018',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            }
-                        ],//дерево истории застроек
-                        history: '2018-2019',
-                        machinery: 100,//количество техники
-                        foundationDate: 2003,//дата основания компании
-                        numberWorkers: 1000,//количество рабочих
-                        constructedObjects: 12,//количество построенных объектов
-                        foreman: 'Бобур'//имя застройщика
-                    }
-                ],
                 fields: [
                     { key: 'developer_value.name', label: 'Имя', sortable: true },
                     { key: 'developer_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
                     { key: 'developer_value.number', label: 'Номер', sortable: false, class: 'centerBlock' },
                     { key: 'information', label: 'Доп. информация', sortable: false, class: 'centerBlock' },
-                    { key: 'developer_value.history', label: 'История', sortable: false, class: 'centerBlock' },
+                    { key: 'years', label: 'История', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
                 totalRows: 100,
@@ -792,7 +649,8 @@
                 value: '',
                 context: null,
                 dateArr: [],
-                dateId: null,
+                dateId: '',
+                addObjectAct: false,
                 form: {
                     // object
                     companyName: '',
@@ -811,6 +669,7 @@
                     construction_start_date: "20.12.2017",
                     construction_finish_date: "20.12.2022",
                     developer_id: "1",
+                    year: '',
 
                     // developer
                     developerName: '',
@@ -840,12 +699,19 @@
                 .map(f => {
                     return { text: f.label, value: f.key }
                 })
-            }
+            },
+            ...mapGetters('dataBase/developers', [
+                'DEVELOPERS'
+            ])
         },
         mounted() {
             this.loadCompanies();
+            this.GET_DEVELOPERS_FROM_API();
         },
         methods: {
+            ...mapActions('dataBase/developers', [
+                'GET_DEVELOPERS_FROM_API'
+            ]),
             info(item, index, button) {
                 this.infoModal.title = `${item.developer_value.name}`
                 this.infoModal.rating = `${item.developer_value.rating}`
@@ -903,7 +769,6 @@
                         data.forEach(item => {
                             this.developer_value.push(item.developer_value);
                         })
-                        console.log(this.developer_value);
                     })
                     .then(() => {
                         this.totalRows = this.developers.length
@@ -939,7 +804,6 @@
                 })
                 .then(response => {
                     if (response.created_at) {
-                        console.log(this.form.selectLogo);
 
                         this.form.comapanyName = '';
                         this.form.number = '';
@@ -995,10 +859,8 @@
                         // });
                     }
                 })
-                console.log(this.idPatchCompany);
             },
             async deleteCompany() {
-                console.log(this.idDeleteCompany);
                 await this.$axios.delete(`/api/developers/${this.idDeleteCompany}`).then(response => {
                     // this.$notify({
                     //     group: 'admin-notification',
@@ -1052,51 +914,77 @@
                 })
             },
             async postDate() {
-                const formData = new FormData();
-                formData.append("name", this.context.activeYMD);
-                // console.log('this.context');
-                this.$axios.$post('/api/years', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                .then(response => {
-                    if (response.created_at) {
-                        this.$axios.$get('/api/years')
-                        .then(response => {
-                            response.forEach(item => {
-                                if (item.year_value.name == this.context.activeYMD) {
-                                    this.dateId = item.year_value.id;
-                                    this.postObject();
+                console.log(this.context);
+                this.$axios.$get('/api/years')
+                    .then(response => {
+                        let array = response.sort((a, b) => a.year_value.name.localeCompare(b.year_value.name)), //отсортированный массив
+                            resultSearch = this.search(array.sort(), this.form.year); //результата поиска
+
+                        if (resultSearch) { //если год найден
+                            this.dateId = resultSearch; //записать id года
+                            this.postObject(); //добавить строищийся объект застройщику и году
+                            this.dateId = ''; //обнулить id
+                            this.addObjectAct = true; //объявить что строищийся объект добавлен
+                        }
+                    })
+                    .then(() => {
+                        if (this.addObjectAct) {
+                            this.addObjectAct = false;
+                            this.form.year = '';
+                            this.form.comapanyName = '';
+                            return this.loadCompanies(); //выйти из рекурсии
+                        } 
+                        // если год не найден добавть год
+                        if (this.dateId == '') {
+                            const formData = new FormData();
+                            formData.append("name", this.form.year);
+
+                            this.$axios.$post('/api/years', formData, {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
                                 }
                             })
-                            console.log(this.dateId);
-                        })
-                        this.loadCompanies();
-                        // this.$notify({
-                        //     group: 'admin-notification',
-                        //     title: 'Post successfully created',
-                        //     type: 'success'
-                        // });
+                            .then(response => {
+                                if (response.created_at) {
+                                    this.postDate();//вход в рекурсию
+                                }
+                            })
+                        }
+                    })
+            },
+            // search
+            search(list, item) {
+                let low = 0,
+                    high = list.length - 1,
+                    mid,
+                    guess;
+
+                while(high >= low) {
+                    mid = Math.floor((high + low) / 2);
+                    guess = list[mid].year_value.name;
+                    if(guess == item) {
+                        return list[mid].year_value.id;
+                    } else if (guess > item) {
+                        high = mid - 1;
+                    } else {
+                        low = mid + 1;
                     }
-                })
+                }
+                return false;
             },
             // form
             onContext(ctx) {
                 this.context = ctx
             },
             onFileChange(e) {
-                console.log(this.form.selectLogo);
                 // const file = this.form.selectLogo;
                 // this.url = URL.createObjectURL(file);
                 // this.form.previewImg.push({
                 //     name: this.url,
                 //     id: Math.floor(Math.random() * Math.floor(1000))
                 // });
-                console.log('выбранный файл:' + this.form.selectLogo, 'Превью:' + this.form.previewImg);
             },
             onFileChangeTwo(e) {
-                console.log(e.target.files);
                 const file = e.target.files[0];
                 this.url = URL.createObjectURL(file);
                 this.form.previewImg.push({
@@ -1107,13 +995,11 @@
             daleteImage(id) {
                 let arr = this.form.selectLogo;
                 arr.forEach(item => {
-                    // item.id == id ?  : console.log('false');
                     if (item.id == id) {
                         const index =  arr.indexOf(item);
                         let removed = arr.splice(index, 1);
                         // var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
                         // var removed = myFish.splice(1, 1);
-                        // console.log(myFish);
                     }
                 })
             }

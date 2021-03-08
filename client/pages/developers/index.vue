@@ -16,11 +16,16 @@
                 </div>
                 <div class="devCards d-flex flex-wrap justify-content-center">
                     
-                    <nuxt-link to="/developers/developer" class="devCards__card text-decoration-none text-center rounded">
+                    <nuxt-link 
+                        v-for="developer in DEVELOPERS"
+                        :key="developer.index"
+                        to="/developers/developer" 
+                        class="devCards__card text-decoration-none text-center rounded"
+                    >
                         <div class="card__rating d-flex justify-content-end">
                             <div class="d-flex align-items-center">
                                 <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackStar.svg"></div>
-                                <div class="card__rating_text">4.5</div>
+                                <div class="card__rating_text">{{developer.developer_value.rating}}</div>
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
@@ -31,158 +36,11 @@
                             <img src="@/assets/images/svg/logo/devLogo.svg" alt="Logo">
                         </div>
                         <div class="devCards__name card__buildName">
-                            Ferghana MCJ Stroy
+                            {{developer.developer_value.company_name}}
                         </div>
                         <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">31 Дом сдан</div>
-                        <div class="devCards__text main__text">25 домов в процесе</div>
-                    </nuxt-link>
-                    <nuxt-link to="/developers/developer" class="devCards__card text-decoration-none text-center rounded">
-                        <div class="card__rating d-flex justify-content-end">
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackStar.svg"></div>
-                                <div class="card__rating_text">4.5</div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
-                                <div class="card__rating_text">25</div>
-                            </div>
-                        </div>
-                        <div class="devCards__logo">
-                            <img src="@/assets/images/svg/logo/devLogo.svg" alt="Logo">
-                        </div>
-                        <div class="devCards__name card__buildName">
-                            Ferghana MCJ Stroy
-                        </div>
-                        <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">31 Дом сдан</div>
-                        <div class="devCards__text main__text">25 домов в процесе</div>
-                    </nuxt-link>
-                    <nuxt-link to="/developers/developer" class="devCards__card text-decoration-none text-center rounded">
-                        <div class="card__rating d-flex justify-content-end">
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackStar.svg"></div>
-                                <div class="card__rating_text">4.5</div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
-                                <div class="card__rating_text">25</div>
-                            </div>
-                        </div>
-                        <div class="devCards__logo">
-                            <img src="@/assets/images/svg/logo/devLogo.svg" alt="Logo">
-                        </div>
-                        <div class="devCards__name card__buildName">
-                            Ferghana MCJ Stroy
-                        </div>
-                        <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">31 Дом сдан</div>
-                        <div class="devCards__text main__text">25 домов в процесе</div>
-                    </nuxt-link>
-                    <nuxt-link to="/developers/developer" class="devCards__card text-decoration-none text-center rounded">
-                        <div class="card__rating d-flex justify-content-end">
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackStar.svg"></div>
-                                <div class="card__rating_text">4.5</div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
-                                <div class="card__rating_text">25</div>
-                            </div>
-                        </div>
-                        <div class="devCards__logo">
-                            <img src="@/assets/images/svg/logo/devLogo.svg" alt="Logo">
-                        </div>
-                        <div class="devCards__name card__buildName">
-                            Ferghana MCJ Stroy
-                        </div>
-                        <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">31 Дом сдан</div>
-                        <div class="devCards__text main__text">25 домов в процесе</div>
-                    </nuxt-link>
-                    <nuxt-link to="/developers/developer" class="devCards__card text-decoration-none text-center rounded">
-                        <div class="card__rating d-flex justify-content-end">
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackStar.svg"></div>
-                                <div class="card__rating_text">4.5</div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
-                                <div class="card__rating_text">25</div>
-                            </div>
-                        </div>
-                        <div class="devCards__logo">
-                            <img src="@/assets/images/svg/logo/devLogo.svg" alt="Logo">
-                        </div>
-                        <div class="devCards__name card__buildName">
-                            Ferghana MCJ Stroy
-                        </div>
-                        <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">31 Дом сдан</div>
-                        <div class="devCards__text main__text">25 домов в процесе</div>
-                    </nuxt-link>
-                    <nuxt-link to="/developers/developer" class="devCards__card text-decoration-none text-center rounded">
-                        <div class="card__rating d-flex justify-content-end">
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackStar.svg"></div>
-                                <div class="card__rating_text">4.5</div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
-                                <div class="card__rating_text">25</div>
-                            </div>
-                        </div>
-                        <div class="devCards__logo">
-                            <img src="@/assets/images/svg/logo/devLogo.svg" alt="Logo">
-                        </div>
-                        <div class="devCards__name card__buildName">
-                            Ferghana MCJ Stroy
-                        </div>
-                        <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">31 Дом сдан</div>
-                        <div class="devCards__text main__text">25 домов в процесе</div>
-                    </nuxt-link>
-                    <nuxt-link to="/developers/developer" class="devCards__card text-decoration-none text-center rounded">
-                        <div class="card__rating d-flex justify-content-end">
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackStar.svg"></div>
-                                <div class="card__rating_text">4.5</div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
-                                <div class="card__rating_text">25</div>
-                            </div>
-                        </div>
-                        <div class="devCards__logo">
-                            <img src="@/assets/images/svg/logo/devLogo.svg" alt="Logo">
-                        </div>
-                        <div class="devCards__name card__buildName">
-                            Ferghana MCJ Stroy
-                        </div>
-                        <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">31 Дом сдан</div>
-                        <div class="devCards__text main__text">25 домов в процесе</div>
-                    </nuxt-link>
-                    <nuxt-link to="/developers/developer" class="devCards__card text-decoration-none text-center rounded">
-                        <div class="card__rating d-flex justify-content-end">
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackStar.svg"></div>
-                                <div class="card__rating_text">4.5</div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
-                                <div class="card__rating_text">25</div>
-                            </div>
-                        </div>
-                        <div class="devCards__logo">
-                            <img src="@/assets/images/svg/logo/devLogo.svg" alt="Logo">
-                        </div>
-                        <div class="devCards__name card__buildName">
-                            Ferghana MCJ Stroy
-                        </div>
-                        <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">31 Дом сдан</div>
-                        <div class="devCards__text main__text">25 домов в процесе</div>
+                        <div class="devCards__text main__text">{{developer.developer_value.count_constructed_objects}} Дом сдан</div>
+                        <div class="devCards__text main__text">{{developer.developer_value.count_under_constructed_objects}} домов в процесе</div>
                     </nuxt-link>
 
                 </div>
@@ -224,6 +82,7 @@
 import Header from '@/components/main/header'
 import Footer from '@/components/main/footer'
 import VSelectize from '@isneezy/vue-selectize'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
     components: { 
@@ -281,6 +140,19 @@ export default {
             ],        
             selected_pagination: 1
         }
+    },
+    computed: {
+        ...mapGetters('dataBase/developers', [
+            'DEVELOPERS'
+        ])
+    },
+    mounted() {
+        this.GET_DEVELOPERS_FROM_API();
+    },
+    methods: {
+        ...mapActions('dataBase/developers', [
+            'GET_DEVELOPERS_FROM_API'
+        ])
     }
 }
 </script>
