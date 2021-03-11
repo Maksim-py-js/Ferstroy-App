@@ -18,8 +18,8 @@
                     
                     <nuxt-link 
                         v-for="developer in DEVELOPERS"
-                        :key="developer.index"
-                        to="/developers/developer" 
+                        :key="developer.index" 
+                        :to="`developers/developer/${developer.developer_value.id}`"
                         class="devCards__card text-decoration-none text-center rounded"
                     >
                         <div class="card__rating d-flex justify-content-end">
@@ -39,7 +39,7 @@
                             {{developer.developer_value.company_name}}
                         </div>
                         <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">{{developer.developer_value.count_constructed_objects}} Дом сдан</div>
+                        <div class="devCards__text main__text">{{developer.developer_value.count_constructed_objects}}-й Дом сдан</div>
                         <div class="devCards__text main__text">{{developer.developer_value.count_under_constructed_objects}} домов в процесе</div>
                     </nuxt-link>
 

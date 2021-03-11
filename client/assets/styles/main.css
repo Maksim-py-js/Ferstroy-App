@@ -2077,7 +2077,7 @@ a.linkCard {
       background: transparent url("../images/svg/constructionProgress-btn.svg") no-repeat 50% 50%/cover; }
 
 .reviews {
-  margin-bottom: 70px; }
+  margin: 30px 0 70px; }
   .reviews__container {
     margin-top: 30px; }
   .reviews__column_lg {
