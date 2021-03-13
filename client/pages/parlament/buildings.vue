@@ -166,8 +166,12 @@
                                 :total-rows="totalRows"
                                 :per-page="perPage"
                                 align="center"
-
-                            ></b-pagination>
+                                first-number
+                                last-number
+                            >
+                                <template #prev-text><img class="ratate-180" src="@/assets/images/svg/pagination-arrow.svg"></template>
+                                <template #next-text><img src="@/assets/images/svg/pagination-arrow.svg"></template>
+                            </b-pagination>
                         </b-col>
 
                         <!-- Info modal -->
