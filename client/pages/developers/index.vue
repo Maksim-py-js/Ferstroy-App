@@ -19,7 +19,7 @@
                     <nuxt-link 
                         v-for="developer in DEVELOPERS"
                         :key="developer.index" 
-                        :to="`developers/developer/${developer.developer_value.id}`"
+                        :to="`/developers/developer/${developer.developer_value.id}`"
                         class="devCards__card text-decoration-none text-center rounded"
                     >
                         <div class="card__rating d-flex justify-content-end">

@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header />  
-            <div class="dev container_1290">
+            <div class="dev container_1290" v-if="this.developer != ''">
                 <b-breadcrumb :items="breadcrumbItems" variant="transparent" class="mt-5"></b-breadcrumb>
                 <div class="dev__data d-flex justify-content-center align-items-start">
                     <div class="dev__left">
@@ -10,14 +10,14 @@
                         </div>
                     </div>
                     <div>
-                        <h2 class="dev__name main__title">{{this.dataDeveloper.developer_value.company_name}}</h2>
-                        <div class="dev__dataRating d-flex">
+                        <h2 class="dev__name main__title">{{this.developer.developer_value.company_name}}</h2>
+                        <div class="dev__dataRating d-flex"> 
                             <div>
-                                <div class="dev__rating main__text">Рейтинг {{this.dataDeveloper.developer_value.rating}}</div>
-                                <div class="dev__vote">{{this.dataDeveloper.developer_value.rating_votes}} голосов</div>
+                                <div class="dev__rating main__text">Рейтинг {{this.developer.developer_value.rating}}</div>
+                                <div class="dev__vote">{{this.developer.developer_value.rating_votes}} голосов</div>
                             </div>
                             <div class="dev__stars">
-                                <img src="@/assets/images/svg/stars/4.svg" alt="star">
+                                <get-star-rating :value="`${this.developer.developer_value.rating}`"></get-star-rating>
                             </div> 
                         </div>
                         <div class="d-flex">
@@ -25,20 +25,20 @@
                                 <img src="@/assets/images/svg/card-icons/blackMessage.svg" alt="message">
                             </div>
                             <div class="dev__reviewsText main__text">
-                                <span class="dev__reviewsNum main__text">{{this.dataDeveloper.comments.length}}</span>
+                                <span class="dev__reviewsNum main__text">{{this.developer.comments.length}}</span>
                                 <span>Отзывов</span>
                             </div>
                         </div>
                         <h6 class="dev__dataName">Контактная информация</h6>
                         <div class="dev__dataText main__text">
                             <span class="greyText">Адрес:</span>
-                            {{this.dataDeveloper.developer_value.company_address}}
+                            {{this.developer.developer_value.company_address}}
                         </div>
                         <div class="dev__dataText main__text">
                             <span class="greyText">Сайт:</span>
-                            {{this.dataDeveloper.developer_value.company_website}}
+                            {{this.developer.developer_value.company_website}}
                         </div>
-                            <a :href="`tel:${this.dataDeveloper.developer_value.number}`">
+                            <a :href="`tel:${this.developer.developer_value.number}`">
                                 <div class="dev__phoneBtn rounded text-center">
                                     Позвонить
                                 </div>
@@ -47,46 +47,42 @@
                 </div>
                 <div class="dev__about">
                     <h5 class="main__title text-center">О застройщике</h5>
-                    <h6 class="discription__title">{{this.dataDeveloper.developer_value.company_about_title}}</h6>
-                    <span class="main__text">{{this.dataDeveloper.developer_value.company_about_text}}</span>
+                    <h6 class="discription__title">{{this.developer.developer_value.company_about_title}}</h6>
+                    <span class="main__text">{{this.developer.developer_value.company_about_text}}</span>
                 </div>
                 <div class="dev__statistics">
                     <div class="main__title text-center">Количество объектов</div>
                     <div class="d-flex flex-wrap advantages__cards">
-                        <div class="advantages__card_sm">
-                            <div class="advantages__card_count">{{this.dataDeveloper.developer_value.count_constructed_objects}}</div> 
-                            <div class="advantages__card_name">Кол.во построенных объектов</div> 
+                        <div class="advantages__card_sm" 
+                            v-for="item in developer.developer_advantages" 
+                            :key="item.index"
+                            v-if="item.advantage.count != null"
+                        >
+                            <div class="advantages__card_count">{{item.advantage.count}}</div> 
+                            <div class="advantages__card_name">{{item.advantage.title}}</div> 
                         </div>
-                        <div class="advantages__card_sm">
-                            <div class="advantages__card_count">{{this.dataDeveloper.developer_value.count_under_constructed_objects}}</div> 
-                            <div class="advantages__card_name">Кол.во строящихся объектов</div> 
-                        </div>
-                        <div class="advantages__card_sm">
-                            <div class="advantages__card_count">7850</div> 
-                            <div class="advantages__card_name">Кол.во квартир в продаже</div> 
-                        </div>  
                     </div>
                 </div>
 
-                <Wood v-if="this.dataDeveloper.years.length > 1" :objects="this.dataDeveloper"/>
+                <Wood v-if="this.developer.years.length >= 1" :objects="this.developer"/>
 
                 <div class="reviews">
                     <div class="container_1290">
                         <div class="main__title text-center">Отзывы наших клиентов</div>
                         <div class="reviews__container d-flex justify-content-between">
                             <div class="reviews__column_lg d-flex flex-wrap">
-                                <div v-if="this.dataDeveloper.comments.length > 1">
-                                    <div class="reviews__message" v-for="i in 3" :key="i">
+                                <div v-if="this.developer.comments.length >= 1">
+                                    <div class="reviews__message" v-for="i in developer.comments" :key="i.index">
                                         <div class="message__title d-flex justify-content-between align-items-center">
-                                            <div class="message__name">Сардор Ибрагимов</div>
+                                            <div class="message__name">{{i.name}} {{i.surname}}</div>
                                             <div class="message__rating d-flex">
                                                 <div class="message__rating_title">Оценка к компании</div> 
                                                 <div class="message__rating_stars">
-                                                    <img src="@/assets/images/svg/stars/4.svg">
+                                                    <get-star-rating :value="`${i.rating}`"></get-star-rating>
                                                 </div> 
                                             </div>    
                                         </div>
-                                        <div class="reviews__text">Пользуются большим спросом, на нашем сайте можете размещать не ограниченное колличество квартир в любой из категорий. А так же размещать рекламные и информационные статьи. Удачи! Пользуются большим спросом, на нашем сайте можете размещать не ограниченное колличество квартир в любой из категорий.</div>
+                                        <div class="reviews__text">{{i.text}}</div>
                                     </div>
                                     <b-button variant="transparent" class="main__button_seeMore shadow-none">
                                         Показать ещё
@@ -105,6 +101,7 @@
                                                 <div class="reviews__form_label">Как вас зовут?</div>
                                                 <div class="reviews__form_input reviews__form_input_md">
                                                     <input 
+                                                        v-model="comment.name"
                                                         type="text" 
                                                         name="name"
                                                         placeholder="Ваше имя"
@@ -115,6 +112,7 @@
                                                 <div class="reviews__form_label">Email</div>
                                                 <div class="reviews__form_input reviews__form_input_md">
                                                     <input 
+                                                        v-model="comment.email"
                                                         type="email" 
                                                         name="email"
                                                         placeholder="Ваша электронная почта"
@@ -124,23 +122,25 @@
                                         </div>
                                         <div class="reviews__form_input">
                                             <input 
+                                                v-model="comment.surname"
                                                 type="text" 
                                                 name="surname"
                                                 placeholder="Ваша фамилия (указывать не обязательно)"
                                             >
                                         </div>
                                         <div class="reviews__form_label">Оценка компании</div>
-                                        <img src="@/assets/images/svg/stars/0.svg" style="margin-top: 14px;">
+                                        <set-star-rating @rating='getRating'></set-star-rating>
                                         <div class="reviews__form_label">Отзывы</div>
                                         <div class="reviews__form_textarea">
                                             <textarea 
+                                                v-model="comment.text"
                                                 type="text" 
                                                 name="text"
                                                 placeholder="Текст вашего сообщения"
                                             ></textarea>
                                         </div>
                                         <div class="reviews__form_btn d-flex align-items-center">
-                                            <b-button variant="transparent" class="main__btnSubmit shadow-none">Оставить отзыв</b-button>
+                                            <b-button variant="transparent" class="main__btnSubmit shadow-none" @click="postComment()">Оставить отзыв</b-button>
                                             <div class="reviews__form_text">Оставляя отзыв вы даёте согласие на обработку персональных данных</div>
                                         </div>
                                     </form>
@@ -148,39 +148,39 @@
                             </div>
                             <div class="reviews__rating">
                                 <div class="reviews__block">
-                                    <div class="reviews__text reviews__text_pb20">Рейтинг от {{this.dataDeveloper.developer_value.company_name}}</div>
-                                    <div class="reviews__count">{{this.dataDeveloper.developer_value.rating}}</div>
+                                    <div class="reviews__text reviews__text_pb20">Рейтинг от {{this.developer.developer_value.company_name}}</div>
+                                    <div class="reviews__count">{{this.developer.developer_value.rating}}</div>
                                 </div>
                                 <div class="reviews__block reviews__block_w">
                                     <div class="reviews__text reviews__text_pb15">Рейтинг от посетителей</div>
-                                    <div class="reviews__count">{{this.dataDeveloper.developer_value.rating}}</div>
+                                    <div class="reviews__count">{{this.developer.developer_value.rating}}</div>
                                     <div class="reviews__rating_stars">                                
                                         <div class="reviews__starBlock">
-                                            <img src="@/assets/images/svg/stars/5.svg">
+                                            <get-star-rating :value="5"></get-star-rating>
                                             <div class="progressBar">
                                                 <b-progress variant="transparent" value="60" max="100" class="mb-3"></b-progress>
                                             </div>
                                         </div>
                                         <div class="reviews__starBlock">
-                                            <img src="@/assets/images/svg/stars/4.svg">
+                                            <get-star-rating :value="4"></get-star-rating>
                                             <div class="progressBar">
                                                 <b-progress variant="transparent" value="35" max="100" class="mb-3"></b-progress>
                                             </div>
                                         </div>
                                         <div class="reviews__starBlock">
-                                            <img src="@/assets/images/svg/stars/3.svg">
+                                            <get-star-rating :value="3"></get-star-rating>
                                             <div class="progressBar">
                                                 <b-progress variant="transparent" value="15" max="100" class="mb-3"></b-progress>
                                             </div>
                                         </div>
                                         <div class="reviews__starBlock">
-                                            <img src="@/assets/images/svg/stars/2.svg">
+                                            <get-star-rating :value="2"></get-star-rating>
                                             <div class="progressBar">
                                                 <b-progress variant="transparent" value="30" max="100" class="mb-3"></b-progress>
                                             </div>
                                         </div>
                                         <div class="reviews__starBlock">
-                                            <img src="@/assets/images/svg/stars/1.svg">
+                                            <get-star-rating :value="1"></get-star-rating>
                                             <div class="progressBar">
                                                 <b-progress variant="transparent" value="12" max="100" class="mb-3"></b-progress>
                                             </div>
@@ -197,16 +197,20 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Header from '@/components/main/header'
 import Footer from '@/components/main/footer'
 import Wood from '@/components/wood'
-import {mapActions, mapGetters} from 'vuex'
+import SetStarRating from '@/components/setRatingValStars'
+import GetStarRating from '@/components/getRatingValStars'
 
 export default {
     components: { 
         Header,
         Footer,
-        Wood
+        Wood,
+        SetStarRating,
+        GetStarRating
     },
     async asyncData({ params }) {
         const id = params.id   
@@ -214,58 +218,6 @@ export default {
     },
     data() {
         return {
-            objects: [
-                {
-                    year: '2020',
-                    data: [
-                        {
-                            id: 1,
-                            name: 'ЖК Фергана',
-                            image: 'minBuild.png'
-                        },
-                        {
-                            id: 3,
-                            name: 'Gold House',
-                            image: 'minBuild.png'
-                        },
-                        {
-                            id: 2,
-                            name: 'Yerevan',
-                            image: 'minBuild.png'
-                        },
-                        {
-                            id: 4,
-                            name: 'Gold House',
-                            image: 'minBuild.png'
-                        },
-                        {
-                            id: 5,
-                            name: 'Yerevan',
-                            image: 'minBuild.png'
-                        }
-                    ]
-                },
-                {
-                    year: '2019',
-                    data: [
-                        {
-                            id: 1,
-                            name: 'ЖК Фергана',
-                            image: 'minBuild.png'
-                        },
-                        {
-                            id: 3,
-                            name: 'Gold House',
-                            image: 'minBuild.png'
-                        },
-                        {
-                            id: 2,
-                            name: 'Yerevan',
-                            image: 'minBuild.png'
-                        }
-                    ]
-                }
-            ],
             breadcrumbItems: [
                 {
                     text: 'Главная',
@@ -280,53 +232,63 @@ export default {
                     active: true
                 }
             ],
-            developers: null
+            comment: {
+                name: null,
+                surname: null,
+                email: null,
+                rating: null,
+                text: null,
+                residential_complex_id: null,
+                developer_id: null
+            },
+            developer: ''
         }
     },
     mounted() {
-        this.GET_DEVELOPERS_FROM_API();
-        this.getDataDeveloper();
-
-    },
-    computed: {
-        ...mapGetters('dataBase/developers', [
-            'DEVELOPERS'
-        ]),
-        dataDeveloper() {
-            // сортируем массив застройщиков по id
-            this.developers = this.DEVELOPERS;
-            let arr = this.developers.sort((a, b) => {return a.developer_value.id - b.developer_value.id});
-            // ищем данные нужного застройщика по id
-            return this.search(arr, this.id);
-        }
+        this.getDeveloper();
+        console.log(this.developer);
     },
     methods: {
-        ...mapActions('dataBase/developers', [
-            'GET_DEVELOPERS_FROM_API'
-        ]),
-        getDataDeveloper() {
-            console.log(this.dataDeveloper);
+        getRating(value) {
+            this.comment.rating = value.rating
         },
-        // search
-        search(list, item) {
-            let low = 0,
-                high = list.length - 1,
-                mid,
-                guess;
+        async getDeveloper() {
+            axios
+                .get(`http://213.230.96.125/api/developers/${this.id}`)
+                .then(response => {
+                    console.log(response.data[0]);
+                    return this.developer = response.data[0];
+                })
+        },
+        async postComment() {
+            const formData = new FormData();
 
-            while(high >= low) {
-                mid = Math.floor((high + low) / 2);
-                guess = list[mid];
-                if(guess.developer_value.id == item) {
-                    return guess;
-                } else if (guess.developer_value.id > item) {
-                    high = mid - 1;
-                } else {
-                    low = mid + 1;
+            formData.append("name", this.comment.name);
+            formData.append("surname", this.comment.surname);
+            formData.append("email", this.comment.email);
+            formData.append("rating", this.comment.rating);
+            formData.append("text", this.comment.text);
+            formData.append("residential_complex_id", this.comment.residential_complex_id);
+            formData.append("developer_id", this.id);
+
+            this.$axios.$post('/api/comments', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
-            }
-            return false;
-        },
+            })
+            .then(response => {
+                if (response.created_at) {
+                    this.comment.name = '';
+                    this.comment.surname = '';
+                    this.comment.address = '';
+                    this.comment.email = '';
+                    this.comment.rating = '';
+                    this.comment.text = '';
+                }
+
+                this.getDeveloper();
+            })
+        }
     }
 }
 </script>

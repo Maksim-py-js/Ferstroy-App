@@ -2573,6 +2573,7 @@ a.linkCard {
         width: 850px;
     }
     &__message {
+        display: inline-block;
         width: 100%;
         max-width: 850px;
         padding: 40px;
@@ -2646,7 +2647,7 @@ a.linkCard {
         border-radius: 3px;
         &_w {
             background: #FFFFFF;
-            padding: 21px 40px 40px 40px;
+            padding: 21px 20px 40px 40px;
 
         }
     }

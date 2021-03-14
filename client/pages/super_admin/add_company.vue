@@ -258,7 +258,7 @@
                         <b-table
                             striped 
                             hover
-                            :items="developers"
+                            :items="DEVELOPERS"
                             :fields="fields"
                             :current-page="currentPage"
                             :per-page="perPage"
@@ -343,6 +343,26 @@
                                     placeholder="ул. А.Яссовий 39/10"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Местонохождение объекта:</div>
+                                <div class="map">
+                                    <no-ssr>
+                                        <yandex-map
+                                            :coords="coords"
+                                            :zoom="10"
+                                            style="height: 300px"
+                                            @click="onClick"
+                                        >
+                                            <ymap-marker
+                                                marker-id="123"
+                                                :coords="coords"
+                                                :icon="markerIcon"
+                                                class="mapMarker"
+                                            />
+                                        </yandex-map>
+                                    </no-ssr>
+                                </div>
                             </div>
                             <div class="dataItem">
                                 <div class="label">Электронная почта:</div>
@@ -641,16 +661,26 @@
                 residential_complex: [],
                 residential_complex_value: [],
                 developers: [],
-                developer_value: [],
+                // developer_value: [],
                 // form
                 idDeleteCompany: null,
                 idPatchCompany: null,
                 idPostObject: null,
                 value: '',
+                coords: [40.385245, 71.786176],
                 context: null,
                 dateArr: [],
                 dateId: '',
                 addObjectAct: false,
+                markerIcon: {
+                    layout: 'default#imageWithContent',
+                    imageHref: ``,
+                    imageSize: [89, 113],
+                    imageOffset: [-40, -110],
+                    content: '',
+                    contentOffset: [0, 0],
+                    contentLayout: '<div class="marksItem"><svg width="89" height="114" viewBox="0 0 89 114" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M66.1622 67.2483C50.6719 59.392 34.1273 60.7714 29.2829 70.3232C27.3658 74.1032 27.4804 78.6769 29.6201 83.5506L41.6343 111.317C41.665 111.385 41.7361 111.441 41.7748 111.508C42.4647 112.719 44.049 113.306 45.0962 113.073C53.5679 111.187 69.1827 107.558 75.1525 106.23C75.1525 106.23 75.1553 106.228 75.1576 106.227L75.1944 106.219C80.08 105 83.6326 102.442 85.4696 98.8198C90.314 89.2681 81.6524 75.1046 66.1622 67.2483Z" fill="url(#paint0_linear)"/><path d="M44.5 0C19.9634 0 0 19.3071 0 43.0371C0 52.428 3.06708 61.3511 8.87718 68.8373L41.757 111.665C41.8391 111.769 41.9646 111.808 42.0559 111.901C43.699 113.603 46.0701 113.175 47.2407 111.665C56.709 99.4468 74.064 76.6281 80.7367 68.0207C80.7367 68.0207 80.739 68.0141 80.7413 68.0097L80.7823 67.9567C86.1588 60.6514 89 52.0352 89 43.0371C89 19.3071 69.0366 0 44.5 0ZM44.5 66.2551C31.2892 66.2551 20.4928 55.8136 20.4928 43.0371C20.4928 30.2606 31.2892 19.8191 44.5 19.8191C57.7108 19.8191 68.5072 30.2606 68.5072 43.0371C68.5072 55.8136 57.7108 66.2551 44.5 66.2551Z" fill="#77C85B"/><defs><linearGradient id="paint0_linear" x1="66.1622" y1="67.2483" x2="43.0934" y2="112.733" gradientUnits="userSpaceOnUse"><stop offset="0.34375" stop-opacity="0"/><stop offset="1" stop-opacity="0.28"/></linearGradient></defs></svg></div>'
+                },
                 form: {
                     // object
                     companyName: '',
@@ -670,6 +700,11 @@
                     construction_finish_date: "20.12.2022",
                     developer_id: "1",
                     year: '',
+
+                    // marker
+                    markerX: '',
+                    markerY: '',
+                    image: '',
 
                     // developer
                     developerName: '',
@@ -702,15 +737,29 @@
             },
             ...mapGetters('dataBase/developers', [
                 'DEVELOPERS'
+            ]),
+            ...mapGetters('dataBase/years', [
+                'YEARS'
+            ]),
+            ...mapGetters('dataBase/markers', [
+                'MARKERS'
             ])
         },
         mounted() {
-            this.loadCompanies();
-            this.GET_DEVELOPERS_FROM_API();
+            this.GET_DEVELOPERS_FROM_API()
+                .then(() => {
+                    this.totalRows = this.DEVELOPERS.length
+                });
         },
         methods: {
             ...mapActions('dataBase/developers', [
                 'GET_DEVELOPERS_FROM_API'
+            ]),
+            ...mapActions('dataBase/years', [
+                'GET_YEARS_FROM_API'
+            ]),
+            ...mapActions('dataBase/markers', [
+                'GET_MARKERS_FROM_API'
             ]),
             info(item, index, button) {
                 this.infoModal.title = `${item.developer_value.name}`
@@ -756,24 +805,7 @@
                 this.currentPage = 1
             },
             // axios
-            async loadCompanies() {
-                axios
-                    .get('http://213.230.96.125/api/developers')
-                    .then(response => {
-                        this.developers = response.data; 
-                    })
-                    .then(response => {
-                        // this.allCompany();
-                        // this.allObjects();
-                        let data = this.developers;
-                        data.forEach(item => {
-                            this.developer_value.push(item.developer_value);
-                        })
-                    })
-                    .then(() => {
-                        this.totalRows = this.developers.length
-                    })
-            },
+            
             async postCompany() {
                 const formData = new FormData();
 
@@ -814,12 +846,7 @@
                         this.form.company_foundation_date = '';
                         this.form.company_address = '';
 
-                        this.loadCompanies();
-                        // this.$notify({
-                        //     group: 'admin-notification',
-                        //     title: 'Post successfully created',
-                        //     type: 'success'
-                        // });
+                        this.GET_DEVELOPERS_FROM_API();
                     }
                 })
             },
@@ -851,23 +878,12 @@
                         this.editModal.number = '';
                         this.editModal.address = '';
                         this.editModal.email = '';
-
-                        // this.$notify({
-                        //     group: 'admin-notification',
-                        //     title: 'Post successfully created',
-                        //     type: 'success'
-                        // });
                     }
                 })
             },
             async deleteCompany() {
                 await this.$axios.delete(`/api/developers/${this.idDeleteCompany}`).then(response => {
-                    // this.$notify({
-                    //     group: 'admin-notification',
-                    //     title: 'Product was deleted',
-                    //     type: 'success'
-                    // });
-                    this.loadCompanies();
+                    this.GET_DEVELOPERS_FROM_API();
                 });
             },
             async postObject() {
@@ -903,36 +919,24 @@
                         this.form.number = '';
                         this.form.address = '';
                         this.form.email = '';
-
-                        this.loadCompanies();
-                        // this.$notify({
-                        //     group: 'admin-notification',
-                        //     title: 'Post successfully created',
-                        //     type: 'success'
-                        // });
                     }
                 })
             },
             async postDate() {
-                console.log(this.context);
-                this.$axios.$get('/api/years')
-                    .then(response => {
-                        let array = response.sort((a, b) => a.year_value.name.localeCompare(b.year_value.name)), //отсортированный массив
+                this.GET_YEARS_FROM_API()
+                    .then(() => {
+                        let array = this.YEARS.sort((a, b) => a.year_value.name.localeCompare(b.year_value.name)), //отсортированный массив
                             resultSearch = this.search(array.sort(), this.form.year); //результата поиска
 
                         if (resultSearch) { //если год найден
                             this.dateId = resultSearch; //записать id года
-                            this.postObject(); //добавить строищийся объект застройщику и году
-                            this.dateId = ''; //обнулить id
-                            this.addObjectAct = true; //объявить что строищийся объект добавлен
+                            this.addObjectAct = true; //объявить что год добавлен
                         }
                     })
                     .then(() => {
                         if (this.addObjectAct) {
                             this.addObjectAct = false;
-                            this.form.year = '';
-                            this.form.comapanyName = '';
-                            return this.loadCompanies(); //выйти из рекурсии
+                            return this.postMarker(); //выйти из рекурсии
                         } 
                         // если год не найден добавть год
                         if (this.dateId == '') {
@@ -940,6 +944,51 @@
                             formData.append("name", this.form.year);
 
                             this.$axios.$post('/api/years', formData, {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            })
+                            .then(response => {
+                                if (response.created_at) {
+                                    this.postDate();//вход в рекурсию
+                                }
+                            })
+                        }
+                    })
+            },
+            async postMarker() {
+                this.form.markerX = this.coords[0];
+                this.form.markerY = this.coords[1];
+                this.GET_MARKERS_FROM_API()
+                    .then(() => {
+                        let array = this.MARKERS;
+                        
+                        array.forEach(item => {
+                            if(this.form.markerX == item.markerX && this.form.markerY == item.markerY) {
+                                this.form.marker_id = item.id //записать id маркера
+                                this.postObject(); //добавить строищийся объект с маркером застройщику и году
+                                this.dateId = ''; //обнулить id года
+                                this.addObjectAct = true; //объявить что строищийся объект добавлен
+                            }
+                        })
+                    })
+                    .then(() => {
+                        if (this.addObjectAct) {
+                            this.addObjectAct = false;
+                            this.form.year = '';
+                            this.form.comapanyName = '';
+                            return this.GET_DEVELOPERS_FROM_API(); //выйти из рекурсии
+                        } 
+                        // если маркер не найден добавть маркер
+                        if (this.addObjectAct == false) {
+                            const formData = new FormData();
+                            console.log(this.form.selectLogo, this.form.selectLogo.name);
+                            formData.append("image", this.form.selectLogo, this.form.selectLogo.name);
+
+                            formData.append("markerX", this.form.markerX);
+                            formData.append("markerY", this.form.markerY);
+
+                            this.$axios.$post('/api/map_markers', formData, {
                                 headers: {
                                     'Content-Type': 'multipart/form-data'
                                 }
@@ -973,6 +1022,9 @@
                 return false;
             },
             // form
+            onClick(e) {
+                this.coords = e.get('coords');
+            },
             onContext(ctx) {
                 this.context = ctx
             },
@@ -1008,6 +1060,9 @@
 </script>
 
 <style>
+    .map {
+        height: 300px;
+    }
     .dataItem {
         margin: 20px 0;
     }

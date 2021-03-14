@@ -6,7 +6,6 @@
 <!--          <div class="preloader__item"></div>-->
 <!--      </div>-->
 <!--    </div>    -->
-    <ObjectHeader />
 
     <Nuxt />
 
@@ -15,7 +14,6 @@
 </template>
 
 <script>
-import ObjectHeader from '@/components/main/object_header'
 import Footer from '@/components/main/footer'
 
 export default {

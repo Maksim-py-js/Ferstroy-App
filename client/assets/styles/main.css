@@ -2083,6 +2083,7 @@ a.linkCard {
   .reviews__column_lg {
     width: 850px; }
   .reviews__message {
+    display: inline-block;
     width: 100%;
     max-width: 850px;
     padding: 40px;
@@ -2137,7 +2138,7 @@ a.linkCard {
     border-radius: 3px; }
     .reviews__block_w {
       background: #FFFFFF;
-      padding: 21px 40px 40px 40px; }
+      padding: 21px 20px 40px 40px; }
   .reviews__starBlock {
     margin-top: 28px;
     height: 13px;

@@ -11,7 +11,12 @@
                     </div>
                 </div>
                 <div class="woodLinks">
-                    <nuxt-link to="/developers/developer/object" class="objectItem text-decoration-none"  v-for="item in object.year_residential_complexes" :key="item.id">
+                    <nuxt-link 
+                        class="objectItem text-decoration-none"
+                        v-for="item in object.year_residential_complexes" 
+                        :key="item.id"
+                        :to="`/developers/developer/object/${item.id}`" 
+                    >
                         <div class="woodImage">
                             <img :src="item.image">
                         </div>

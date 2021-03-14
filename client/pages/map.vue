@@ -1,6 +1,5 @@
 <template>
     <div class="map-body">  
-        
         <div class="position-relative">
             <no-ssr>
                 <yandex-map 
@@ -388,7 +387,6 @@
          * Add No Server Side Render component
          * to make client DOM math the server DOM
          */
-        
         VSelectize,
         'no-ssr': NoSSR
     }
