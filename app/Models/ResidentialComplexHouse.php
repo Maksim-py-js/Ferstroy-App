@@ -11,4 +11,7 @@ class ResidentialComplexHouse extends Model
     public function residential_complex_house_descriptions() {
         return $this->hasMany('App\Models\ResidentialComplexHouseDescription', 'residential_complex_house_id');
     }
+    public function r_c_house_hovers() {
+        return $this->hasMany('App\Models\RCHouseHover', 'r_c_house_id');
+    }
 }

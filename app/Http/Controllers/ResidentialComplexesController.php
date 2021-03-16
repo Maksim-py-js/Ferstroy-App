@@ -44,7 +44,8 @@ class ResidentialComplexesController extends Controller
             foreach ($residential_complex_houses_values as $residential_complex_houses_value) {
                 $residential_complex_house = $residential_complex->residential_complex_houses('residential_complex_id')->get();
                 $residential_complex_house_descriptions = $residential_complex_houses_value->residential_complex_house_descriptions('residential_complex_house_id')->get();
-                array_push($residential_complex_houses, compact('residential_complex_house', 'residential_complex_house_descriptions'));
+                $residential_complex_house_hovers = $residential_complex_houses_value->r_c_house_hovers('r_c_house_id')->get();
+                array_push($residential_complex_houses, compact('residential_complex_house', 'residential_complex_house_descriptions', 'residential_complex_house_hovers'));
             }
 
             $comments = $residential_complex->comments('residential_complex_id')->get();

@@ -20,11 +20,13 @@ class ResidentialComplexHousesController extends Controller
         $data = [];
         foreach ($residential_complex_houses as $residential_complex_house) {
             $residential_complex_house_descriptions = $residential_complex_house->residential_complex_house_descriptions('residential_complex_house_id')->get();
+            $residential_complex_house_hovers = $residential_complex_house->r_c_house_hovers('r_c_house_id')->get();
 
             $residential_complex_house_value = $residential_complex_house;
             array_push($data, compact(
                 'residential_complex_house_value',
-                'residential_complex_house_descriptions'
+                'residential_complex_house_descriptions',
+                'residential_complex_house_hovers'
             ));
         }
         return json_encode($data);

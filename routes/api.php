@@ -67,3 +67,4 @@ Route::apiResource('residential_complex_houses', 'App\Http\Controllers\Residenti
 // это большая svg на странице с ЖК там где при наведении на дом можно выбрать дом )
 Route::apiResource('slides', 'App\Http\Controllers\SlidesController');
 // это слайдер для главной страницы в хэдэре тоесть сюда ты добовляешь фотки и у тебя они все выводяться в слайдере на главной
+Route::apiResource('r_c_house_hovers', 'App\Http\Controllers\RCHouseHoversController');
