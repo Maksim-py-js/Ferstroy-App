@@ -237,7 +237,7 @@
                         <b-table
                             striped 
                             hover
-                            :items="residential_complex"
+                            :items="RESIDENTIAL_COMPLEXES"
                             :fields="fields"
                             :current-page="currentPage"
                             :per-page="perPage"
@@ -277,6 +277,15 @@
                             </template>
 
                             <template #cell(edit)="row">
+                            	 <b-button 
+                            	 	variant="primary" 
+                                    @click="
+                                		residential_complex_houses.residential_complex_id = row.item.residential_complex_value.id,
+                                        $bvModal.show('postHouseForm')
+                                    "
+                                >
+                                    <b-icon-plus variant="light"></b-icon-plus>
+                                </b-button>
                                 <b-button variant="success" @click="$bvModal.show('editForm'), idPatchObj=row.item.residential_complex_value.id, edit(row.item, row.index, $event.target)">
                                     <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                 </b-button>
@@ -285,6 +294,52 @@
                                 </b-button>
                             </template>
                         </b-table>
+
+                        <!-- add house modal -->
+                        <b-modal id="postHouseForm" hide-header="true" hide-footer="true" centered>
+                            <h2 class="panelName">
+                                Добовление дома:
+                            </h2>
+                            <div class="dataItem">
+                                <div class="label">Добавить обводку:</div>
+                                <form ref="formData">
+                                    <b-form-group            
+                                        id="input"
+                                    >
+                                        <b-form-file 
+                                            id="input-file" 
+                                            v-model="residential_complex_houses.svg"
+                                        ></b-form-file>
+                                    </b-form-group>
+                                </form>
+                            </div>
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button variant="primary" v-b-modal.addHouseApprove>
+                                    Подтвердить!
+                                </b-button>
+                                <b-button class="ml-4" @click="$bvModal.hide('postHouseForm')">
+                                    Отмена
+                                </b-button>
+                            </b-row>
+                        </b-modal>
+                        <b-modal id="addHouseApprove" hide-header hide-footer centered>
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button 
+                                	variant="primary" 
+                                	class="ml-2" 
+                                	@click="
+                                		postHouse(), 
+                                		$bvModal.hide('addHouseApprove'), 
+                                		$bvModal.hide('postHouseForm')
+                            		"
+                                >
+                                    Добавить изменения
+                                </b-button>
+                                <b-button class="ml-4" @click="$bvModal.hide('addHouseApprove')">
+                                    Назад
+                                </b-button>
+                            </b-row>
+                        </b-modal>
 
                         <!-- Info modal -->
                         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
@@ -446,6 +501,8 @@
     import VSelectize from '@isneezy/vue-selectize'
     import Wood from '@/components/wood'
     import axios from 'axios'
+    import {mapActions, mapGetters} from 'vuex'
+
     export default {
         components: { 
             VSelectize,
@@ -457,174 +514,15 @@
                 tabsItem: [
                     {
                         id: 1,
-                        path: "/super_admin/add_company",
+                        path: "/super_admin/add_developer",
                         name: 'Застройщики',
                         active: false
                     },
                     {
                         id: 2,
-                        path: "/super_admin/edit_object",
+                        path: "/super_admin/edit_residential_complexes",
                         name: 'Жилые комплексы',
                         active: true
-                    }
-                ],
-                dataTables: [
-                    {
-                        comapanyName: 'Anol Group',//Название компании
-                        rating: 5, //рейтинг
-                        phone: '+998 90 987 43 21',//номер телефона 
-                        address: 'А.Яссавий 36/5',//адресс офиса застройщика
-                        historyWood: [
-                            {
-                                year: '2020',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2019',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2018',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            }
-                        ],//история застроек
-                        history: '2018-2020',
-                        machinery: 5,//количество техники
-                        foundationDate: 2005,//дата основания компании
-                        numberWorkers: 5,//количество рабочих
-                        constructedObjects: 6,//количество построенных объектов
-                        foreman: 'Захридин'//имя застройщика
-                    },{
-                        comapanyName: 'Stroy Company',//Название компании
-                        rating: 3, //рейтинг
-                        phone: '+998 95 456 34 09',//номер телефона 
-                        address: 'Кадыри 10.7',//адресс офиса застройщика
-                        historyWood: [
-                            {
-                                year: '2019',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            },
-                            {
-                                year: '2018',
-                                data: [
-                                    {
-                                        id: 1,
-                                        name: 'ЖК Фергана',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 3,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 2,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 5,
-                                        name: 'Gold House',
-                                        image: 'minBuild.png'
-                                    },
-                                    {
-                                        id: 6,
-                                        name: 'Yerevan',
-                                        image: 'minBuild.png'
-                                    }
-                                ]
-                            }
-                        ],//дерево истории застроек
-                        history: '2018-2019',
-                        machinery: 100,//количество техники
-                        foundationDate: 2003,//дата основания компании
-                        numberWorkers: 1000,//количество рабочих
-                        constructedObjects: 12,//количество построенных объектов
-                        foreman: 'Бобур'//имя застройщика
                     }
                 ],
                 fields: [
@@ -673,6 +571,11 @@
                 // form
                 idDeleteObj: null,
                 idPatchObj: null,
+                idPostHouse: null,
+                residential_complex_houses: {
+                	residential_complex_id: null,
+                	svg: []
+                },
                 form: {
                     companyName: '',
                     number: '',
@@ -686,7 +589,7 @@
                     comments_title: 'comments_title',
                     title: "Новосторйки в центре Киргили",
                     rating: "5",
-                    advantages_title: "Наши приемущества",
+                    advantages_title: "Наши приемущества"
                 }
             }
         },
@@ -698,12 +601,21 @@
                 .map(f => {
                     return { text: f.label, value: f.key }
                 })
-            }
+            },
+            ...mapGetters('dataBase/residential_complexes', [
+                'RESIDENTIAL_COMPLEXES'
+            ])
         },
         mounted() {
-            this.loadObjects();
+            this.GET_RESIDENTIAL_COMPLEXES_FROM_API()
+                .then(() => {
+                    this.totalRows = this.RESIDENTIAL_COMPLEXES.length
+                })
         },
         methods: {
+        	...mapActions('dataBase/residential_complexes', [
+                'GET_RESIDENTIAL_COMPLEXES_FROM_API'
+            ]),
             info(item, index, button) {
                 this.infoModal.title = `${item.residential_complex_value.name}`
                 this.infoModal.rating = `${item.residential_complex_value.rating}`
@@ -742,66 +654,22 @@
                 this.editModal.content = JSON.stringify(item, null, 2)
                 this.$root.$emit('bv::show::modal', this.editModal.id, button)
             },
-            onFiltered(filteredItems) {
-                // Trigger pagination to update the number of buttons/pages due to filtering
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
-            },
             // axios
-            async loadObjects() {
-                axios
-                    .get('http://213.230.96.125/api/residential_complexes')
-                    .then(response => {
-                        this.residential_complex = response.data; 
-                    })
-                    .then(response => {
-                        // this.allCompany();
-                        // this.allObjects();
-                        let data = this.residential_complex;
-                        data.forEach(item => {
-                            this.residential_complex_value.push(item.residential_complex_value);
-                        })
-                        console.log(this.residential_complex_value);
-                    })
-                    .then(() => {
-                        this.totalRows = this.residential_complex.length
-                    })
-            },
-            async postObject() {
-                const formData = new FormData();
-                formData.append("image", this.form.selectImg, this.form.selectImg.name);
+            async postHouse() {
+            	console.log(this.residential_complex_houses.svg.name, this.residential_complex_houses.residential_complex_id);
+            	const formData = new FormData();
+                formData.append("svg", this.residential_complex_houses.svg, this.residential_complex_houses.svg.name);
+                formData.append("residential_complex_id", this.residential_complex_houses.residential_complex_id);
 
-                formData.append("name", this.form.companyName);
-                formData.append("title", this.form.title);
-                formData.append("rating", this.form.rating);
-                formData.append("number", this.form.number);
-                formData.append("address", this.form.address);
-                formData.append("email", this.form.email);
-                formData.append("about_title", this.form.about_title);
-                formData.append("about_description", this.form.about_description);
-                formData.append("advantages_title", this.form.advantages_title);
-                formData.append("comments_title", this.form.comments_title);
-                formData.append("marker_id", this.form.marker_id);
-                formData.append("year_id", this.form.year_id);
-
-                this.$axios.$post('/api/residential_complexes', formData, {
+                this.$axios.$post('/api/residential_complex_houses', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
                 .then(response => {
                     if (response.created_at) {
-                        this.form.comapanyName = '';
-                        this.form.number = '';
-                        this.form.address = '';
-                        this.form.email = '';
-
-                        this.loadObjects();
-                        // this.$notify({
-                        //     group: 'admin-notification',
-                        //     title: 'Post successfully created',
-                        //     type: 'success'
-                        // });
+                        this.residential_complex_houses.residential_complex_id = '';
+                        this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
                     }
                 })
             },
@@ -839,9 +707,9 @@
                         //     title: 'Post successfully created',
                         //     type: 'success'
                         // });
+                        this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
                     }
                 })
-                console.log(this.idPatchObj);
             },
             async deleteObject() {
                 await this.$axios.delete(`/api/residential_complexes/${this.idDeleteObj}`).then(response => {
@@ -850,42 +718,10 @@
                     //     title: 'Product was deleted',
                     //     type: 'success'
                     // });
-                    this.loadObjects();
+                    this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
                 });
             },
             // form
-            onFileChange(e) {
-                console.log(this.form.selectImg);
-                // const file = this.form.selectImg;
-                // this.url = URL.createObjectURL(file);
-                // this.form.previewImg.push({
-                //     name: this.url,
-                //     id: Math.floor(Math.random() * Math.floor(1000))
-                // });
-                console.log('выбранный файл:' + this.form.selectImg, 'Превью:' + this.form.previewImg);
-            },
-            onFileChangeTwo(e) {
-                console.log(e.target.files);
-                const file = e.target.files[0];
-                this.url = URL.createObjectURL(file);
-                this.form.previewImg.push({
-                    name: this.url,
-                    id: Math.floor(Math.random() * Math.floor(1000))
-                });
-            },
-            daleteImage(id) {
-                let arr = this.form.selectImg;
-                arr.forEach(item => {
-                    // item.id == id ?  : console.log('false');
-                    if (item.id == id) {
-                        const index =  arr.indexOf(item);
-                        let removed = arr.splice(index, 1);
-                        // var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
-                        // var removed = myFish.splice(1, 1);
-                        // console.log(myFish);
-                    }
-                })
-            }
         }
     }
 </script>

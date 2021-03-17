@@ -3,7 +3,7 @@
         <div class="background-filter"></div>  
         <b-navbar class="panel-top p-0 mb-4">
             <b-navbar-nav class="align-items-center justify-content-between w-100 full-bar">
-                <!-- <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
+                <!-- <b-breadcr/umb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
                 <nuxt-link to="/" class="header__logo admin-logo">
                     <img src="@/assets/images/svg/logo/russian-light.svg">
                 </nuxt-link>
@@ -76,141 +76,10 @@
                     <b-container fluid class="p-3">
                         <b-row class="align-items-center mb-4 pt-3 pl-3">
                             <span>Добавить Застройщика: </span>
-                            <b-button variant="primary" class="ml-2"  @click="$bvModal.show('post')">
+                            <b-button variant="primary" class="ml-2"  @click="$bvModal.show('postDeveloperForm')">
                                 <b-icon-plus variant="light"></b-icon-plus>
                             </b-button>
                         </b-row>
-                        <b-modal id="post" hide-header="true" hide-footer="true" centered>
-                            <h2 class="panelName">
-                                Добовление данных застройщика:
-                            </h2>
-                            <div class="dataItem">
-                                <div class="label">Имя застройщика:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.developerName"
-                                    type="text"
-                                    placeholder="Имя"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Название компании:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.company_name"
-                                    type="text"
-                                    placeholder="Имя"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Телефон застройщика:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.number"
-                                    type="text"
-                                    placeholder="+998 (90) 999-99-99"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Адресс офиса:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.company_address"
-                                    type="text"
-                                    placeholder="ул. А.Яссовий 39/10"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Дата основания:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.company_foundation_date"
-                                    type="text"
-                                    placeholder="12.03.2020"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Количство рабочих:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.count_workers"
-                                    type="text"
-                                    placeholder="100"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Количство рабочей техники:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.count_machinery"
-                                    type="text"
-                                    placeholder="1000"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <form ref="formData">
-                                <b-form-group            
-                                    id="input"
-                                >
-                                    <b-form-file 
-                                        id="input-file" 
-                                        v-model="form.selectLogo"
-                                    ></b-form-file>
-                                </b-form-group>
-                            </form>
-
-                            <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" v-b-modal.postApprove>
-                                    Подтвердить!
-                                </b-button>
-                                <b-button class="ml-4" @click="$bvModal.hide('post')">
-                                    Отмена
-                                </b-button>
-                            </b-row>
-                        </b-modal>
-                        <b-modal id="postApprove" hide-header hide-footer centered>
-                            <ul class="model-data">
-                                <li class="model-item">
-                                    <strong class="model-itemName">Имя застройщика:</strong>
-                                    <span class="model-itemData">{{form.developerName}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Дата основания:</strong>
-                                    <span class="model-itemData">{{form.company_foundation_date}}</span>
-                                </li>
-                                <li class="model-item d-flex">
-                                    <strong class="model-itemName mr-1">Контакты:</strong>
-                                    <div class="model-itemData">{{form.number}},<br/> {{form.company_address}}</div>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Количство рабочих:</strong>
-                                    <span class="model-itemData">{{form.count_workers}}</span>
-                                </li>
-                                <li class="model-item d-flex">
-                                    <strong class="model-itemName mr-1">Количство рабочей техники:</strong>
-                                    <div class="model-itemData">{{form.count_machinery}}</div>
-                                </li>
-                                <li class="model-item d-flex">
-                                    <strong class="model-itemName mr-1">Изоброжения:</strong>
-                                    <div class="model-itemData">{{form.selectLogo}}</div>
-                                </li>
-                            </ul>
-                            <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" class="ml-2" @click="postCompany(), $bvModal.hide('postApprove'), $bvModal.hide('post')">
-                                    Добавить
-                                </b-button>
-                                <b-button class="ml-4" @click="$bvModal.hide('postApprove')">
-                                    Назад
-                                </b-button>
-                            </b-row>
-                        </b-modal>
-
                         <b-row class="mb-4">
                             <b-col lg="6" class="my-1">
                                 <b-form-group
@@ -224,14 +93,6 @@
                                             placeholder="Поиск по таблице"
                                             class="searchBar__input br-0"
                                         ></b-form-input>
-                                        <!-- <b-button 
-                                            variant="transparent" 
-                                            :disabled="!filter" 
-                                            @click="filter = ''"
-                                            class="m-0 bl-0 border"
-                                        >
-                                              
-                                        </b-button> -->
                                     </b-input-group>
                                 </b-form-group>
                             </b-col>
@@ -240,11 +101,6 @@
                             <b-form-group
                                 class="mb-3 mr-0 ml-0"
                             >
-                                <!-- <b-form-select
-                                    id="per-page-select"
-                                    v-model="perPage"
-                                    :options="pageOptions"
-                                ></b-form-select> -->
                                 <v-selectize 
                                     id="per-page-select"
                                     v-model="perPage"
@@ -297,38 +153,79 @@
                             </template>
 
                             <template #cell(edit)="row">
-                                <b-button variant="primary" @click="$bvModal.show('postObject'), form.developer_id=row.item.developer_value.id">
+                                <b-button 
+                                    variant="primary" 
+                                    @click="
+                                        $bvModal.show('postResidentialComplexesForm'), 
+                                        residential_complexes.developer_id=row.item.developer_value.id,
+                                        hotNumber = row.item.developer_value.company_number
+                                    "
+                                >
                                     <b-icon-plus variant="light"></b-icon-plus>
                                 </b-button>
-                                <b-button variant="success" @click="$bvModal.show('editForm'), idPatchCompany=row.item.developer_value.id, edit(row.item, row.index, $event.target)">
+                                <b-button 
+                                    variant="success" 
+                                    title="Редактировать данные компании"
+                                    @click="
+                                        $bvModal.show('editForm'), 
+                                        idPatchCompany=row.item.developer_value.id, 
+                                        edit(row.item, row.index, $event.target)
+                                    "
+                                >
                                     <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                 </b-button>
-                                <b-button variant="primary" @click="$bvModal.show('deleteComp'), idDeleteCompany=row.item.developer_value.id">
+                                <b-button 
+                                    variant="primary" 
+                                    @click="
+                                        $bvModal.show('deleteComp'), 
+                                        idDeleteCompany=row.item.developer_value.id
+                                    "
+                                >
                                     <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
                                 </b-button>
                             </template>
                         </b-table>
 
-                        <!-- add object modal -->
-                        <b-modal id="postObject" hide-header="true" hide-footer="true" centered>
+                        <!-- developers add modals -->
+                        <b-modal id="postDeveloperForm" hide-header="true" hide-footer="true" centered>
                             <h2 class="panelName">
-                                Добовление объекта:
+                                Добовление данных компании:
                             </h2>
                             <div class="dataItem">
-                                <div class="label">Название объекта:</div>
+                                <div class="label">Название компании:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.companyName"
+                                    v-model="developer.company_name"
                                     type="text"
-                                    placeholder="ЖК Мир"
+                                    placeholder="Имя"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Телефон:</div>
+                                <div class="label">Имя застройщика:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.number"
+                                    v-model="developer.name"
+                                    type="text"
+                                    placeholder="Имя"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Телефон застройщика:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="developer.number"
+                                    type="text"
+                                    placeholder="+998 (90) 999-99-99"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Телефон компании:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="developer.company_number"
                                     type="text"
                                     placeholder="+998 (90) 999-99-99"
                                     class="searchBar__input br-0"
@@ -338,11 +235,153 @@
                                 <div class="label">Адресс офиса:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.address"
+                                    v-model="developer.company_address"
                                     type="text"
                                     placeholder="ул. А.Яссовий 39/10"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Дата основания компании:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="developer.company_foundation_date"
+                                    type="text"
+                                    placeholder="12.03.2020"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Общее количство рабочих:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="developer.count_workers"
+                                    type="text"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Общее количство рабочей техники:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="developer.count_machinery"
+                                    type="text"
+                                    placeholder="1000"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Выберите логотип:</div>
+                                <form ref="formData">
+                                    <b-form-group            
+                                        id="input"
+                                    >
+                                        <b-form-file 
+                                            id="input-file" 
+                                            v-model="developer.logo"
+                                        ></b-form-file>
+                                    </b-form-group>
+                                </form>
+                            </div>
+
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button variant="primary" v-b-modal.postDeveloperAprove>
+                                    Подтвердить!
+                                </b-button>
+                                <b-button class="ml-4" @click="$bvModal.hide('postDeveloperForm')">
+                                    Отмена
+                                </b-button>
+                            </b-row>
+                        </b-modal>
+                        <b-modal id="postDeveloperAprove" hide-header hide-footer centered>
+                            <ul class="model-data">
+                                <li class="model-item">
+                                    <strong class="model-itemName">Название компании:</strong>
+                                    <span class="model-itemData">{{developer.company_name}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Дата основания компании:</strong>
+                                    <span class="model-itemData">{{developer.company_foundation_date}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName mr-1">"Контакты компании"</strong>
+                                    <div class="model-itemData">
+                                        <div>*---------------------------------------*</div>
+                                        <div>
+                                            <strong>Номер компании:</strong>
+                                            <span>{{developer.company_number}}</span>
+                                        </div>
+                                        <div>
+                                            <strong>Адресс офиса:</strong>
+                                            <span>{{developer.company_address}}</span>
+                                        </div>
+                                        <div>*---------------------------------------*</div>
+                                        <div>
+                                            <strong>Имя застройщика:</strong>
+                                            <span>{{developer.name}}</span>
+                                        </div>
+                                        <div>
+                                            <strong>Номер застройщика:</strong>
+                                            <span>{{developer.number}}</span>
+                                        </div>
+                                        <div>*---------------------------------------*</div>
+                                    </div>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Общее количство рабочих:</strong>
+                                    <span class="model-itemData">{{developer.count_workers}}</span>
+                                </li>
+                                <li class="model-item d-flex">
+                                    <strong class="model-itemName mr-1">Общее количство рабочей техники:</strong>
+                                    <div class="model-itemData">{{developer.count_machinery}}</div>
+                                </li>
+                            </ul>
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button variant="primary" class="ml-2" @click="postDeveloper(), $bvModal.hide('postDeveloperAprove'), $bvModal.hide('postDeveloperForm')">
+                                    Добавить
+                                </b-button>
+                                <b-button class="ml-4" @click="$bvModal.hide('postDeveloperAprove')">
+                                    Назад
+                                </b-button>
+                            </b-row>
+                        </b-modal>
+
+                        <!-- add residential_complexes modals -->
+                        <b-modal id="postResidentialComplexesForm" hide-header="true" hide-footer="true" centered>
+                            <h2 class="panelName">
+                                Добовление ЖК:
+                            </h2>
+                            <div class="dataItem">
+                                <div class="label">Название ЖК:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complexes.name"
+                                    type="text"
+                                    placeholder="ЖК Мир"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Телефон для оброщения:</div>
+                                <div>
+                                    <b-form-input
+                                        @change="hotLine = 'false'"
+                                        id="filter-input"
+                                        v-model="residential_complexes.number"
+                                        type="text"
+                                        placeholder="+998 (90) 999-99-99"
+                                        class="searchBar__input br-0"
+                                    ></b-form-input>
+                                    <b-form-checkbox
+                                        id="checkbox-1"
+                                        v-model="hotLine"
+                                        value="false"
+                                        unchecked-value="true"
+                                    >
+                                        Использовать телефон выбранной компании?
+                                    </b-form-checkbox>
+                                </div>
                             </div>
                             <div class="dataItem">
                                 <div class="label">Местонохождение объекта:</div>
@@ -368,20 +407,20 @@
                                 <div class="label">Электронная почта:</div>
                                 <b-form-input
                                     id="filter-input"
-                                    v-model="form.email"
+                                    v-model="residential_complexes.email"
                                     type="text"
                                     placeholder="primer@gmail.com"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Дата застройки:</div>
+                                <div class="label">Дата постройки:</div>
                                 <b-col md="auto" class="p-0">
                                     <b-form-input
                                         id="filter-input"
-                                        v-model="form.year"
-                                        type="text"
-                                        placeholder="2020"
+                                        v-model="date.year"
+                                        type="number"
+                                        placeholder="2021"
                                         class="searchBar__input br-0"
                                     ></b-form-input>
                                 </b-col>
@@ -395,40 +434,40 @@
                                         >
                                             <b-form-file 
                                                 id="input-file" 
-                                                v-model="form.selectLogo"
+                                                v-model="residential_complexes.image"
                                             ></b-form-file>
                                     </b-form-group>
                                 </form>
                             </div>
                             <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" v-b-modal.postObjectApprove>
+                                <b-button variant="primary" v-b-modal.postResidentialComplexesApprove>
                                     Подтвердить!
                                 </b-button>
-                                <b-button class="ml-4" @click="$bvModal.hide('postObject')">
+                                <b-button class="ml-4" @click="$bvModal.hide('postResidentialComplexesForm')">
                                     Отмена
                                 </b-button>
                             </b-row>
                         </b-modal>
-                        <b-modal id="postObjectApprove" hide-header hide-footer centered>
+                        <b-modal id="postResidentialComplexesApprove" hide-header hide-footer centered>
                             <ul class="model-data">
                                 <li class="model-item">
-                                    <strong class="model-itemName">Имя застройщика:</strong>
-                                    <span class="model-itemData">{{form.companyName}}</span>
+                                    <strong class="model-itemName">Название ЖК:</strong>
+                                    <span class="model-itemData">{{residential_complexes.name}}</span>
                                 </li>
                                 <li class="model-item">
                                     <strong class="model-itemName">Электронная почта:</strong>
-                                    <span class="model-itemData">{{form.email}}</span>
+                                    <span class="model-itemData">{{residential_complexes.email}}</span>
                                 </li>
-                                <li class="model-item d-flex">
-                                    <strong class="model-itemName mr-1">Контакты:</strong>
-                                    <div class="model-itemData">{{form.number}},<br/> {{form.address}}</div>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Номер для связи:</strong>
+                                    <span class="model-itemData">{{residential_complexes.email}}</span>
                                 </li>
                             </ul>
                             <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" class="ml-2" @click="postDate(), $bvModal.hide('postObjectApprove'), $bvModal.hide('postObject')">
+                                <b-button variant="primary" class="ml-2" @click="postDate(), $bvModal.hide('postResidentialComplexesApprove'), $bvModal.hide('postResidentialComplexesForm')">
                                     Добавить
                                 </b-button>
-                                <b-button class="ml-4" @click="$bvModal.hide('postObjectApprove')">
+                                <b-button class="ml-4" @click="$bvModal.hide('postResidentialComplexesApprove')">
                                     Назад
                                 </b-button>
                             </b-row>
@@ -464,13 +503,13 @@
                             </ul>
                         </b-modal>
 
-                        <!-- edit modal -->
+                        <!-- edit modals -->
                         <b-modal id="editForm" hide-header="true" hide-footer="true" centered>
                             <h2 class="panelName">
                                 Редактирование объекта:
                             </h2>
                             <div class="dataItem">
-                                <div class="label">Название объекта:</div>
+                                <div class="label">Название жк:</div>
                                 <b-form-input
                                     id="filter-input"
                                     v-model="editModal.companyName"
@@ -606,13 +645,13 @@
                 tabsItem: [
                     {
                         id: 1,
-                        path: "/super_admin/add_company",
+                        path: "/super_admin/add_developer",
                         name: 'Застройщики',
                         active: true
                     },
                     {
                         id: 2,
-                        path: "/super_admin/edit_object",
+                        path: "/super_admin/edit_residential_complexes",
                         name: 'Жилые комплексы',
                         active: false
                     }
@@ -625,6 +664,7 @@
                     { key: 'years', label: 'История', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
+                // tables options begin
                 totalRows: 100,
                 currentPage: 1,
                 perPage: 5,
@@ -634,6 +674,7 @@
                 sortDirection: 'asc',
                 filter: null,
                 filterOn: [],
+                // tables options end
                 infoModal: {
                     title: 'title',
                     id: 'info',
@@ -662,14 +703,17 @@
                 residential_complex_value: [],
                 developers: [],
                 // developer_value: [],
+                // hover on house
+                houses_hover: [],
                 // form
+                hotLine: false,
+                hotNumber: '',
                 idDeleteCompany: null,
                 idPatchCompany: null,
                 idPostObject: null,
                 value: '',
                 coords: [40.385245, 71.786176],
                 context: null,
-                dateArr: [],
                 dateId: '',
                 addObjectAct: false,
                 markerIcon: {
@@ -681,48 +725,53 @@
                     contentOffset: [0, 0],
                     contentLayout: '<div class="marksItem"><svg width="89" height="114" viewBox="0 0 89 114" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M66.1622 67.2483C50.6719 59.392 34.1273 60.7714 29.2829 70.3232C27.3658 74.1032 27.4804 78.6769 29.6201 83.5506L41.6343 111.317C41.665 111.385 41.7361 111.441 41.7748 111.508C42.4647 112.719 44.049 113.306 45.0962 113.073C53.5679 111.187 69.1827 107.558 75.1525 106.23C75.1525 106.23 75.1553 106.228 75.1576 106.227L75.1944 106.219C80.08 105 83.6326 102.442 85.4696 98.8198C90.314 89.2681 81.6524 75.1046 66.1622 67.2483Z" fill="url(#paint0_linear)"/><path d="M44.5 0C19.9634 0 0 19.3071 0 43.0371C0 52.428 3.06708 61.3511 8.87718 68.8373L41.757 111.665C41.8391 111.769 41.9646 111.808 42.0559 111.901C43.699 113.603 46.0701 113.175 47.2407 111.665C56.709 99.4468 74.064 76.6281 80.7367 68.0207C80.7367 68.0207 80.739 68.0141 80.7413 68.0097L80.7823 67.9567C86.1588 60.6514 89 52.0352 89 43.0371C89 19.3071 69.0366 0 44.5 0ZM44.5 66.2551C31.2892 66.2551 20.4928 55.8136 20.4928 43.0371C20.4928 30.2606 31.2892 19.8191 44.5 19.8191C57.7108 19.8191 68.5072 30.2606 68.5072 43.0371C68.5072 55.8136 57.7108 66.2551 44.5 66.2551Z" fill="#77C85B"/><defs><linearGradient id="paint0_linear" x1="66.1622" y1="67.2483" x2="43.0934" y2="112.733" gradientUnits="userSpaceOnUse"><stop offset="0.34375" stop-opacity="0"/><stop offset="1" stop-opacity="0.28"/></linearGradient></defs></svg></div>'
                 },
-                form: {
-                    // object
-                    companyName: '',
-                    number: '',
-                    address: '',
-                    email: '',
-                    selectImg: [],
-                    marker_id: '1',
-                    year_id: '1',
-                    about_title: 'Заголовок',
-                    about_description: 'Описание описание которое описываеться в описании',
-                    comments_title: 'comments_title',
+                residential_complexes: {
+                    image: [],
+                    name: "ЖК мир",
                     title: "Новосторйки в центре Киргили",
                     rating: "5",
+                    number: "",
+                    address: "ул.Фароби",
+                    email: "test@gmail.com",
+                    about_title: "Заголовок",
+                    about_description: "Описание описание которое описываеться в описании",
                     advantages_title: "Наши приемущества",
+                    comments_title: "comments_title",
+                    count_workers: "1000",
+                    count_machinery: "1000",
                     construction_start_date: "20.12.2017",
                     construction_finish_date: "20.12.2022",
-                    developer_id: "1",
-                    year: '',
-
-                    // marker
+                    marker_id: "1",
+                    year_id: "1",
+                    developer_id: "1"
+                },
+                marker: {
                     markerX: '',
                     markerY: '',
-                    image: '',
-
-                    // developer
-                    developerName: '',
-                    selectLogo: [],
-                    company_name: 'assdassd',
-                    rating_votes: '5',
-                    company_number: '+998 (90) 456-56-67',
-                    company_history: '2019-2021',
-                    company_foundation_date: '',
-                    company_address: '',
-                    company_website: 'www.site.com',
-                    company_about_title: 'company_about_title',
-                    company_about_text: 'company_about_text',
-                    count_workers: '1000',
-                    count_machinery: '1000',
-                    count_objects: '10',
-                    count_constructed_objects: '100',
-                    count_under_constructed_objects: '200',
+                    image: ''
+                },
+                date: {
+                    year: ''
+                },
+                developer: {
+                    logo: [],
+                    name: "Николай",
+                    number: "+998 (76) 654-56-67",
+                    rating: "5",
+                    rating_votes: "5",
+                    company_name: "Imperoya Group",
+                    company_number: "+998 (90) 456-56-67",
+                    company_history: "2019-2021",
+                    company_foundation_date: "12.03.2020",
+                    company_address: "ул.Яссавий 34/6",
+                    company_website: "www.site.com",
+                    company_about_title: "company_about_title",
+                    company_about_text: "company_about_text",
+                    count_workers: "1000",
+                    count_machinery: "1000",
+                    count_objects: "10",
+                    count_constructed_objects: "100",
+                    count_under_constructed_objects: "200"
                 }
             }
         },
@@ -800,34 +849,33 @@
                 this.$root.$emit('bv::show::modal', this.editModal.id, button)
             },
             onFiltered(filteredItems) {
-                // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
             },
             // axios
             
-            async postCompany() {
+            async postDeveloper() {
                 const formData = new FormData();
 
-                formData.append("logo", this.form.selectLogo, this.form.selectLogo.name);
+                formData.append("logo", this.developer.logo, this.developer.logo.name);
 
-                formData.append("name", this.form.developerName);
-                formData.append("number", this.form.number);
-                formData.append("rating", this.form.rating);
-                formData.append("rating_votes", this.form.rating_votes);
-                formData.append("company_name", this.form.company_name);
-                formData.append("company_number", this.form.company_number);
-                formData.append("company_history", this.form.company_history);
-                formData.append("company_foundation_date", this.form.company_foundation_date);
-                formData.append("company_address", this.form.company_address);
-                formData.append("company_website", this.form.company_website);
-                formData.append("company_about_title", this.form.company_about_title);
-                formData.append("company_about_text", this.form.company_about_text);
-                formData.append("count_workers", this.form.count_workers);
-                formData.append("count_machinery", this.form.count_machinery);
-                formData.append("count_objects", this.form.count_objects);
-                formData.append("count_constructed_objects", this.form.count_constructed_objects);
-                formData.append("count_under_constructed_objects", this.form.count_under_constructed_objects);
+                formData.append("name", this.developer.name);
+                formData.append("number", this.developer.number);
+                formData.append("rating", this.developer.rating);
+                formData.append("rating_votes", this.developer.rating_votes);
+                formData.append("company_name", this.developer.company_name);
+                formData.append("company_number", this.developer.company_number);
+                formData.append("company_history", this.developer.company_history);
+                formData.append("company_foundation_date", this.developer.company_foundation_date);
+                formData.append("company_address", this.developer.company_address);
+                formData.append("company_website", this.developer.company_website);
+                formData.append("company_about_title", this.developer.company_about_title);
+                formData.append("company_about_text", this.developer.company_about_text);
+                formData.append("count_workers", this.developer.count_workers);
+                formData.append("count_machinery", this.developer.count_machinery);
+                formData.append("count_objects", this.developer.count_objects);
+                formData.append("count_constructed_objects", this.developer.count_constructed_objects);
+                formData.append("count_under_constructed_objects", this.developer.count_under_constructed_objects);
 
                 this.$axios.$post('/api/developers', formData, {
                     headers: {
@@ -837,76 +885,46 @@
                 .then(response => {
                     if (response.created_at) {
 
-                        this.form.comapanyName = '';
-                        this.form.number = '';
-                        this.form.address = '';
-                        this.form.email = '';
-                        this.form.developerName = '';
-                        this.form.company_number = '';
-                        this.form.company_foundation_date = '';
-                        this.form.company_address = '';
+                        this.developer.name = '';
+                        this.developer.number = '';
+                        this.developer.company_name = ''
+                        this.developer.company_number = ''
+                        this.developer.company_foundation_date = '';
+                        this.developer.company_address = '';
+                        this.developer.company_number = '';
+                        this.developer.company_address = '';
 
                         this.GET_DEVELOPERS_FROM_API();
                     }
                 })
             },
-            async patchCompany() {
-                const formData = new FormData();
-                formData.append("image", this.editModal.selectLogo, this.editModal.selectLogo.name);
-
-                formData.append("name", this.editModal.companyName);
-                formData.append("title", this.form.title);
-                formData.append("rating", this.form.rating);
-                formData.append("number", this.editModal.number);
-                formData.append("address", this.editModal.address);
-                formData.append("email", this.editModal.email);
-                formData.append("about_title", this.form.about_title);
-                formData.append("about_description", this.form.about_description);
-                formData.append("advantages_title", this.form.advantages_title);
-                formData.append("comments_title", this.form.comments_title);
-                formData.append("marker_id", this.form.marker_id);
-                formData.append("year_id", this.form.year_id);
-
-                this.$axios.$patch(`/api/developers/${this.idPatchCompany}`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                .then(response => {
-                    if (response.created_at) {
-                        this.editModal.comapanyName = '';
-                        this.editModal.number = '';
-                        this.editModal.address = '';
-                        this.editModal.email = '';
-                    }
-                })
-            },
+            async patchCompany() {},
             async deleteCompany() {
                 await this.$axios.delete(`/api/developers/${this.idDeleteCompany}`).then(response => {
                     this.GET_DEVELOPERS_FROM_API();
                 });
             },
-            async postObject() {
+            async postResidentialComplexes() {
                 const formData = new FormData();
-                formData.append("image", this.form.selectLogo, this.form.selectLogo.name);
+                formData.append("image", this.residential_complexes.image, this.residential_complexes.image.name);
 
-                formData.append("name", this.form.companyName);
-                formData.append("title", this.form.title);
-                formData.append("rating", this.form.rating);
-                formData.append("number", this.form.number);
-                formData.append("address", this.form.address);
-                formData.append("email", this.form.email);
-                formData.append("about_title", this.form.about_title);
-                formData.append("about_description", this.form.about_description);
-                formData.append("advantages_title", this.form.advantages_title);
-                formData.append("comments_title", this.form.comments_title);
-                formData.append("marker_id", this.form.marker_id);
+                formData.append("name", this.residential_complexes.name);
+                formData.append("title", this.residential_complexes.title);
+                formData.append("rating", this.residential_complexes.rating);
+                formData.append("number", this.residential_complexes.number);
+                formData.append("address", this.residential_complexes.address);
+                formData.append("email", this.residential_complexes.email);
+                formData.append("about_title", this.residential_complexes.about_title);
+                formData.append("about_description", this.residential_complexes.about_description);
+                formData.append("advantages_title", this.residential_complexes.advantages_title);
+                formData.append("comments_title", this.residential_complexes.comments_title);
+                formData.append("marker_id", this.residential_complexes.marker_id);
                 formData.append("year_id", this.dateId);
-                formData.append("count_workers", this.form.count_workers);
-                formData.append("count_machinery", this.form.count_machinery);
-                formData.append("construction_start_date", this.form.construction_start_date);
-                formData.append("construction_finish_date", this.form.construction_finish_date);
-                formData.append("developer_id", this.form.developer_id);
+                formData.append("count_workers", this.residential_complexes.count_workers);
+                formData.append("count_machinery", this.residential_complexes.count_machinery);
+                formData.append("construction_start_date", this.residential_complexes.construction_start_date);
+                formData.append("construction_finish_date", this.residential_complexes.construction_finish_date);
+                formData.append("developer_id", this.residential_complexes.developer_id);
 
                 this.$axios.$post('/api/residential_complexes', formData, {
                     headers: {
@@ -915,10 +933,12 @@
                 })
                 .then(response => {
                     if (response.created_at) {
-                        this.form.comapanyName = '';
-                        this.form.number = '';
-                        this.form.address = '';
-                        this.form.email = '';
+                        this.residential_complexes.name = '';
+                        this.residential_complexes.number = '';
+                        this.residential_complexes.email = '';
+                        this.residential_complexes.year = '';
+
+                        this.hotLine = false;
                     }
                 })
             },
@@ -926,7 +946,7 @@
                 this.GET_YEARS_FROM_API()
                     .then(() => {
                         let array = this.YEARS.sort((a, b) => a.year_value.name.localeCompare(b.year_value.name)), //отсортированный массив
-                            resultSearch = this.search(array.sort(), this.form.year); //результата поиска
+                            resultSearch = this.search(array.sort(), this.date.year); //результата поиска
 
                         if (resultSearch) { //если год найден
                             this.dateId = resultSearch; //записать id года
@@ -941,7 +961,7 @@
                         // если год не найден добавть год
                         if (this.dateId == '') {
                             const formData = new FormData();
-                            formData.append("name", this.form.year);
+                            formData.append("name", this.date.year);
 
                             this.$axios.$post('/api/years', formData, {
                                 headers: {
@@ -957,16 +977,16 @@
                     })
             },
             async postMarker() {
-                this.form.markerX = this.coords[0];
-                this.form.markerY = this.coords[1];
+                this.marker.markerX = this.coords[0];
+                this.marker.markerY = this.coords[1];
                 this.GET_MARKERS_FROM_API()
                     .then(() => {
                         let array = this.MARKERS;
                         
                         array.forEach(item => {
-                            if(this.form.markerX == item.markerX && this.form.markerY == item.markerY) {
-                                this.form.marker_id = item.id //записать id маркера
-                                this.postObject(); //добавить строищийся объект с маркером застройщику и году
+                            if(this.marker.markerX == item.markerX && this.marker.markerY == item.markerY) {
+                                this.marker.marker_id = item.id //записать id маркера
+                                this.postResidentialComplexes(); //добавить строищийся объект с маркером застройщику и году
                                 this.dateId = ''; //обнулить id года
                                 this.addObjectAct = true; //объявить что строищийся объект добавлен
                             }
@@ -975,18 +995,17 @@
                     .then(() => {
                         if (this.addObjectAct) {
                             this.addObjectAct = false;
-                            this.form.year = '';
-                            this.form.comapanyName = '';
+                            this.date.year = '';
+                            this.residential_complexes.name = '';
                             return this.GET_DEVELOPERS_FROM_API(); //выйти из рекурсии
                         } 
                         // если маркер не найден добавть маркер
                         if (this.addObjectAct == false) {
                             const formData = new FormData();
-                            console.log(this.form.selectLogo, this.form.selectLogo.name);
-                            formData.append("image", this.form.selectLogo, this.form.selectLogo.name);
+                            formData.append("image", this.residential_complexes.image, this.residential_complexes.image.name);
 
-                            formData.append("markerX", this.form.markerX);
-                            formData.append("markerY", this.form.markerY);
+                            formData.append("markerX", this.marker.markerX);
+                            formData.append("markerY", this.marker.markerY);
 
                             this.$axios.$post('/api/map_markers', formData, {
                                 headers: {
@@ -1022,38 +1041,16 @@
                 return false;
             },
             // form
+            hotLineChange() {
+                if(this.hotLine == "true") {
+                    this.residential_complexes.number = this.hotNumber
+                }
+            },
             onClick(e) {
                 this.coords = e.get('coords');
             },
             onContext(ctx) {
                 this.context = ctx
-            },
-            onFileChange(e) {
-                // const file = this.form.selectLogo;
-                // this.url = URL.createObjectURL(file);
-                // this.form.previewImg.push({
-                //     name: this.url,
-                //     id: Math.floor(Math.random() * Math.floor(1000))
-                // });
-            },
-            onFileChangeTwo(e) {
-                const file = e.target.files[0];
-                this.url = URL.createObjectURL(file);
-                this.form.previewImg.push({
-                    name: this.url,
-                    id: Math.floor(Math.random() * Math.floor(1000))
-                });
-            },
-            daleteImage(id) {
-                let arr = this.form.selectLogo;
-                arr.forEach(item => {
-                    if (item.id == id) {
-                        const index =  arr.indexOf(item);
-                        let removed = arr.splice(index, 1);
-                        // var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
-                        // var removed = myFish.splice(1, 1);
-                    }
-                })
             }
         }
     }
