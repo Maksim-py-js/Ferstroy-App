@@ -30,6 +30,7 @@ Route::apiResource('years', 'App\Http\Controllers\YearsController');
 // это года для дерева
 
 
+
 Route::apiResource('menus', 'App\Http\Controllers\MenusController');
 // это менюшки для хэдера и футера
 Route::apiResource('menu_items', 'App\Http\Controllers\MenuItemsController');
@@ -47,6 +48,9 @@ Route::apiResource('comments', 'App\Http\Controllers\CommentsController');
 // все коментарии
 Route::apiResource('advantages', 'App\Http\Controllers\AdvantagesController');
 // это такое штуки по типу как на главной странице есть тип наши преимущества это вот эта штука
+
+Route::apiResource('house_floor_descriptions', 'App\Http\Controllers\HouseFloorDescriptionsController');
+Route::apiResource('house_navigations', 'App\Http\Controllers\HouseNavigationsController');
 
 // with images
 Route::apiResource('advantages_icons', 'App\Http\Controllers\AdvantagesIconsController');
@@ -68,3 +72,6 @@ Route::apiResource('residential_complex_houses', 'App\Http\Controllers\Residenti
 Route::apiResource('slides', 'App\Http\Controllers\SlidesController');
 // это слайдер для главной страницы в хэдэре тоесть сюда ты добовляешь фотки и у тебя они все выводяться в слайдере на главной
 Route::apiResource('r_c_house_hovers', 'App\Http\Controllers\RCHouseHoversController');
+
+Route::apiResource('houses', 'App\Http\Controllers\HousesController');
+Route::apiResource('house_hovers', 'App\Http\Controllers\HouseHoversController');
