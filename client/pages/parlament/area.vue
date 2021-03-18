@@ -123,7 +123,7 @@
                         <b-table
                             striped 
                             hover
-                            :items="OBJECTS"
+                            :items="RESIDENTIAL_COMPLEXES"
                             :fields="fields"
                             :current-page="currentPage"
                             :per-page="perPage"
@@ -285,17 +285,17 @@
                 })
             },
             ...mapGetters('dataBase/objects', [
-                'OBJECTS'
+                'RESIDENTIAL_COMPLEXES'
             ])
         },
         mounted() {
             // Set the initial number of items
-            this.GET_OBJECTS_FROM_API();
-            this.totalRows = this.OBJECTS.length;
+            this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
+            this.totalRows = this.RESIDENTIAL_COMPLEXES.length;
         },
         methods: {
             ...mapActions('dataBase/objects', [
-                'GET_OBJECTS_FROM_API'
+                'GET_RESIDENTIAL_COMPLEXES_FROM_API'
             ]),
             info(item, index, button) {
                 this.infoModal.title = `${item.residential_complex_value.name}`

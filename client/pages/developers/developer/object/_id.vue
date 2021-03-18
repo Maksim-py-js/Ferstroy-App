@@ -51,13 +51,15 @@
             </div>
         </div>
         <div class="svg__object position-relative" id="appartments">
-            
-            <div :class="{active:objectDescription.is_open}" v-for="objectDescription in objectDescriptions" :key="objectDescription.id">
+            <svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path v-for="item in objectSvg" :key="item.index" :d="item.d" fill="#000" fill-opacity="0.41"/>
+            </svg>
+            <!-- <div :class="{active:objectDescription.is_open}" v-for="objectDescription in objectDescriptions" :key="objectDescription.id">
                 <div class="svg__object_block" :class="objectDescription.class">
                     <div class="svg__object_title">{{ objectDescription.name }}</div>
                     <div class="svg__object_text">{{ objectDescription.text }}</div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="object__card_orange">
             <div class="container_1290">
@@ -670,38 +672,7 @@ export default {
                 balloonOffset: [3, -104]
             },
             showMap: false,
-            object: [
-                {
-                    id: 1,
-                    description: 0,
-                    d: "M433.5 668L367.5 635L317.5 448L329.5 437.5L317.5 429.5L342.5 411L340.5 406L352 397.5L356.5 400L386 373.5L371 366.5L404 341.5L408.5 343L449.5 312.5L445.5 309L475.5 286L492 293L504 285L501 280.5L509.5 274H517.5L537.5 257L551.5 263L564.5 252.5L600 269L603 267L610.5 270.5V265L615 262L636.5 272L658.5 435L650.5 443.5L653.5 467.5L644.5 475.5L646.5 478L631 489.5L603.5 474.5L579 497L574.5 494.5L558.5 508L561.5 511L552 519L555.5 521L490 579.5L487 577L477 585L472.5 583L460 592L463.5 596L457 603L465.5 644L433.5 668Z"
-                },
-                {
-                    id: 2,
-                    description: 1,
-                    d: "M712.5 819L919.5 587L916.5 584L914 393L900.5 386L897.5 388.5V393L851.5 376.5L825.5 402L810.5 396.5L782.5 424V443L707 515L692 509L659 540L662 558L624 596.5L627.5 627L624 630.5L647.5 784L712.5 819Z"
-                },
-                {
-                    id: 3,
-                    description: 2,
-                    d: "M972 958L952.5 947L948.5 756.5L967.5 733.5L973.5 736L974.5 739L983 729.5L1019 747.5V743L1016 740.5L1046 704L1069 713.5L1080 700L1076 696.5L1085 685L1080 682L1091.5 669L1096 671L1101.5 664.5L1104.5 656.5L1091.5 649.5L1118 616.5L1131 620.5L1136 614.5V600.5V584.5V577V569.5V560.5V550.5L1140.5 544L1142.5 536L1150.5 525.5L1152 510.5L1167.5 493.5L1194 505.5V516.5L1208 522V525.5L1218.5 529.5L1221 527L1238 534.5V538.5L1253 545.5L1244 558L1261 565.5L1237.5 748.5L1242 751L1226 773L1228 778.5L1217.5 793L1213.5 791.5L1196.5 815L1199 818L1185.5 837L1182.5 835L1173 848.5L1175 853L1165 866L1162.5 864.5L1137.5 897.5L1138.5 904.5L1128.5 917.5H1124L1105.5 944.5L1110.5 949.5L1099.5 963.5L1090.5 965L1071.5 991.5L1053 983L1040 997L1025 988.5L1020.5 991.5L968 962.5L972 958Z"
-                },
-                {
-                    id: 4,
-                    description: 3,
-                    d: "M749 362.5C715 360.5 699.167 339 695.5 328.5C688.3 299.7 679.5 188.5 679.5 139.5L683.5 135V121L708 101.5L713.5 103L744.5 78.5L741 76L765 58.5L797 68L845 38L860.5 43L864.5 40.5L878 43V33.5L906.5 43V234.5L900.5 239.5V245.5L889.5 255.5L874 248.5L845 273.5H839L825 286.5V291.5L782 328.5L783.5 336L749 362.5Z"
-                },
-                {
-                    id: 5,
-                    description: 4,
-                    d: "M1020.5 475L1012 483L924.5 449V434.5L918.5 430.5L916 228.5L918.5 225.5L915 222L940 197V186.5L948 180.5L963.5 187.5V194L973 199.5L994.5 181L1033 195.5L1025.5 201L1026.5 210.5L1039.5 217L1038.5 222.5L1050.5 228.5L1051.5 220L1067 228.5V430.5L1059 439V450L1027 478L1020.5 475Z"
-                },
-                {
-                    id: 6,
-                    description: 5,
-                    d: "M1270 589L1260.5 586V565.5L1252 560.5L1253 545.5L1238.5 538L1237 534L1221 527L1218 528.5L1210 524.5L1233 348L1228.5 345L1241.5 331L1247 332.5L1256.5 322L1262 315.5L1261 306L1283.5 280.5L1295 284.5L1303.5 276.5L1305 261L1318.5 246H1327.5L1329 232.5L1338 224L1345.5 226L1349.5 222L1350.5 207.5L1358 199.5L1391.5 211L1390.5 222L1405 230L1401.5 234L1419.5 240.5L1413.5 246L1419.5 250L1387.5 431L1379.5 447L1368 461L1370.5 462.5L1361 475H1358L1341.5 498.5L1344.5 502L1334.5 513.5H1330.5L1321 524.5L1322.5 528.5L1305.5 550L1303 549L1295.5 558L1297.5 561.5L1290 569.5L1291.5 572L1285.5 579.5L1281.5 577.5L1270 589Z"
-                }
-            ],
+            objectSvg: null,
             objectDescriptions: [
                 {
                     id: 1,
@@ -786,7 +757,6 @@ export default {
         dataObject() {
             // сортируем массив застройщиков по id
             this.objects = this.OBJECTS;
-            console.log(this.objects);
             let arr = this.objects.sort((a, b) => {return a.residential_complex_value.id - b.residential_complex_value.id});
             // ищем данные нужного застройщика по id
             return this.search(arr, this.id);
@@ -830,7 +800,31 @@ export default {
                 })
                 .then(() => {
                     this.getMarker();
-                });
+                })
+                .then(() => {
+                    // let elem = {
+                    //     d: null
+                    // },
+                    // svgHov = require('../../../../assets/images/svg/houses.svg'),
+                    // array = [];
+                    // $.get(svgHov, function(data) {
+                    //     var svg_data = data.childNodes;
+                    //     elem.d = svg_data[0].children[0].getAttribute("d");
+                    //     array.push(elem);
+                    //     // console.log(this.objectSvg)
+                    //     // let d = div1.getAttribute("align");
+                    //     // $("#house").html(svg_data);
+                    // });
+                    // this.objectSvg = array;
+                    this.objectData.residential_complex_houses.forEach(item => {
+                        item.residential_complex_house.forEach(hover => {
+                            $.get(hover.svg, function(data) {
+                                var svg_data = data.childNodes;
+                                console.log(svg_data);
+                            });
+                        });
+                    });
+                })
         },
         async postComment() {
             const formData = new FormData();
@@ -866,7 +860,6 @@ export default {
             arr.forEach(item => {
                 this.coords = [item.markerX, item.markerY];
                 this.markerImage = item.image;
-                console.log(this.coords);
             })
 
             this.markerIcon.contentLayout = `
