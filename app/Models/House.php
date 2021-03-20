@@ -17,4 +17,7 @@ class House extends Model
     public function house_navigations() {
         return $this->hasMany('App\Models\Housenavigation', 'house_id');
     }
+    public function floors() {
+        return $this->hasMany('App\Models\Floor', 'house_id');
+    }
 }

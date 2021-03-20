@@ -75,3 +75,8 @@ Route::apiResource('r_c_house_hovers', 'App\Http\Controllers\RCHouseHoversContro
 
 Route::apiResource('houses', 'App\Http\Controllers\HousesController');
 Route::apiResource('house_hovers', 'App\Http\Controllers\HouseHoversController');
+
+Route::apiResource('floors', 'App\Http\Controllers\FloorsController');
+Route::apiResource('floor_hovers', 'App\Http\Controllers\FloorHoversController');
+
+Route::apiResource('appartments', 'App\Http\Controllers\AppartmentsController');

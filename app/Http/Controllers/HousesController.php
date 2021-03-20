@@ -23,13 +23,23 @@ class HousesController extends Controller
             $house_hovers = $house_value->house_hovers('house_id')->get();
             $house_floor_descriptions = $house_value->house_floor_descriptions('house_id')->get();
             $house_navigations = $house_value->house_navigations('house_id')->get();
+            $floors_data = $house_value->floors('house_id')->get();
+
+            $floors = [];
+            foreach ($floors_data as $floor_value) {
+                $floor_hovers = $floor_value->floor_hovers('floor_id')->get();
+                $appartments = $floor_value->appartments('floor_id')->get();
+                $floor = $floor_value;
+                array_push($floors, compact('floor', 'floor_hovers', 'appartments'));
+            }
 
             $house = $house_value;
             array_push($data, compact(
                 'house',
                 'house_hovers',
                 'house_floor_descriptions',
-                'house_navigations'
+                'house_navigations',
+                'floors'
             ));
         }
 
@@ -72,8 +82,32 @@ class HousesController extends Controller
      */
     public function show($id)
     {
-        $house = House::find($id);
-        return $house;
+        $house_value = House::find($id);
+        $data = [];
+
+        $house_hovers = $house_value->house_hovers('house_id')->get();
+        $house_floor_descriptions = $house_value->house_floor_descriptions('house_id')->get();
+        $house_navigations = $house_value->house_navigations('house_id')->get();
+        $floors_data = $house_value->floors('house_id')->get();
+
+        $floors = [];
+        foreach ($floors_data as $floor_value) {
+            $floor_hovers = $floor_value->floor_hovers('floor_id')->get();
+            $appartments = $floor_value->appartments('floor_id')->get();
+            $floor = $floor_value;
+            array_push($floors, compact('floor', 'floor_hovers', 'appartments'));
+        }
+
+        $house = $house_value;
+        array_push($data, compact(
+            'house',
+            'house_hovers',
+            'house_floor_descriptions',
+            'house_navigations',
+            'floors'
+        ));
+
+        return json_encode($data);
     }
 
     /**
