@@ -23,7 +23,14 @@ class CreateAppartmentsTable extends Migration
             $table->longText('description');
             $table->string('phone_number');
 
-            $table->longText('floor_id');
+            $table->string('price')->nullable();
+            $table->string('roomines')->nullable();
+            $table->string('variety')->nullable();
+            $table->string('construction_start_date')->nullable();
+            $table->string('construction_finish_date')->nullable();
+
+
+            $table->string('floor_id');
 
             $table->timestamps();
         });

@@ -61,11 +61,38 @@ class ResidentialComplexesController extends Controller
                 array_push($residential_complex_advantages, compact('advantage', 'advantages_icons'));
             }
 
-                $map_marker = $residential_complex->map_marker()->get();
-                foreach ($map_marker as $map_marker_value) {
-                    $marker_id = MapMarker::find($map_marker_value->marker_id);
+            $map_marker = $residential_complex->map_marker()->get();
+
+            foreach ($map_marker as $map_marker_value) {
+                $marker_id = MapMarker::find($map_marker_value->marker_id);
+            }
+
+            $houses_data = $residential_complex->houses('residential_complex_id')->get();
+            $houses = [];
+
+            foreach ($houses_data as $house_value) {
+                $house_hovers = $house_value->house_hovers('house_id')->get();
+                $house_floor_descriptions = $house_value->house_floor_descriptions('house_id')->get();
+                $house_navigations = $house_value->house_navigations('house_id')->get();
+                $floors_data = $house_value->floors('house_id')->get();
+
+                $floors = [];
+                foreach ($floors_data as $floor_value) {
+                    $floor_hovers = $floor_value->floor_hovers('floor_id')->get();
+                    $appartments = $floor_value->appartments('floor_id')->get();
+                    $floor = $floor_value;
+                    array_push($floors, compact('floor', 'floor_hovers', 'appartments'));
                 }
 
+                $house = $house_value;
+                array_push($houses, compact(
+                    'house',
+                    'house_hovers',
+                    'house_floor_descriptions',
+                    'house_navigations',
+                    'floors'
+                ));
+            }
 
             $residential_complex_value = $residential_complex;
             array_push($data, compact(
@@ -77,7 +104,8 @@ class ResidentialComplexesController extends Controller
                 'residential_complex_houses',
                 'comments',
                 'residential_complex_advantages',
-                'map_marker'
+                'map_marker',
+                'houses'
             ));
         }
         return json_encode($data);
@@ -185,6 +213,33 @@ class ResidentialComplexesController extends Controller
             $marker_id = MapMarker::find($map_marker_value->marker_id);
         }
 
+        $houses_data = $residential_complex->houses('residential_complex_id')->get();
+        $houses = [];
+
+        foreach ($houses_data as $house_value) {
+            $house_hovers = $house_value->house_hovers('house_id')->get();
+            $house_floor_descriptions = $house_value->house_floor_descriptions('house_id')->get();
+            $house_navigations = $house_value->house_navigations('house_id')->get();
+            $floors_data = $house_value->floors('house_id')->get();
+
+            $floors = [];
+            foreach ($floors_data as $floor_value) {
+                $floor_hovers = $floor_value->floor_hovers('floor_id')->get();
+                $appartments = $floor_value->appartments('floor_id')->get();
+                $floor = $floor_value;
+                array_push($floors, compact('floor', 'floor_hovers', 'appartments'));
+            }
+
+            $house = $house_value;
+            array_push($houses, compact(
+                'house',
+                'house_hovers',
+                'house_floor_descriptions',
+                'house_navigations',
+                'floors'
+            ));
+        }
+
         array_push($data, compact(
     'residential_complex',
     'features_residential_complex',
@@ -194,7 +249,8 @@ class ResidentialComplexesController extends Controller
             'residential_complex_houses',
             'comments',
             'residential_complex_advantages',
-            'map_marker'
+            'map_marker',
+            'houses'
         ));
 
         return json_encode($data);

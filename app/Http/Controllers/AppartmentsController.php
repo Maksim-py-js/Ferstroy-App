@@ -48,6 +48,12 @@ class AppartmentsController extends Controller
         $appartment->description = $request['description'];
         $appartment->phone_number = $request['phone_number'];
 
+        $appartment->price = $request['price'];
+        $appartment->roomines = $request['roomines'];
+        $appartment->variety = $request['variety'];
+        $appartment->construction_start_date = $request['construction_start_date'];
+        $appartment->construction_finish_date = $request['construction_finish_date'];
+
         $appartment->floor_id = $request['floor_id'];
 
         $appartment->save();
@@ -85,6 +91,12 @@ class AppartmentsController extends Controller
         $appartment->square = $request['square'];
         $appartment->description = $request['description'];
         $appartment->phone_number = $request['phone_number'];
+
+        $appartment->price = $request['price'];
+        $appartment->roomines = $request['roomines'];
+        $appartment->variety = $request['variety'];
+        $appartment->construction_start_date = $request['construction_start_date'];
+        $appartment->construction_finish_date = $request['construction_finish_date'];
 
         $appartment->floor_id = $request['floor_id'];
 

@@ -32,4 +32,7 @@ class ResidentialComplex extends Model
     public function map_marker() {
         return $this->belongsTo('App\Models\MapMarker', 'marker_id');
     }
+    public function houses() {
+        return $this->hasMany('App\Models\House', 'residential_complex_id');
+    }
 }

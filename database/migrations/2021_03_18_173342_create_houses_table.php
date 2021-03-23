@@ -16,6 +16,7 @@ class CreateHousesTable extends Migration
         Schema::create('houses', function (Blueprint $table) {
             $table->id();
             $table->string('svg')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/houses/no_image.img');
+            $table->string('residential_complex_id');
             $table->timestamps();
         });
     }
