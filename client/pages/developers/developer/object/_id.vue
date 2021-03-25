@@ -39,11 +39,11 @@
                 </div>                  
             </div>
         </div>
-        <div class="object__card_orange">
+        <div class="object__card_orange" v-if="objectData.features_residential_complex.length >= 1">
             <div class="container_1290">
                 <div class="object__card_title">Особености жилого комплекса</div>
                 <div class="object__card_row d-flex">
-                    <div class="object__card_column" v-for="item in objectData.features_appartments" :key="item.index">
+                    <div class="object__card_column" v-for="item in objectData.features_residential_complex" :key="item.index">
                         <div class="object__card_count">{{item.name}}</div>
                         <div class="object__card_name">{{item.description}}</div>
                     </div>
@@ -61,11 +61,11 @@
                 </div>
             </div> -->
         </div>
-        <div class="object__card_orange">
+        <div class="object__card_orange" v-if="objectData.features_appartments.length >= 1">
             <div class="container_1290">
                 <div class="object__card_title">Особености квартир</div>
                 <div class="object__card_row d-flex">
-                    <div class="object__card_columnLg" v-for="item in objectData.features_residential_complex" :key="item.index">
+                    <div class="object__card_columnLg" v-for="item in objectData.features_appartments" :key="item.index">
                         <div class="object__card_count">{{item.name}}</div>
                         <div class="object__card_nameLg">{{item.description}}</div>
                     </div>
@@ -80,8 +80,8 @@
                 </div>
             </div>
         </div>
-        <div class="advantages advantages__md container_1290">
-            <div class="main__title">{{this.objectData.residential_complex.about_description}}</div>
+        <div class="advantages advantages__md container_1290" v-if="objectData.residential_complex_advantages.length >= 1">
+            <div class="main__title">Наши приемущества</div>
             <div class="d-flex flex-wrap advantages__cards">
                 <div class="advantages__card_sm" 
                     v-for="item in objectData.residential_complex_advantages" 
@@ -511,6 +511,7 @@ export default {
         const id = params.id   
         return { id }    
     },
+
     data() {
         return {
             SearcBarState: false,
@@ -753,14 +754,7 @@ export default {
                     <span class="buildText">880 квартир До 18 Этажей Квартиры от 52 м2 Начало строительства 2018 год</span>
                 </a>
             `
-        },
-        dataObject() {
-            // сортируем массив застройщиков по id
-            this.objects = this.OBJECTS;
-            let arr = this.objects.sort((a, b) => {return a.residential_complex_value.id - b.residential_complex_value.id});
-            // ищем данные нужного застройщика по id
-            return this.search(arr, this.id);
-        },
+        }
     },
     methods: {
         openSearsearchBar__chckbxar(SearcBarState) {
@@ -779,10 +773,6 @@ export default {
         externalClick (SearcBarState) {
             this.SearcBarState = false
         },
-
-
-
-
         mouseenterObjectdescription(descriptionNum) {
             this.objectDescriptions[descriptionNum].is_open = true;
         },
@@ -793,38 +783,24 @@ export default {
             this.comment.rating = value.rating
         },
         async getObject() {
-            axios
-                .get(`http://213.230.96.125/api/residential_complexes/${this.id}`)
+            // this.$axios.$get(`/api/residential_complexes/${this.id}`)
+            this.$axios.$get(`/api/residential_complexes/${this.id}`)
                 .then(response => {
-                    this.objectData = response.data[0];
+                    this.objectData = response[0];
                 })
                 .then(() => {
                     this.getMarker();
                 })
-                .then(() => {
-                    // let elem = {
-                    //     d: null
-                    // },
-                    // svgHov = require('../../../../assets/images/svg/houses.svg'),
-                    // array = [];
-                    // $.get(svgHov, function(data) {
-                    //     var svg_data = data.childNodes;
-                    //     elem.d = svg_data[0].children[0].getAttribute("d");
-                    //     array.push(elem);
-                    //     // console.log(this.objectSvg)
-                    //     // let d = div1.getAttribute("align");
-                    //     // $("#house").html(svg_data);
-                    // });
-                    // this.objectSvg = array;
-                    this.objectData.residential_complex_houses.forEach(item => {
-                        item.residential_complex_house.forEach(hover => {
-                            $.get(hover.svg, function(data) {
-                                var svg_data = data.childNodes;
-                                console.log(svg_data);
-                            });
-                        });
-                    });
-                })
+                // .then(() => {
+                //     this.objectData.residential_complex_houses.forEach(item => {
+                //         item.residential_complex_house.forEach(hover => {
+                //             $.get(hover.svg, function(data) {
+                //                 var svg_data = data.childNodes;
+                //                 console.log(svg_data);
+                //             });
+                //         });
+                //     });
+                // })
         },
         async postComment() {
             const formData = new FormData();

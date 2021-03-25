@@ -3,7 +3,6 @@
         <div class="background-filter"></div>  
         <b-navbar class="panel-top p-0 mb-4">
             <b-navbar-nav class="align-items-center justify-content-between w-100 full-bar">
-                <!-- <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
                 <nuxt-link to="/" class="header__logo admin-logo">
                     <img src="@/assets/images/svg/logo/russian-light.svg">
                 </nuxt-link>
@@ -40,7 +39,7 @@
                 </div> 
                 <b-sidebar 
                     id="sidebar-1" 
-                    no-slide="true"
+                    no-slide
                     shadow
                     body-class="sidebar-body"
                     header-class="sidebar-body"
@@ -74,122 +73,6 @@
             <div class="main">
                 <div no-body class="border-0 w-100 p-0">
                     <b-container fluid class="p-3">
-
-                        <!-- <b-row class="align-items-center mb-4 pt-3 pl-3">
-                            <span>Добавить ЖК: </span>
-                            <b-button variant="primary" class="ml-2"  @click="$bvModal.show('post')">
-                                <b-icon-plus variant="light"></b-icon-plus>
-                            </b-button>
-                        </b-row> -->
-                        <!-- <b-modal id="post" hide-header="true" hide-footer="true" centered>
-                            <h2 class="panelName">
-                                Добовление объекта:
-                            </h2>
-                            <div class="dataItem">
-                                <div class="label">Название объекта:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.companyName"
-                                    type="text"
-                                    placeholder="ЖК мир"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Телефон:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.number"
-                                    type="text"
-                                    placeholder="+998 (90) 999-99-99"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Адресс:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.address"
-                                    type="text"
-                                    placeholder="ул. А.Яссовий 39/10"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Электронная почта:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="form.email"
-                                    type="text"
-                                    placeholder="primer@gmail.com"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Выберете изоброжение:</div>
-                                <input type="file" @change="onFileChangeTwo" />
-                                <form ref="formData">
-                                        <b-form-group            
-                                            id="input"
-                                        >
-                                            <b-form-file 
-                                                id="input-file" 
-                                                v-model="form.selectImg"
-                                            ></b-form-file>
-                                    </b-form-group>
-                                </form>
-
-                                <div class="addImage d-flex flex-wrap align-items-center mt-4" v-if="form.previewImg.length > 0">
-                                    <div class="imageBox" v-for="img in form.selectImg" :key="img.id">
-                                        <div class="img">
-                                            <img :src="img.name" alt="item">
-                                        </div>
-                                        <div class="imageBg" @click="daleteImage(img.id)">
-                                            <b-button variant="transparent" class="imageClose shadow-none p-0">
-                                                <img src="@/assets/images/svg/deleteEl.svg" alt="delete">
-                                            </b-button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" v-b-modal.postApprove>
-                                    Подтвердить!
-                                </b-button>
-                                <b-button class="ml-4" @click="$bvModal.hide('post')">
-                                    Отмена
-                                </b-button>
-                            </b-row>
-                        </b-modal>
-                        <b-modal id="postApprove" hide-header hide-footer centered>
-                            <ul class="model-data">
-                                <li class="model-item">
-                                    <strong class="model-itemName">Название объекта:</strong>
-                                    <span class="model-itemData">{{form.companyName}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Электронная почта:</strong>
-                                    <span class="model-itemData">{{form.email}}</span>
-                                </li>
-                                <li class="model-item d-flex">
-                                    <strong class="model-itemName mr-1">Контакты:</strong>
-                                    <div class="model-itemData">{{form.number}},<br/> {{form.address}}</div>
-                                </li>
-                                <li class="model-item d-flex">
-                                    <strong class="model-itemName mr-1">Изоброжения:</strong>
-                                    <div class="model-itemData">{{form.selectImg}}</div>
-                                </li>
-                            </ul>
-                            <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" class="ml-2" @click="postObject(), $bvModal.hide('postApprove'), $bvModal.hide('post')">
-                                    Добавить
-                                </b-button>
-                                <b-button class="ml-4" @click="$bvModal.hide('postApprove')">
-                                    Назад
-                                </b-button>
-                            </b-row>
-                        </b-modal> -->
-
                         <b-row class="mb-4">
                             <b-col lg="6" class="my-1">
                                 <b-form-group
@@ -203,14 +86,6 @@
                                             placeholder="Поиск по таблице"
                                             class="searchBar__input br-0"
                                         ></b-form-input>
-                                        <!-- <b-button 
-                                            variant="transparent" 
-                                            :disabled="!filter" 
-                                            @click="filter = ''"
-                                            class="m-0 bl-0 border"
-                                        >
-                                              
-                                        </b-button> -->
                                     </b-input-group>
                                 </b-form-group>
                             </b-col>
@@ -219,11 +94,6 @@
                             <b-form-group
                                 class="mb-3 mr-0 ml-0"
                             >
-                                <!-- <b-form-select
-                                    id="per-page-select"
-                                    v-model="perPage"
-                                    :options="pageOptions"
-                                ></b-form-select> -->
                                 <v-selectize 
                                     id="per-page-select"
                                     v-model="perPage"
@@ -276,11 +146,20 @@
                                 </div>
                             </template>
 
+                            <template #cell(houses)="row">
+                                <nuxt-link :to="`/super_admin/edit_houses/${row.item.residential_complex_value.id}`">
+                                    <b-button variant="primary">
+                                        <b-icon-arrow-right-short variant="light"></b-icon-arrow-right-short>
+                                    </b-button>
+                                </nuxt-link>
+                            </template>
+
                             <template #cell(edit)="row">
                             	 <b-button 
                             	 	variant="primary" 
                                     @click="
-                                		residential_complex_houses.residential_complex_id = row.item.residential_complex_value.id,
+                                		residential_complex_id = row.item.residential_complex_value.id,
+                                        r_c_house_id = row.item.residential_complex_houses[0].residential_complex_house[0].id,
                                         $bvModal.show('postHouseForm')
                                     "
                                 >
@@ -296,26 +175,106 @@
                         </b-table>
 
                         <!-- add house modal -->
-                        <b-modal id="postHouseForm" hide-header="true" hide-footer="true" centered>
+                        <b-modal id="postHouseForm" hide-header hide-footer centered>
                             <h2 class="panelName">
                                 Добовление дома:
                             </h2>
                             <div class="dataItem">
-                                <div class="label">Добавить обводку:</div>
+                                <div class="label">Добавить изброжение дома:</div>
                                 <form ref="formData">
                                     <b-form-group            
                                         id="input"
                                     >
                                         <b-form-file 
                                             id="input-file" 
-                                            v-model="residential_complex_houses.svg"
+                                            v-model="house.svg"
                                         ></b-form-file>
                                     </b-form-group>
                                 </form>
                             </div>
+                            <div class="dataItem">
+                                <div class="label">Добавить ободку дома:</div>
+                                <form ref="formData">
+                                    <b-form-group            
+                                        id="input"
+                                    >
+                                        <b-form-file 
+                                            id="input-file-excretion" 
+                                            v-model="r_c_house_hovers.svg"
+                                        ></b-form-file>
+                                    </b-form-group>
+                                </form>
+                            </div>
+                            <h2 class="panelName">
+                                Описание дома:
+                            </h2>
+                            <div class="dataItem">
+                                <div class="label">Заголовок описания:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complex_house_description.name"
+                                    type="text"
+                                    placeholder="заголовок"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Текст описания:</div>
+                                <b-form-textarea
+                                    id="filter-textarea"
+                                    v-model="residential_complex_house_description.text"
+                                    type="text"
+                                    placeholder="описание"
+                                    class="searchBar__input br-0"
+                                ></b-form-textarea>
+                            </div>
+                            <h2 class="panelName">
+                                Позиционирование таблички описания относительно дома:
+                            </h2>
+                            <div class="dataItem">
+                                <div class="label">Расстояние до верха:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complex_house_description.positionTop"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Расстояние до правой стороны:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complex_house_description.positionRight"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Расстояние до низа:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complex_house_description.positionBottom"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Расстояние до левой стороны:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complex_house_description.positionLeft"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+
                             <b-row class="align-items-center pl-3 mt-4">
                                 <b-button variant="primary" v-b-modal.addHouseApprove>
-                                    Подтвердить!
+                                    Добавить дом
                                 </b-button>
                                 <b-button class="ml-4" @click="$bvModal.hide('postHouseForm')">
                                     Отмена
@@ -333,7 +292,7 @@
                                 		$bvModal.hide('postHouseForm')
                             		"
                                 >
-                                    Добавить изменения
+                                    Подтвердить!
                                 </b-button>
                                 <b-button class="ml-4" @click="$bvModal.hide('addHouseApprove')">
                                     Назад
@@ -352,18 +311,6 @@
                                     <strong class="model-itemName">Рейтинг:</strong>
                                     <span class="model-itemData">{{infoModal.rating}}</span>
                                 </li>
-                                <!-- <li class="model-item">
-                                    <strong class="model-itemName">Дата основания:</strong>
-                                    <span class="model-itemData">{{infoModal.foundationDate}}</span>
-                                </li> -->
-                                <!-- <li class="model-item">
-                                    <strong class="model-itemName">Количество техники:</strong>
-                                    <span class="model-itemData">{{infoModal.machinery}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Количество рабочих:</strong>
-                                    <span class="model-itemData">{{infoModal.numberWorkers}}</span>
-                                </li> -->
                                 <li class="model-item d-flex">
                                     <strong class="model-itemName mr-1">Контакты:</strong>
                                     <div class="model-itemData">{{infoModal.phone}},<br/> {{infoModal.address}}</div>
@@ -372,7 +319,7 @@
                         </b-modal>
 
                         <!-- edit modal -->
-                        <b-modal id="editForm" hide-header="true" hide-footer="true" centered>
+                        <b-modal id="editForm" hide-header hide-footer centered>
                             <h2 class="panelName">
                                 Редактирование объекта:
                             </h2>
@@ -469,7 +416,7 @@
                         </b-modal>
 
                         <!-- delete modal -->
-                        <b-modal id="deleteObj" hide-header="true" hide-footer="true" centered>
+                        <b-modal id="deleteObj" hide-header hide-footer centered>
                             <h1>Вы уверены что хотите удалить объект?</h1>
                             <b-row class="align-items-center pl-3 mt-4">
                                 <b-button variant="primary" class="ml-2" @click="deleteObject(), $bvModal.hide('deleteObj')">
@@ -530,7 +477,12 @@
                     { key: 'residential_complex_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
                     { key: 'residential_complex_value.number', label: 'Контакт', sortable: false, class: 'centerBlock' },
                     { key: 'information', label: 'Доп. информация', sortable: false, class: 'centerBlock' },
-                    { key: 'residential_complex_value.history', label: 'История', sortable: false, class: 'centerBlock' },
+                    { key: 'houses', label: 'Ссылка на дома', sortable: false, class: 'centerBlock' },
+                    { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
+                ],
+                fields_floors: [
+                    { key: 'floor_number', label: 'Номер этажа', sortable: false },
+                    { key: 'square', label: 'Площадь этажа', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
                 totalRows: 100,
@@ -572,10 +524,49 @@
                 idDeleteObj: null,
                 idPatchObj: null,
                 idPostHouse: null,
+                residential_complex_id: null,
+                r_c_house_id: null,
                 residential_complex_houses: {
                 	residential_complex_id: null,
                 	svg: []
                 },
+                residential_complex_house_description: {
+                    name: '',
+                    text: '',
+                    is_open: false,
+                    positionTop: '',
+                    positionRight: '',
+                    positionBottom: '',
+                    positionLeft: '',
+                    residential_complex_house_id: ''
+                },
+
+                house: {
+                    residential_complex_id: null,
+                    svg: []
+                },
+
+                r_c_house_hovers: {
+                    svg: [],
+                    r_c_house_id: '',
+                    r_c_house_description_id: '',
+                    house_link_id: ''
+                },
+
+                appartment: {
+                    image: [],
+                    appartment_number: '',
+                    square: '',
+                    dascription: '',
+                    phone_number: '',
+                    price: '',
+                    roomines: '',
+                    veriety: '',
+                    construction_start_date: '',
+                    construction_finish_date: '',
+                    floor_id: ''
+                },
+
                 form: {
                     companyName: '',
                     number: '',
@@ -590,7 +581,8 @@
                     title: "Новосторйки в центре Киргили",
                     rating: "5",
                     advantages_title: "Наши приемущества"
-                }
+                },
+                hotLine: ''
             }
         },
         computed: {
@@ -604,9 +596,13 @@
             },
             ...mapGetters('dataBase/residential_complexes', [
                 'RESIDENTIAL_COMPLEXES'
+            ]),
+            ...mapGetters('dataBase/floors', [
+                'FLOORS'
             ])
         },
         mounted() {
+            this.GET_FLOORS_FROM_API(),
             this.GET_RESIDENTIAL_COMPLEXES_FROM_API()
                 .then(() => {
                     this.totalRows = this.RESIDENTIAL_COMPLEXES.length
@@ -615,6 +611,9 @@
         methods: {
         	...mapActions('dataBase/residential_complexes', [
                 'GET_RESIDENTIAL_COMPLEXES_FROM_API'
+            ]),
+            ...mapActions('dataBase/floors', [
+                'GET_FLOORS_FROM_API'
             ]),
             info(item, index, button) {
                 this.infoModal.title = `${item.residential_complex_value.name}`
@@ -654,22 +653,71 @@
                 this.editModal.content = JSON.stringify(item, null, 2)
                 this.$root.$emit('bv::show::modal', this.editModal.id, button)
             },
+
             // axios
             async postHouse() {
-            	console.log(this.residential_complex_houses.svg.name, this.residential_complex_houses.residential_complex_id);
             	const formData = new FormData();
-                formData.append("svg", this.residential_complex_houses.svg, this.residential_complex_houses.svg.name);
-                formData.append("residential_complex_id", this.residential_complex_houses.residential_complex_id);
 
-                this.$axios.$post('/api/residential_complex_houses', formData, {
+                formData.append("svg", this.house.svg, this.house.svg.name);
+                formData.append("residential_complex_id", this.residential_complex_id);
+
+                this.$axios.$post('/api/houses', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
                 .then(response => {
+                    this.r_c_house_hovers.house_link_id = response.id;
+                    this.postHouseDiscription();
+                })
+            },
+            async postHouseExcretion() {
+                const formData = new FormData();
+
+                formData.append("svg", this.r_c_house_hovers.svg, this.r_c_house_hovers.svg.name);
+
+                formData.append("r_c_house_id", this.r_c_house_id);
+                formData.append("r_c_house_description_id", this.residential_complex_id);
+                formData.append("house_link_id", this.residential_complex_id);
+
+                this.$axios.$post('/api/r_c_house_hovers', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+            },
+            async postHouseDiscription() {
+                const formData = new FormData();
+
+                formData.append("name", this.residential_complex_house_description.name);
+                formData.append("text", this.residential_complex_house_description.text);
+
+                formData.append("is_open", this.residential_complex_house_description.is_open);
+
+                formData.append("positionTop", this.residential_complex_house_description.positionTop);
+                formData.append("positionRight", this.residential_complex_house_description.positionRight);
+                formData.append("positionBottom", this.residential_complex_house_description.positionBottom);
+                formData.append("positionLeft", this.residential_complex_house_description.positionLeft);
+
+                formData.append("residential_complex_house_id", this.r_c_house_id);
+
+                this.$axios.$post('/api/residential_house_descriptions', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    this.r_c_house_hovers.r_c_house_description_id = response.id;
                     if (response.created_at) {
-                        this.residential_complex_houses.residential_complex_id = '';
+                        this.residential_complex_house_description.name = '';
+                        this.residential_complex_house_description.text = '';
+                        this.residential_complex_house_description.positionTop = '';
+                        this.residential_complex_house_description.positionRight = '';
+                        this.residential_complex_house_description.positionBottom = '';
+                        this.residential_complex_house_description.positionLeft = '';
+
                         this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
+                        this.postHouseExcretion();
                     }
                 })
             },
@@ -720,8 +768,7 @@
                     // });
                     this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
                 });
-            },
-            // form
+            }
         }
     }
 </script>

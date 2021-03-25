@@ -40,7 +40,7 @@
                 </div> 
                 <b-sidebar 
                     id="sidebar-1" 
-                    no-slide="true"
+                    no-slide
                     shadow
                     body-class="sidebar-body"
                     header-class="sidebar-body"
@@ -75,7 +75,7 @@
                 <div no-body class="border-0 w-100 p-0">
                     <b-container fluid class="p-3">
                         <b-row class="align-items-center mb-4 pt-3 pl-3">
-                            <span>Добавить Застройщика: </span>
+                            <span>Добавить Компанию: </span>
                             <b-button variant="primary" class="ml-2"  @click="$bvModal.show('postDeveloperForm')">
                                 <b-icon-plus variant="light"></b-icon-plus>
                             </b-button>
@@ -187,7 +187,7 @@
                         </b-table>
 
                         <!-- developers add modals -->
-                        <b-modal id="postDeveloperForm" hide-header="true" hide-footer="true" centered>
+                        <b-modal id="postDeveloperForm" hide-header hide-footer centered>
                             <h2 class="panelName">
                                 Добовление данных компании:
                             </h2>
@@ -197,7 +197,7 @@
                                     id="filter-input"
                                     v-model="developer.company_name"
                                     type="text"
-                                    placeholder="Имя"
+                                    placeholder="Название компании"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
@@ -348,7 +348,7 @@
                         </b-modal>
 
                         <!-- add residential_complexes modals -->
-                        <b-modal id="postResidentialComplexesForm" hide-header="true" hide-footer="true" centered>
+                        <b-modal id="postResidentialComplexesForm" hide-header hide-footer centered>
                             <h2 class="panelName">
                                 Добовление ЖК:
                             </h2>
@@ -359,6 +359,16 @@
                                     v-model="residential_complexes.name"
                                     type="text"
                                     placeholder="ЖК Мир"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Подзаголовок страницы:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complexes.title"
+                                    type="text"
+                                    placeholder="Новосторйки в центре Киргили"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
@@ -384,6 +394,26 @@
                                 </div>
                             </div>
                             <div class="dataItem">
+                                <div class="label">Количество рабочих:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complexes.count_workers"
+                                    type="number"
+                                    placeholder="1000"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Количество рабочей техники:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="residential_complexes.count_machinery"
+                                    type="number"
+                                    placeholder="1000"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
                                 <div class="label">Местонохождение объекта:</div>
                                 <div class="map">
                                     <no-ssr>
@@ -404,7 +434,7 @@
                                 </div>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Электронная почта:</div>
+                                <div class="label">Электронная почта для оброщений:</div>
                                 <b-form-input
                                     id="filter-input"
                                     v-model="residential_complexes.email"
@@ -414,7 +444,7 @@
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Дата постройки:</div>
+                                <div class="label">Год постройки:</div>
                                 <b-col md="auto" class="p-0">
                                     <b-form-input
                                         id="filter-input"
@@ -424,7 +454,245 @@
                                         class="searchBar__input br-0"
                                     ></b-form-input>
                                 </b-col>
+                            </div>   
+                            <div class="dataItem">
+                                <div class="label">Особености жилого комплекса:</div>
+                                <b-col md="auto" class="p-0">
+                                    <b-table
+                                        striped 
+                                        hover
+                                        :items="featuresResidentialComplexes"
+                                        :fields="fields_FeaturesResidentialComplexes"
+                                        stacked="md"
+                                        show-empty
+                                        small
+                                        v-if="featuresResidentialComplexes.length >= 1"
+                                    >
+                                        <template #cell(edit)="row">
+                                            <b-button 
+                                                variant="success" 
+                                                @click="editFeaturesResidentialComplexes(row.index), edit_FeaturesResidentialComplexes_Id = row.index"
+                                            >
+                                                <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
+                                            </b-button>
+                                            <b-button 
+                                                variant="primary" 
+                                                @click="
+                                                    delFeaturesResidentialComplexes(row.index), 
+                                                    getEditFeaturesResidentialComplexes(null), 
+                                                    edit_FeaturesResidentialComplexes_Id = row.index,
+                                                    edit_FeaturesResidentialComplexes_Data = false
+                                                "
+                                            >
+                                                <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
+                                            </b-button>
+                                        </template>
+                                    </b-table>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="features_residential_complexes.name"
+                                        type="text"
+                                        :value="features_residential_complexes.name"
+                                        placeholder="в цифрах"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-textarea
+                                        id="filter-textarea"
+                                        v-model="features_residential_complexes.description"
+                                        type="number"
+                                        :value="features_residential_complexes.description"
+                                        placeholder="Описание"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-textarea>
+                                    <b-button 
+                                        v-if="!edit_FeaturesResidentialComplexes_Data"
+                                        variant="success" 
+                                        @click="addFeaturesResidentialComplexes();"
+                                    >
+                                        <b-icon-plus variant="light"></b-icon-plus>
+                                    </b-button>
+                                    <!-- <div class="model-itemName" v-if="!edit_FeaturesResidentialComplexes_Data">Лимит ограничен</div> -->
+                                    <b-row class="align-items-center pl-3" v-if="edit_FeaturesResidentialComplexes_Data">
+                                        <b-button variant="primary" class="mr-2" @click="getEditFeaturesResidentialComplexes(edit_FeaturesResidentialComplexes_Id), edit_FeaturesResidentialComplexes_Data = false">
+                                            Изменить
+                                        </b-button>
+                                        <b-button @click="getEditFeaturesResidentialComplexes(null), edit_FeaturesResidentialComplexes_Data = false">
+                                            Отмена
+                                        </b-button>
+                                    </b-row>
+                                </b-col>
+                            </div>   
+                            <div class="dataItem">
+                                <div class="label">Описание ЖК:</div>
+                                <div>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="residential_complexes.about_title"
+                                        type="text"
+                                        :value="residential_complexes.about_title"
+                                        placeholder="Заголовок описания"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-textarea
+                                        id="filter-textarea"
+                                        v-model="residential_complexes.about_description"
+                                        type="text"
+                                        :value="residential_complexes.about_description"
+                                        placeholder="Текст описания"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-textarea>
+                                </div>
                             </div>
+                            <div class="dataItem">
+                                <div class="label">Особености квартир:</div>
+                                <b-col md="auto" class="p-0">
+                                    <b-table
+                                        striped 
+                                        hover
+                                        :items="appartments"
+                                        :fields="fieldsAppartments"
+                                        stacked="md"
+                                        show-empty
+                                        small
+                                        v-if="appartments.length >= 1"
+                                    >
+                                        <template #cell(edit)="row">
+                                            <b-button 
+                                                variant="success" 
+                                                @click="editFeaturesAppartments(row.index), edit_Appartments_Id = row.index"
+                                            >
+                                                <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
+                                            </b-button>
+                                            <b-button 
+                                                variant="primary" 
+                                                @click="
+                                                    delFeaturesAppartments(row.index), 
+                                                    getEditFeaturesAppartments(null), 
+                                                    edit_Appartments_Id = row.index,
+                                                    edit_AppartmentsData = false
+                                                "
+                                            >
+                                                <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
+                                            </b-button>
+                                        </template>
+                                    </b-table>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="features_appartments.name"
+                                        type="text"
+                                        :value="features_appartments.name"
+                                        placeholder="в цифрах"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-textarea
+                                        id="filter-textarea"
+                                        v-model="features_appartments.description"
+                                        type="number"
+                                        :value="features_appartments.description"
+                                        placeholder="Описание"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-textarea>
+                                    <b-button 
+                                        v-if="!edit_AppartmentsData"
+                                        variant="success" 
+                                        @click="addFeaturesAppartments();"
+                                    >
+                                        <b-icon-plus variant="light"></b-icon-plus>
+                                    </b-button>
+                                    <!-- <div class="model-itemName" v-if="!edit_AppartmentsData">Лимит ограничен</div> -->
+                                    <b-row class="align-items-center pl-3" v-if="edit_AppartmentsData">
+                                        <b-button variant="primary" class="mr-2" @click="getEditFeaturesAppartments(edit_Appartments_Id), edit_AppartmentsData = false">
+                                            Изменить
+                                        </b-button>
+                                        <b-button @click="getEditFeaturesAppartments(null), edit_AppartmentsData = false">
+                                            Отмена
+                                        </b-button>
+                                    </b-row>
+                                </b-col>
+                            </div> 
+                            <div class="dataItem">
+                                <div class="label">Наши приемущества:</div>
+                                <b-col md="auto" class="p-0">
+                                    <b-table
+                                        striped 
+                                        hover
+                                        :items="advantages"
+                                        :fields="fieldsAdvant"
+                                        stacked="md"
+                                        show-empty
+                                        small
+                                        v-if="advantages.length >= 1"
+                                    >
+                                        <template #cell(edit)="row">
+                                            <b-button 
+                                                variant="success" 
+                                                @click="editAdvantage(row.index), editAdventageId = row.index"
+                                            >
+                                                <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
+                                            </b-button>
+                                            <b-button 
+                                                variant="primary" 
+                                                @click="
+                                                    delAdvantage(row.index), 
+                                                    getEditAdvantage(null), 
+                                                    editAdventageId = row.index,
+                                                    editData = false
+                                                "
+                                            >
+                                                <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
+                                            </b-button>
+                                        </template>
+                                    </b-table>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="residential_complex_advantages.title"
+                                        type="text"
+                                        :value="residential_complex_advantages.title"
+                                        placeholder="название"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="residential_complex_advantages.count"
+                                        type="number"
+                                        :value="residential_complex_advantages.count"
+                                        placeholder="количество"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-button 
+                                        v-if="!editData"
+                                        variant="success" 
+                                        @click="addAdvantage();"
+                                    >
+                                        <b-icon-plus variant="light"></b-icon-plus>
+                                    </b-button>
+                                    <!-- <div class="model-itemName" v-if="!editData">Лимит ограничен</div> -->
+                                    <b-row class="align-items-center pl-3" v-if="editData">
+                                        <b-button variant="primary" class="mr-2" @click="getEditAdvantage(editAdventageId), editData = false">
+                                            Изменить
+                                        </b-button>
+                                        <b-button @click="getEditAdvantage(null), editData = false">
+                                            Отмена
+                                        </b-button>
+                                    </b-row>
+                                </b-col>
+                            </div> 
+
+                            <div class="dataItem">
+                                <div class="label">Выберете изоброжение комплекса вид сверху:</div>
+                                <!-- <input type="file" @change="onFileChangeTwo" /> -->
+                                <form ref="formData">
+                                        <b-form-group            
+                                            id="input"
+                                        >
+                                            <b-form-file 
+                                                id="input-file-view-top" 
+                                                v-model="houseExcretion.svg"
+                                            ></b-form-file>
+                                    </b-form-group>
+                                </form>
+                            </div>         
+
                             <div class="dataItem">
                                 <div class="label">Выберете изоброжение:</div>
                                 <!-- <input type="file" @change="onFileChangeTwo" /> -->
@@ -504,7 +772,7 @@
                         </b-modal>
 
                         <!-- edit modals -->
-                        <b-modal id="editForm" hide-header="true" hide-footer="true" centered>
+                        <b-modal id="editForm" hide-header hide-footer centered>
                             <h2 class="panelName">
                                 Редактирование объекта:
                             </h2>
@@ -601,7 +869,7 @@
                         </b-modal>
 
                         <!-- delete modal -->
-                        <b-modal id="deleteComp" hide-header="true" hide-footer="true" centered>
+                        <b-modal id="deleteComp" hide-header hide-footer centered>
                             <h1>Вы уверены что хотите удалить объект?</h1>
                             <b-row class="align-items-center pl-3 mt-4">
                                 <b-button variant="primary" class="ml-2" @click="deleteCompany(), $bvModal.hide('deleteComp')">
@@ -657,24 +925,46 @@
                     }
                 ],
                 fields: [
-                    { key: 'developer_value.name', label: 'Имя', sortable: true },
+                    { key: 'developer_value.company_name', label: 'Название', sortable: true },
                     { key: 'developer_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
                     { key: 'developer_value.number', label: 'Номер', sortable: false, class: 'centerBlock' },
                     { key: 'information', label: 'Доп. информация', sortable: false, class: 'centerBlock' },
                     { key: 'years', label: 'История', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
+                // advanteges tables
+                fieldsAdvant: [
+                    { key: 'title', label: 'Название', sortable: false },
+                    { key: 'count', label: 'Количество', sortable: false, class: 'centerBlock' },
+                    { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
+                ],
+                // features_appartments  tables
+                fieldsAppartments: [
+                    { key: 'name', label: 'Количество', sortable: false },
+                    { key: 'description', label: 'Описание', sortable: false, class: 'centerBlock' },
+                    { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
+                ],
+                // features_appartments  tables
+                fields_FeaturesResidentialComplexes: [
+                    { key: 'name', label: 'Количество', sortable: false },
+                    { key: 'description', label: 'Описание', sortable: false, class: 'centerBlock' },
+                    { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
+                ],
+
                 // tables options begin
-                totalRows: 100,
-                currentPage: 1,
-                perPage: 5,
-                pageOptions: [5, 10, 20],
                 sortBy: '',
                 sortDesc: false,
                 sortDirection: 'asc',
                 filter: null,
                 filterOn: [],
-                // tables options end
+
+                // pagination Data
+                totalRows: 100,
+                currentPage: 1,
+                perPage: 5,
+                pageOptions: [5, 10, 20],
+                
+                // madal Data
                 infoModal: {
                     title: 'title',
                     id: 'info',
@@ -702,7 +992,6 @@
                 residential_complex: [],
                 residential_complex_value: [],
                 developers: [],
-                // developer_value: [],
                 // hover on house
                 houses_hover: [],
                 // form
@@ -727,23 +1016,27 @@
                 },
                 residential_complexes: {
                     image: [],
-                    name: "ЖК мир",
-                    title: "Новосторйки в центре Киргили",
+                    name: "",
+                    title: "",
                     rating: "5",
                     number: "",
-                    address: "ул.Фароби",
-                    email: "test@gmail.com",
-                    about_title: "Заголовок",
-                    about_description: "Описание описание которое описываеться в описании",
-                    advantages_title: "Наши приемущества",
+                    address: "",
+                    email: "",
+                    about_title: "",
+                    about_description: "",
+                    advantages_title: "advantages_title",
                     comments_title: "comments_title",
-                    count_workers: "1000",
-                    count_machinery: "1000",
-                    construction_start_date: "20.12.2017",
-                    construction_finish_date: "20.12.2022",
-                    marker_id: "1",
-                    year_id: "1",
-                    developer_id: "1"
+                    count_workers: "",
+                    count_machinery: "",
+                    construction_start_date: "construction_start_date",
+                    construction_finish_date: "construction_finish_date",
+                    marker_id: "",
+                    year_id: "",
+                    developer_id: ""
+                },
+                houseExcretion: {
+                    residential_complex_id: null,
+                    svg: []
                 },
                 marker: {
                     markerX: '',
@@ -755,24 +1048,56 @@
                 },
                 developer: {
                     logo: [],
-                    name: "Николай",
-                    number: "+998 (76) 654-56-67",
+                    name: "",
+                    number: "",
                     rating: "5",
-                    rating_votes: "5",
-                    company_name: "Imperoya Group",
-                    company_number: "+998 (90) 456-56-67",
-                    company_history: "2019-2021",
-                    company_foundation_date: "12.03.2020",
-                    company_address: "ул.Яссавий 34/6",
-                    company_website: "www.site.com",
-                    company_about_title: "company_about_title",
-                    company_about_text: "company_about_text",
-                    count_workers: "1000",
-                    count_machinery: "1000",
-                    count_objects: "10",
-                    count_constructed_objects: "100",
-                    count_under_constructed_objects: "200"
-                }
+                    rating_votes: "",
+                    company_name: "",
+                    company_number: "",
+                    company_history: "",
+                    company_foundation_date: "",
+                    company_address: "",
+                    company_website: "",
+                    company_about_title: "",
+                    company_about_text: "",
+                    count_workers: "",
+                    count_machinery: "",
+                    count_objects: "",
+                    count_constructed_objects: "",
+                    count_under_constructed_objects: ""
+                },
+                residential_complex_id: '',
+                // advantages
+                residential_complex_advantages: {
+                    title: '',
+                    count: '',
+                    text: '',
+                    icon_id: '',
+                    residential_complex_id: '',
+                    page_id: '',
+                    developer_id: ''
+                },
+                editData: false,
+                editAdventageId: null,
+                advantages: [],
+                // features
+                features_appartments: {
+                    name: '',
+                    description: '',
+                    residential_complex_id: ''
+                },
+                edit_AppartmentsData: false,
+                edit_Appartments_Id: null,
+                appartments: [],
+                // Features Residential Complexes
+                features_residential_complexes: {
+                    name: '',
+                    description: '',
+                    residential_complex_id: ''
+                },
+                edit_FeaturesResidentialComplexes_Data: false,
+                edit_FeaturesResidentialComplexes_Id: null,
+                featuresResidentialComplexes: []
             }
         },
         computed: {
@@ -811,7 +1136,7 @@
                 'GET_MARKERS_FROM_API'
             ]),
             info(item, index, button) {
-                this.infoModal.title = `${item.developer_value.name}`
+                this.infoModal.title = `${item.developer_value.company_name}`
                 this.infoModal.rating = `${item.developer_value.rating}`
                 this.infoModal.phone = `${item.developer_value.number}`
                 this.infoModal.address = `${item.developer_value.company_address}`
@@ -820,7 +1145,7 @@
                 // this.infoModal.foundationDate = `${item.developer_value.foundationDate}`
                 // this.infoModal.numberWorkers = `${item.developer_value.numberWorkers}`
                 // this.infoModal.constructedObjects = `${item.developer_value.constructedObjects}`
-                this.infoModal.comapanyName = `${item.developer_value.name}`
+                this.infoModal.comapanyName = `${item.developer_value.company_name}`
                 // this.infoModal.foreman = `${item.developer_value.foreman}`
                 this.infoModal.content = JSON.stringify(item, null, 2)
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button)
@@ -918,7 +1243,7 @@
                 formData.append("about_description", this.residential_complexes.about_description);
                 formData.append("advantages_title", this.residential_complexes.advantages_title);
                 formData.append("comments_title", this.residential_complexes.comments_title);
-                formData.append("marker_id", this.residential_complexes.marker_id);
+                formData.append("marker_id", this.marker.marker_id);
                 formData.append("year_id", this.dateId);
                 formData.append("count_workers", this.residential_complexes.count_workers);
                 formData.append("count_machinery", this.residential_complexes.count_machinery);
@@ -932,13 +1257,41 @@
                     }
                 })
                 .then(response => {
+                    this.residential_complex_id = response.id;
                     if (response.created_at) {
                         this.residential_complexes.name = '';
+                        this.residential_complexes.title = '';
                         this.residential_complexes.number = '';
+                        this.residential_complexes.address = '';
                         this.residential_complexes.email = '';
-                        this.residential_complexes.year = '';
+                        this.residential_complexes.about_title = '';
+                        this.residential_complexes.about_description = '';
+                        // this.residential_complexes.advantages_title = '';
+                        // this.residential_complexes.comments_title = '';
+                        this.residential_complexes.count_workers = '';
+                        this.residential_complexes.count_machinery = '';
+                        // this.residential_complexes.construction_start_date = '';
+                        // this.residential_complexes.construction_finish_date = '';
+
+                        this.postHouseExcretion();
+                        this.advantagesForEach();
+                        this.featuresAppartmentsForEach();
+                        this.FeaturesResidentialComplexesForEach();
 
                         this.hotLine = false;
+                        this.advantages = [];
+                    }
+                })
+            },
+            async postHouseExcretion() {
+                const formData = new FormData();
+
+                formData.append("svg", this.houseExcretion.svg, this.houseExcretion.svg.name);
+                formData.append("residential_complex_id", this.residential_complex_id);
+
+                this.$axios.$post('/api/residential_complex_houses', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
                     }
                 })
             },
@@ -1019,6 +1372,207 @@
                             })
                         }
                     })
+            },
+            // features residential complexes
+            editFeaturesResidentialComplexes(item) {
+                let obj = this.featuresResidentialComplexes[item];
+                this.features_residential_complexes.name = obj.name;
+                this.features_residential_complexes.description = obj.description;
+                this.edit_FeaturesResidentialComplexes_Data = true;
+            },
+            getEditFeaturesResidentialComplexes(item) {
+                if(item != null) {
+                    let obj = this.featuresResidentialComplexes[item];
+                    obj.name = this.features_residential_complexes.name;
+                    obj.description = this.features_residential_complexes.description;
+
+                    this.features_residential_complexes.name = '';
+                    this.features_residential_complexes.description = '';
+                } else {
+                    this.features_residential_complexes.name = '';
+                    this.features_residential_complexes.description = '';
+                }
+            },
+            delFeaturesResidentialComplexes(item) {
+                this.featuresResidentialComplexes.splice(item, 1);
+
+            },
+            addFeaturesResidentialComplexes() {
+                let obj = {
+                    name: this.features_residential_complexes.name,
+                    description: this.features_residential_complexes.description,
+                    residential_complex_id: this.residential_complex_id
+                };
+                this.featuresResidentialComplexes.push(obj);
+                this.features_residential_complexes.name = '';
+                this.features_residential_complexes.description = '';
+
+            },
+            FeaturesResidentialComplexesForEach() {
+                this.featuresResidentialComplexes.forEach(item => {
+                    this.features_residential_complexes.name = item.name;
+                    this.features_residential_complexes.description = item.description;
+
+                    this.postFeaturesResidentialComplexes();
+                })
+            },
+            async postFeaturesResidentialComplexes() {
+                const formData = new FormData();
+
+                formData.append("name", this.features_residential_complexes.name);
+                formData.append("description", this.features_residential_complexes.description);
+                formData.append("residential_complex_id", this.residential_complex_id);
+
+                this.$axios.$post('/api/features_residential_complexes', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then(response => {
+                        if (response.created_at) {
+                        }
+                    })
+            },
+            // features appartments
+            editFeaturesAppartments(item) {
+                let obj = this.appartments[item];
+                this.features_appartments.name = obj.name;
+                this.features_appartments.description = obj.description;
+                this.edit_AppartmentsData = true;
+            },
+            getEditFeaturesAppartments(item) {
+                if(item != null) {
+                    let obj = this.appartments[item];
+
+                    obj.name = this.features_appartments.name;
+                    obj.description = this.features_appartments.description;
+
+                    this.features_appartments.name = '';
+                    this.features_appartments.description = '';
+                } else {
+                    this.features_appartments.name = '';
+                    this.features_appartments.description = '';
+                }
+            },
+            delFeaturesAppartments(item) {
+                this.appartments.splice(item, 1);
+
+            },
+            addFeaturesAppartments() {
+                let obj = {
+                    name: this.features_appartments.name,
+                    description: this.features_appartments.description,
+                    residential_complex_id: this.residential_complex_id
+                };
+                this.appartments.push(obj);
+                this.features_appartments.name = '';
+                this.features_appartments.description = '';
+
+            },
+            featuresAppartmentsForEach() {
+                this.appartments.forEach(item => {
+                    this.features_appartments.name = item.name;
+                    this.features_appartments.description = item.description;
+
+                    this.postFeaturesAppartments();
+                })
+            },
+            async postFeaturesAppartments() {
+                const formData = new FormData();
+
+                formData.append("name", this.features_appartments.name);
+                formData.append("description", this.features_appartments.description);
+                formData.append("residential_complex_id", this.residential_complex_id);
+
+                this.$axios.$post('/api/features_appartments', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then(response => {
+                        if (response.created_at) {
+                        }
+                    })
+            },
+            // residential complex advantages
+            editAdvantage(item) {
+                let obj = this.advantages[item];
+                this.residential_complex_advantages.title = obj.title;
+                this.residential_complex_advantages.count = obj.count;
+                this.editData = true;
+            },
+            getEditAdvantage(item) {
+                if(item != null) {
+                    let obj = this.advantages[item];
+
+                    obj.title = this.residential_complex_advantages.title;
+                    obj.count = this.residential_complex_advantages.count;
+
+                    this.residential_complex_advantages.title = '';
+                    this.residential_complex_advantages.count = '';
+                } else {
+                    this.residential_complex_advantages.title = '';
+                    this.residential_complex_advantages.count = '';
+                }
+            },
+            delAdvantage(item) {
+                this.advantages.splice(item, 1);
+
+            },
+            addAdvantage() {
+                let obj = {
+                    title: this.residential_complex_advantages.title,
+                    count: this.residential_complex_advantages.count,
+                    text: this.residential_complex_advantages.text,
+                    icon_id: this.residential_complex_advantages.icon_id,
+                    residential_complex_id: this.residential_complex_id,
+                    page_id: this.residential_complex_advantages.page_id,
+                    developer_id: this.residential_complex_advantages.developer_id
+                };
+                this.advantages.push(obj);
+                this.residential_complex_advantages.title = '';
+                this.residential_complex_advantages.count = '';
+
+            },
+            advantagesForEach() {
+                this.advantages.forEach(item => {
+                    this.residential_complex_advantages.title = item.title;
+                    this.residential_complex_advantages.count = item.count;
+                    this.residential_complex_advantages.text = item.text; 
+                    this.residential_complex_advantages.icon_id = item.icon_id; 
+                    this.residential_complex_advantages.residential_complex_id = this.residential_complex_id; 
+                    this.residential_complex_advantages.page_id = item.page_id; 
+                    this.residential_complex_advantages.developer_id = item.developer_id;
+
+                    this.postAdvantages();
+                })
+            },
+            async postAdvantages() {
+                const formData = new FormData();
+
+                formData.append("title", this.residential_complex_advantages.title);
+                formData.append("count", this.residential_complex_advantages.count);
+                formData.append("text", this.residential_complex_advantages.text);
+                formData.append("icon_id", this.residential_complex_advantages.icon_id);
+                formData.append("residential_complex_id", this.residential_complex_advantages.residential_complex_id);
+                formData.append("page_id", this.residential_complex_advantages.page_id);
+                formData.append("developer_id", this.residential_complex_advantages.developer_id);
+
+                this.$axios.$post('/api/advantages', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then(response => {
+                        if (response.created_at) {
+                        }
+                    })
+            },
+            async getAdvantages() {
+                this.$axios.$get('/api/advantages')
+                    .then(advantage => {
+                        // this.advantages = advantage;
+                    });
             },
             // search
             search(list, item) {

@@ -29,7 +29,8 @@ const routes = [
 
   { path: '/super_admin', name: 'super_admin', component: page('super_admin/add_developer.vue') },
   { path: '/super_admin/edit_residential_complexes', name: 'super_admin', component: page('super_admin/edit_residential_complexes.vue') },
-  { path: '/super_admin/add_developer', name: 'super_admin', component: page('super_admin/add_developer.vue') }
+  { path: '/super_admin/add_developer', name: 'super_admin', component: page('super_admin/add_developer.vue') },
+  { path: '/super_admin/edit_houses/:id', name: 'super_admin', component: page('super_admin/edit_houses/_id.vue') }
 ]
 
 export function createRouter () {

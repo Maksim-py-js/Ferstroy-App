@@ -66,17 +66,23 @@ module.exports = {
   ],
   components: true,
 
-  axios: {
-    baseURL: 'http://213.230.96.125/'
-  },
-
-  modules: [
+   modules: [
     '@nuxtjs/router',
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+
+  axios: {
+    baseURL: 'http://213.230.96.125/'
+    // proxy: true
+  },
+
+  // proxy: {
+  //   '/api/': { target: 'http://213.230.96.125/api', pathRewrite: {'^/api/': ''} }
+  // },
 
   build: {
     extractCSS: true

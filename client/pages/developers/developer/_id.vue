@@ -14,13 +14,18 @@
                         <div class="dev__dataRating d-flex"> 
                             <div>
                                 <div class="dev__rating main__text">Рейтинг {{this.developer.developer_value.rating}}</div>
-                                <div class="dev__vote">{{this.developer.developer_value.rating_votes}} голосов</div>
+                                <div 
+                                    class="dev__vote" 
+                                    v-if="this.developer.developer_value.rating_votes != null"
+                                >
+                                    {{this.developer.developer_value.rating_votes}} голосов
+                                </div>
                             </div>
                             <div class="dev__stars">
                                 <get-star-rating :value="`${this.developer.developer_value.rating}`"></get-star-rating>
                             </div> 
                         </div>
-                        <div class="d-flex">
+                        <a href="#comments" class="d-flex pointer">
                             <div class="dev__reviewsIcon">
                                 <img src="@/assets/images/svg/card-icons/blackMessage.svg" alt="message">
                             </div>
@@ -28,35 +33,56 @@
                                 <span class="dev__reviewsNum main__text">{{this.developer.comments.length}}</span>
                                 <span>Отзывов</span>
                             </div>
-                        </div>
-                        <h6 class="dev__dataName">Контактная информация</h6>
-                        <div class="dev__dataText main__text">
+                        </a>
+                        <h6 
+                            class="dev__dataName" 
+                            v-if="
+                                this.developer.developer_value.company_website != null 
+                                || 
+                                this.developer.developer_value.company_address != null
+                            "
+                        >
+                            Контактная информация
+                        </h6>
+                        <div 
+                            class="dev__dataText main__text" 
+                            v-if="this.developer.developer_value.company_address != null"
+                        >
                             <span class="greyText">Адрес:</span>
                             {{this.developer.developer_value.company_address}}
                         </div>
-                        <div class="dev__dataText main__text">
+                        <div 
+                            class="dev__dataText main__text" 
+                            v-if="this.developer.developer_value.company_website != null"
+                        >
                             <span class="greyText">Сайт:</span>
                             {{this.developer.developer_value.company_website}}
                         </div>
-                            <a :href="`tel:${this.developer.developer_value.number}`">
-                                <div class="dev__phoneBtn rounded text-center">
-                                    Позвонить
-                                </div>
-                            </a>
+                        <a :href="`tel:${this.developer.developer_value.number}`">
+                            <div class="dev__phoneBtn rounded text-center">
+                                Позвонить
+                            </div>
+                        </a>
                     </div>
                 </div>
-                <div class="dev__about">
+                <div 
+                    class="dev__about" 
+                    v-if="
+                        this.developer.developer_value.company_about_title != null 
+                        && 
+                        this.developer.developer_value.company_about_text != null
+                    "
+                >
                     <h5 class="main__title text-center">О застройщике</h5>
                     <h6 class="discription__title">{{this.developer.developer_value.company_about_title}}</h6>
                     <span class="main__text">{{this.developer.developer_value.company_about_text}}</span>
                 </div>
-                <div class="dev__statistics">
+                <div class="dev__statistics" v-if="this.developer.developer_advantages.length >= 1">
                     <div class="main__title text-center">Количество объектов</div>
                     <div class="d-flex flex-wrap advantages__cards">
                         <div class="advantages__card_sm" 
                             v-for="item in developer.developer_advantages" 
                             :key="item.index"
-                            v-if="item.advantage.count != null"
                         >
                             <div class="advantages__card_count">{{item.advantage.count}}</div> 
                             <div class="advantages__card_name">{{item.advantage.title}}</div> 
@@ -64,9 +90,9 @@
                     </div>
                 </div>
 
-                <Wood v-if="this.developer.years.length >= 1" :objects="this.developer"/>
+                <Wood v-if="this.developer.residential_complexes.length >= 1" :objects="this.developer"/>
 
-                <div class="reviews">
+                <div class="reviews" id="comments">
                     <div class="container_1290">
                         <div class="main__title text-center">Отзывы наших клиентов</div>
                         <div class="reviews__container d-flex justify-content-between">

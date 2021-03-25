@@ -5,7 +5,7 @@
                 <b-breadcrumb :items="breadcrumbItems" variant="transparent" class="mt-5"></b-breadcrumb>
                 <div class="content__name d-flex justify-content-between align-items-center searchResult__header">                
                     <div class="main__title">Застройщики Ферганы</div>            
-                    <div>
+                    <div @click="sortDevelopers()">
                         <v-selectize 
                             placeholder="Сортировать"
                             v-model="selected_sortingByPrice" 
@@ -17,7 +17,7 @@
                 <div class="devCards d-flex flex-wrap justify-content-center">
                     
                     <nuxt-link 
-                        v-for="developer in DEVELOPERS"
+                        v-for="developer in developers"
                         :key="developer.index" 
                         :to="`/developers/developer/${developer.developer_value.id}`"
                         class="devCards__card text-decoration-none text-center rounded"
@@ -29,7 +29,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/blackMessage.svg"></div>
-                                <div class="card__rating_text">25</div>
+                                <div class="card__rating_text">{{developer.comments.length}}</div>
                             </div>
                         </div>
                         <div class="devCards__logo">
@@ -39,13 +39,17 @@
                             {{developer.developer_value.company_name}}
                         </div>
                         <div class="devCards__line bg-dark"></div>
-                        <div class="devCards__text main__text">{{developer.developer_value.count_constructed_objects}}-й Дом сдан</div>
-                        <div class="devCards__text main__text">{{developer.developer_value.count_under_constructed_objects}} домов в процесе</div>
+                        <div class="devCards__text main__text" 
+                            v-if="developer.developer_value.count_constructed_objects != null"
+                        >{{developer.developer_value.count_constructed_objects}}-й Дом сдан</div>
+                        <div class="devCards__text main__text" 
+                            v-if="developer.developer_value.count_under_constructed_objects != null"
+                        >{{developer.developer_value.count_under_constructed_objects}} домов в процесе</div>
                     </nuxt-link>
 
                 </div>
                 <div class="buildings__block">
-                    <div class="text-center">
+                    <div class="text-center"  v-if="developers.length >= 100">
                         <b-button variant="transparent" class="main__button_seeMore shadow-none">
                         Показать ещё
                         <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,21 +57,14 @@
                         </svg>
                         </b-button>
                     </div>
-                    <div class="buildings__block_pagination d-flex justify-content-center">
-                        <div style="margin-right: 20px;" v-for="item in pagination" :key="item.id">
-                        <input 
-                            type="radio" 
-                            class="buildings__radio" 
-                            v-model="selected_pagination" 
-                            :value="item.size" 
-                            :id="item.id" 
-                            :name="item.id"
-                            :disabled="item.disabled"
-                        ></input>
-                        <label :for="item.id" class="buildings__radio_label"><span>{{ item.size }}</span></label> 
-                        </div>
-                        <b-button variant="transparent" class="buildings__pagination_btn shadow-none"><img src="@/assets/images/svg/pagination-arrow.svg"></b-button>
-                    </div>
+                    <b-col>
+                        <b-pagination
+                            v-model="currentPage"
+                            :total-rows="totalRows"
+                            :per-page="perPage"
+                            align="center"
+                        ></b-pagination>
+                    </b-col>
                 </div>
                 <div class="content__text">
                     <h6 class="discription__title">Квартиры в новостройках Ферганы </h6>
@@ -105,40 +102,13 @@ export default {
                 'По возрастанию'
             ],
             selected_sortingByPrice: '',
-            pagination: [
-                {
-                    id: 'pagination-1',
-                    size: "1",
-                    value: '1'
-                },
-                {
-                    id: 'pagination-2',
-                    size: "2",
-                    value: '2'
-                },
-                {
-                    id: 'pagination-3',
-                    size: "3",
-                    value: '4'
-                },
-                {
-                    id: 'pagination-4',
-                    size: "4",
-                    value: '4'
-                },
-                {
-                    id: 'pagination',
-                    size: "...",
-                    value: null,
-                    disabled: true
-                },
-                {
-                    id: 'pagination-5',
-                    size: "20",
-                    value: '20'
-                }
-            ],        
-            selected_pagination: 1
+            developers: [],  
+            selected_pagination: 1,
+
+            // pagination Data
+            totalRows: 2,
+            currentPage: 1,
+            perPage: 1
         }
     },
     computed: {
@@ -147,12 +117,28 @@ export default {
         ])
     },
     mounted() {
-        this.GET_DEVELOPERS_FROM_API();
+        this.GET_DEVELOPERS_FROM_API()
+            .then(() => {
+                this.DEVELOPERS.forEach(item => {
+                    this.developers.push(item);
+                })
+            })
     },
     methods: {
         ...mapActions('dataBase/developers', [
             'GET_DEVELOPERS_FROM_API'
-        ])
+        ]),
+        sortDevelopers() {
+            let arr = '';
+            if(this.selected_sortingByPrice == 'По убыванию') {
+                arr = this.DEVELOPERS.sort((a, b) => a.developer_value.company_name.localeCompare(b.developer_value.company_name));
+            } else if('По возростанию') {
+                arr = this.DEVELOPERS.sort((a, b) => b.developer_value.company_name.localeCompare(a.developer_value.company_name));
+            } else {
+                arr = this.DEVELOPERS;
+            }
+            this.developers = arr;
+        }
     }
 }
 </script>
