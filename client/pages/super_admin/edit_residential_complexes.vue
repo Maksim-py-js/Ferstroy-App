@@ -168,7 +168,7 @@
                                 <b-button variant="success" @click="$bvModal.show('editForm'), idPatchObj=row.item.residential_complex_value.id, edit(row.item, row.index, $event.target)">
                                     <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                 </b-button>
-                                <b-button variant="primary" @click="$bvModal.show('deleteObj'), idDeleteObj=row.item.residential_complex_value.id">
+                                <b-button variant="danger" @click="$bvModal.show('deleteObj'), idDeleteObj=row.item.residential_complex_value.id">
                                     <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
                                 </b-button>
                             </template>
