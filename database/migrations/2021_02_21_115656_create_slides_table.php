@@ -15,7 +15,7 @@ class CreateSlidesTable extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
-            $table->string('image')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/slides/no_image.jpg');
+            $table->string('residential_complex_id');
             $table->timestamps();
         });
     }

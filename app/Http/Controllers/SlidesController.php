@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Slide;
+use App\Models\ResidentialComplex;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +18,15 @@ class SlidesController extends Controller
     public function index()
     {
         $slides = Slide::all();
-        return $slides;
+        foreach ($slides as $slide) {
+            $residential_complex = $slide->residential_complex()->get();
+
+            foreach ($residential_complex as $residential_complex_value) {
+                $residential_complex_id = ResidentialComplex::find($residential_complex_value->residential_complex_id);
+
+            }
+            return $residential_complex;
+        }
     }
 
     /**
@@ -28,19 +37,9 @@ class SlidesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,svg',
-        ]);
-
-        $file = $request->file('image');
-        $name = date('dmyhis');
-        $extension = $file->getClientOriginalExtension();
-        $fullName = ($name . '.' . $extension);
-
-        Storage::disk('local')->putFileAs('public/images/slides/', $file, $fullName);
         $slide = new Slide();
 
-        $slide->image = env("CLIENT_URL", 'http://localhost').'/storage/images/slides/' . $name . '.' . $extension;
+        $slide->residential_complex_id = $request['residential_complex_id'];
 
         $slide->save();
         return $slide;
@@ -54,8 +53,7 @@ class SlidesController extends Controller
      */
     public function show($id)
     {
-        $slide = Slide::find($id);
-        return $slide;
+        //
     }
 
     /**
@@ -69,9 +67,8 @@ class SlidesController extends Controller
     {
         $slide = Slide::find($id);
 
-        if ($request['image']) {
-            $slide->image = env("CLIENT_URL", 'http://localhost').'/storage/images/slides/'.$request['image'];
-        }
+        $slide->residential_complex_id = $request['residential_complex_id'];
+
         $slide->save();
         return $slide;
     }
@@ -87,14 +84,6 @@ class SlidesController extends Controller
         $slide = Slide::find($id);
 
         if (false != $slide) {
-
-            $image_value = explode('/', $slide->image);
-            ob_start();
-            echo end ($image_value);
-            $image_name = ob_get_clean();
-
-            File::delete('storage/images/slides/'.$image_name);
-
             $slide->delete();
             return "This Slide was deleted";
         } else {
