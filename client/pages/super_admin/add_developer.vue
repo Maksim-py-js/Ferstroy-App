@@ -175,7 +175,7 @@
                                     <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                 </b-button>
                                 <b-button 
-                                    variant="primary" 
+                                    variant="danger" 
                                     @click="
                                         $bvModal.show('deleteComp'), 
                                         idDeleteCompany=row.item.developer_value.id
@@ -476,7 +476,7 @@
                                                 <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                             </b-button>
                                             <b-button 
-                                                variant="primary" 
+                                                variant="danger" 
                                                 @click="
                                                     delFeaturesResidentialComplexes(row.index), 
                                                     getEditFeaturesResidentialComplexes(null), 
@@ -564,7 +564,7 @@
                                                 <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                             </b-button>
                                             <b-button 
-                                                variant="primary" 
+                                                variant="danger" 
                                                 @click="
                                                     delFeaturesAppartments(row.index), 
                                                     getEditFeaturesAppartments(null), 
@@ -631,7 +631,7 @@
                                                 <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                             </b-button>
                                             <b-button 
-                                                variant="primary" 
+                                                variant="danger" 
                                                 @click="
                                                     delAdvantage(row.index), 
                                                     getEditAdvantage(null), 

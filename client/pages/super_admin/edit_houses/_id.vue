@@ -107,16 +107,21 @@
                             show-empty
                             small
                          >
-                            <template #cell(name)="row">
-                                {{ row.value }}
+                            <template #cell(floor)="row">
+                                <b-button 
+                                    variant="success" 
+                                >
+                                    {{row.item.floors.length}}
+                                </b-button>
                             </template>
 
                             <template #cell(edit)="row">
-                                 <b-button 
+                                <b-button 
                                     variant="primary" 
                                     @click="
-                                        house_id = row.item.house.id,
-                                        $bvModal.show('postHouseForm')
+                                        floor.house_id = row.item.house.id,
+                                        getHousesFloors(),
+                                        $bvModal.show('postFloorsForm')
                                     "
                                 >
                                     <b-icon-plus variant="light"></b-icon-plus>
@@ -131,7 +136,7 @@
                                     <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
                                 </b-button> -->
                                 <b-button 
-                                    variant="primary" 
+                                    variant="danger" 
                                     @click="
                                             $bvModal.show('deleteObj'), 
                                             idDeleteObj=row.item.house.id
@@ -142,205 +147,252 @@
                             </template>
                         </b-table>
 
-                        <!-- add floors -->
-                        <!-- <h2 class="panelName">Добовление этажей:</h2>
-                        <div class="dataItem">
-                            <b-col md="auto" class="p-0">
-                                <b-table
-                                    striped 
-                                    hover
-                                    :items="FLOORS"
-                                    :fields="fields_floors"
-                                    stacked="md"
-                                    show-empty
-                                    small
-                                    v-if="FLOORS.length >= 1"
-                                >
-                                </b-table>
-                                <div class="dataItem">
-                                    <div class="label">Номер этажа:</div>
-                                    <b-form-input
-                                        id="filter-input"
-                                        v-model="floor.floor_number"
-                                        type="number"
-                                        placeholder="1"
-                                        class="searchBar__input br-0"
-                                    ></b-form-input>
-                                </div>
-                                <div class="dataItem">
-                                    <div class="label">Площадь этажа:</div>
-                                    <b-form-input
-                                        id="filter-input"
-                                        v-model="floor.square"
-                                        type="number"
-                                        placeholder="1"
-                                        class="searchBar__input br-0"
-                                    ></b-form-input>
-                                </div>
-                                <div class="dataItem">
-                                    <div class="label">Описание этажа:</div>
-                                    <b-form-textarea
-                                        id="filter-textarea"
-                                        v-model="floor.description"
-                                        type="text"
-                                        placeholder="Описание"
-                                        class="searchBar__input br-0"
-                                    ></b-form-textarea>
-                                </div>
-                                <div class="dataItem">
-                                    <div class="label">Добавить обводку этажа:</div>
-                                    <form ref="formData">
-                                        <b-form-group            
-                                            id="input"
-                                        >
-                                            <b-form-file 
-                                                id="input-file" 
-                                                v-model="floor.image"
-                                            ></b-form-file>
-                                        </b-form-group>
-                                    </form>
-                                </div>
-                                <b-button 
-                                    v-if="!edit_Floors_Data"
-                                    variant="success" 
-                                    @click="postFloors();"
-                                >
-                                    <b-icon-plus variant="light"></b-icon-plus>
+                        <!-- add house modal -->
+                        <b-modal id="postFloorsForm" hide-header hide-footer centered>
+                            <h2 class="panelName">Добовление этажей:</h2>
+                            <div class="dataItem">
+                                <b-col md="auto" class="p-0">
+                                    
+                                    </b-table>
+                                    <b-button 
+                                        v-if="!edit_Floors_Data"
+                                        variant="success" 
+                                        @click=""
+                                    >
+                                        <b-icon-plus variant="light"></b-icon-plus>
+                                    </b-button>
+                                    <b-row class="align-items-center pl-3" v-if="edit_Floors_Data">
+                                        <b-button variant="primary" class="mr-2" @click="edit_Floors_Data = false">
+                                            Изменить
+                                        </b-button>
+                                        <b-button @click="edit_Floors_Data = false">
+                                            Отмена
+                                        </b-button>
+                                    </b-row>
+                                </b-col>
+                            </div> 
+
+
+
+
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button class="m-0" @click="$bvModal.hide('postFloorsForm')">
+                                    Закрыть
                                 </b-button>
-                                <b-row class="align-items-center pl-3" v-if="edit_Floors_Data">
-                                    <b-button variant="primary" class="mr-2" @click="getEditFloors(edit_Floors_Id), edit_Floors_Data = false">
-                                        Изменить
-                                    </b-button>
-                                    <b-button @click="getEditFloors(null), edit_Floors_Data = false">
-                                        Отмена
-                                    </b-button>
-                                </b-row>
-                            </b-col>
-                        </div>  
-                        
-                        <h2 class="panelName">Добовление квартир:</h2>
-                        <div class="dataItem">
-                            <div class="label">Добавить изоброжение квартиры:</div>
-                            <form ref="formData">
-                                <b-form-group            
-                                    id="input"
-                                >
-                                    <b-form-file 
-                                        id="input-file" 
-                                        v-model="appartments.image"
-                                    ></b-form-file>
-                                </b-form-group>
-                            </form>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Номер квартиры:</div>
-                            <b-form-input
-                                id="filter-input"
-                                v-model="appartments.appartment_number"
-                                type="number"
-                                placeholder="1"
-                                class="searchBar__input br-0"
-                            ></b-form-input>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Описание квартиры:</div>
-                            <b-form-textarea
-                                id="filter-textarea"
-                                v-model="appartments.description"
-                                type="text"
-                                placeholder="1"
-                                class="searchBar__input br-0"
-                            ></b-form-textarea>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Площадь квартиры:</div>
-                            <b-form-input
-                                id="filter-input"
-                                v-model="appartments.square"
-                                type="number"
-                                placeholder="1"
-                                class="searchBar__input br-0"
-                            ></b-form-input>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Цена квартиры:</div>
-                            <b-form-input
-                                id="filter-input"
-                                v-model="appartments.price"
-                                type="number"
-                                placeholder="1"
-                                class="searchBar__input br-0"
-                            ></b-form-input>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Телефон для оброщения:</div>
-                            <div>
+                            </b-row>
+                        </b-modal>
+
+
+                        <!-- add residential_complexes modals -->
+                        <b-modal id="postFloorsForm" hide-header hide-footer centered>
+                            <h2 class="panelName">Добовление этажей:</h2>
+                            <div class="dataItem">
+                                <div class="label">Номер этажа:</div>
                                 <b-form-input
-                                    @change="hotLine = 'false'"
                                     id="filter-input"
-                                    v-model="appartments.phone_number"
-                                    type="text"
-                                    placeholder="+998 (90) 999-99-99"
+                                    v-model="floor.floor_number"
+                                    type="number"
+                                    placeholder="1"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
-                                <b-form-checkbox
-                                    id="checkbox-1"
-                                    v-model="hotLine"
-                                    value="false"
-                                    unchecked-value="true"
-                                >
-                                    Использовать телефон выбранной компании?
-                                </b-form-checkbox>
                             </div>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Количество комнат:</div>
-                            <b-form-input
-                                id="filter-input"
-                                v-model="appartments.roomines"
-                                type="number"
-                                placeholder="1"
-                                class="searchBar__input br-0"
-                            ></b-form-input>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Вариант квартиры:</div>
-                            <b-form-input
-                                id="filter-input"
-                                v-model="appartments.veriety"
-                                type="text"
-                                placeholder="таун-хаус"
-                                class="searchBar__input br-0"
-                            ></b-form-input>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Дата начала постройки:</div>
-                            <b-form-input
-                                id="filter-input"
-                                v-model="appartments.construction_start_date"
-                                type="number"
-                                placeholder="2020"
-                                class="searchBar__input br-0"
-                            ></b-form-input>
-                        </div>
-                        <div class="dataItem">
-                            <div class="label">Срок сдачи квартиры:</div>
-                            <b-form-input
-                                id="filter-input"
-                                v-model="appartments.construction_finish_date"
-                                type="number"
-                                placeholder="2021"
-                                class="searchBar__input br-0"
-                            ></b-form-input>
-                        </div>
-                        <b-row class="align-items-center pl-3 mt-4">
-                            <b-button variant="primary" v-b-modal.addHouseApprove>
-                                Подтвердить!
-                            </b-button>
-                            <b-button class="ml-4" @click="$bvModal.hide('postHouseForm')">
-                                Отмена
-                            </b-button>
-                        </b-row> -->
+                            <div class="dataItem">
+                                <div class="label">Телефон для оброщений:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="floor.phone_number"
+                                    type="number"
+                                    placeholder="+998 (90) 456-56-67"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Площадь этажа:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="floor.square"
+                                    type="number"
+                                    placeholder="1"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Описание этажа:</div>
+                                <b-form-textarea
+                                    id="filter-textarea"
+                                    v-model="floor.description"
+                                    type="text"
+                                    placeholder="Описание"
+                                    class="searchBar__input br-0"
+                                ></b-form-textarea>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Добавить обводку этажа:</div>
+                                <form ref="formData">
+                                    <b-form-group            
+                                        id="input"
+                                    >
+                                        <b-form-file 
+                                            id="input-file" 
+                                            v-model="floor.image"
+                                        ></b-form-file>
+                                    </b-form-group>
+                                </form>
+                            </div>
+                            <h2 class="panelName">Добовление квартир:</h2>
+                            <div class="dataItem">
+                                <b-col md="auto" class="p-0">
+                                    <b-table
+                                        striped 
+                                        hover
+                                        :items="appartments"
+                                        :fields="fields_appartments"
+                                        stacked="md"
+                                        show-empty
+                                        small
+                                        v-if="appartments.length >= 1"
+                                    >
+                                        <template #cell(edit)="row">
+                                            <b-button 
+                                                variant="success" 
+                                                @click="editAppartments(row.index), edit_appartments_Id = row.index"
+                                            >
+                                                <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
+                                            </b-button>
+                                            <b-button 
+                                                variant="danger" 
+                                                @click="
+                                                    delAppartments(row.index), 
+                                                    getEditAppartments(null), 
+                                                    edit_appartments_Id = row.index,
+                                                    edit_appartments_Data = false
+                                                "
+                                            >
+                                                <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
+                                            </b-button>
+                                        </template>
+                                    </b-table>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="appartment.appartment_number"
+                                        type="text"
+                                        :value="appartment.appartment_number"
+                                        placeholder="Номер квартиры"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="appartment.square"
+                                        type="number"
+                                        :value="appartment.square"
+                                        placeholder="Площадь квартиры"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-textarea
+                                        id="filter-textarea"
+                                        v-model="appartment.description"
+                                        type="text"
+                                        :value="appartment.description"
+                                        placeholder="Описание квартиры"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-textarea>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="appartment.phone_number"
+                                        type="text"
+                                        :value="appartment.phone_number"
+                                        placeholder="Телефон для оброщений"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="appartment.price"
+                                        type="number"
+                                        :value="appartment.price"
+                                        placeholder="Цена"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="appartment.roomines"
+                                        type="number"
+                                        :value="appartment.roomines"
+                                        placeholder="Количество комнат"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <b-form-input
+                                        id="filter-input"
+                                        v-model="appartment.variety"
+                                        type="text"
+                                        :value="appartment.variety"
+                                        placeholder="Тип квартиры"
+                                        class="searchBar__input br-0 mb-2"
+                                    ></b-form-input>
+                                    <div class="dataItem">
+                                        <div class="label">Добавить обводку квартиры:</div>
+                                        <form ref="formData">
+                                            <b-form-group            
+                                                id="input"
+                                            >
+                                                <b-form-file 
+                                                    id="input-file-appartments" 
+                                                    v-model="appartment.image"
+                                                ></b-form-file>
+                                            </b-form-group>
+                                        </form>
+                                    </div>
+                                    <b-button 
+                                        v-if="!edit_appartments_Data"
+                                        variant="success" 
+                                        @click="addAppartments();"
+                                    >
+                                        <b-icon-plus variant="light"></b-icon-plus>
+                                    </b-button>
+                                    <!-- <div class="model-itemName" v-if="!edit_appartments_Data">Лимит ограничен</div> -->
+                                    <b-row class="align-items-center pl-3" v-if="edit_appartments_Data">
+                                        <b-button variant="primary" class="mr-2" @click="getEditAppartments(edit_appartments_Id), edit_appartments_Data = false">
+                                            Изменить
+                                        </b-button>
+                                        <b-button @click="getEditAppartments(null), edit_appartments_Data = false">
+                                            Отмена
+                                        </b-button>
+                                    </b-row>
+                                </b-col>
+                            </div>   
+                            
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button variant="primary" v-b-modal.postFloorsApprove>
+                                    Подтвердить!
+                                </b-button>
+                                <b-button class="ml-4" @click="$bvModal.hide('postFloorsForm')">
+                                    Отмена
+                                </b-button>
+                            </b-row>
+                        </b-modal>
+                        <b-modal id="postFloorsApprove" hide-header hide-footer centered>
+                            <!-- <ul class="model-data">
+                                <li class="model-item">
+                                    <strong class="model-itemName">Название ЖК:</strong>
+                                    <span class="model-itemData">{{residential_complexes.name}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Электронная почта:</strong>
+                                    <span class="model-itemData">{{residential_complexes.email}}</span>
+                                </li>
+                                <li class="model-item">
+                                    <strong class="model-itemName">Номер для связи:</strong>
+                                    <span class="model-itemData">{{residential_complexes.email}}</span>
+                                </li>
+                            </ul> -->
+                            <b-row class="align-items-center pl-3 mt-4">
+                                <b-button variant="primary" class="ml-2" @click="postFloors(), $bvModal.hide('postFloorsApprove'), $bvModal.hide('postFloorsForm')">
+                                    Добавить
+                                </b-button>
+                                <b-button class="ml-4" @click="$bvModal.hide('postFloorsApprove')">
+                                    Назад
+                                </b-button>
+                            </b-row>
+                        </b-modal>
 
                         <!-- delete modal -->
                         <b-modal id="deleteObj" hide-header hide-footer centered>
@@ -397,7 +449,13 @@
 
                 // tables data 
                 fields: [
-                    { key: 'id', label: 'Номер дома', sortable: true },
+                    { key: 'number', label: 'Номер дома', sortable: true },
+                    { key: 'floor', label: 'Количество этажей', sortable: false, class: 'centerBlock' },
+                    { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
+                ],
+                // features_appartments  tables
+                fields_appartments: [
+                    { key: 'appartment_number', label: 'Номер квартиры', sortable: false },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
                 sortBy: '',
@@ -445,6 +503,10 @@
                     residential_complex_id: null,
                     svg: []
                 },
+                house: {
+                    svg: []
+                },
+
                 // floors table
                 floor: {
                     image: [],
@@ -453,7 +515,28 @@
                     description: '',
                     phone_number: '',
                     house_id: ''
-                }
+                },
+                floors: [],
+                edit_Floors_Data: false,
+
+                // Features Residential Complexes
+                appartment: {
+                    image: '',
+                    appartment_number: '',
+                    square: '',
+                    description: '',
+                    phone_number: '',
+                    price: '',
+                    roomines: '',
+                    variety: '',
+                    construction_start_date: '2020',
+                    construction_finish_date: '2021',
+                    floor_id: ''
+
+                },
+                edit_appartments_Data: false,
+                edit_appartments_Id: null,
+                appartments: []
             }
         },
         computed: {
@@ -479,27 +562,34 @@
             this.GET_FLOORS_FROM_API(),
             this.GET_RESIDENTIAL_COMPLEXES_FROM_API(),
             this.GET_HOUSES_FROM_API(),
-            this.getHousesById()
+            this.getComplexesHouse()
         },
         methods: {
             ...mapActions('dataBase/residential_complexes', [
                 'GET_RESIDENTIAL_COMPLEXES_FROM_API'
             ]),
-            ...mapActions('dataBase/floors', [
-                'GET_FLOORS_FROM_API'
-            ]),
             ...mapActions('dataBase/houses', [
                 'GET_HOUSES_FROM_API'
             ]),
+            ...mapActions('dataBase/floors', [
+                'GET_FLOORS_FROM_API'
+            ]),
 
             // axios
-            async getHousesById() {
+            async getComplexesHouse() {
                 this.$axios.$get(`/api/residential_complexes/${this.id}`)
                     .then(response => {
                         this.houses = response[0].houses;
  ;                   })
             },
+            async getHousesFloors() {
+                this.$axios.$get(`/api/houses/${this.floor.house_id}`)
+                    .then(response => {
+                        this.floors = response[0].floors
+ ;                  })
+            },
             async postFloors() {
+
                 const formData = new FormData();
                 formData.append("image", this.floor.image, this.floor.image.name);
                 formData.append("floor_number", this.floor.floor_number);
@@ -514,12 +604,144 @@
                     }
                 })
                 .then(response => {
+                    console.log(response.id);
+                    this.appartment.floor_id = response.id;
                     if (response.created_at) {
-                        this.floor.house_id = '';
+                        this.floor.image = [],
+                        this.floor.floor_number = '',
+                        this.floor.square = '',
+                        this.floor.description = '',
+                        this.floor.phone_number = '',
+                        this.getHousesFloors();
+                        this.appArtmentsForEach();
                         // this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
                     }
                 })
-            }
+            },
+            async patchFloor(id) {
+                console.log(id);
+                // this.$axios.$patch(`/api/floors/${id}`)
+            },
+            async deleteFloor(id) {
+                this.$axios.$delete(`/api/floors/${id}`)
+                    .then(() => {
+                        this.getHousesFloors();
+                    })
+            },
+
+            // appartments complexes
+            editAppartments(item) {
+                let obj = this.appartments[item];
+
+                this.appartment.appartment_number = obj.appartment_number;
+                this.appartment.square = obj.square;
+                this.appartment.description = obj.description;
+                this.appartment.phone_number = obj.phone_number;
+                this.appartment.price = obj.price;
+                this.appartment.roomines = obj.roomines;
+                this.appartment.variety = obj.variety;
+                this.appartment.construction_start_date = obj.construction_start_date;
+                this.appartment.construction_finish_date = obj.construction_finish_date;
+
+                this.edit_appartments_Data = true;
+            },
+            getEditAppartments(item) {
+                if(item != null) {
+                    let obj = this.appartments[item];
+                    obj.appartment_number = this.appartment.appartment_number;
+                    obj.square = this.appartment.square;
+                    obj.description = this.appartment.description;
+                    obj.phone_number = this.appartment.phone_number;
+                    obj.price = this.appartment.price;
+                    obj.roomines = this.appartment.roomines;
+                    obj.variety = this.appartment.variety;
+                    obj.construction_start_date = this.appartment.construction_start_date;
+                    obj.construction_finish_date = this.appartment.construction_finish_date;
+
+                    this.appartment.appartment_number = '';
+                    this.appartment.square = '';
+                    this.appartment.description = '';
+                    this.appartment.phone_number = '';
+                    this.appartment.price = '';
+                    this.appartment.roomines = '';
+                    this.appartment.variety = '';
+                } else {
+                    this.appartment.appartment_number = '';
+                    this.appartment.square = '';
+                    this.appartment.description = '';
+                    this.appartment.phone_number = '';
+                    this.appartment.price = '';
+                    this.appartment.roomines = '';
+                    this.appartment.variety = '';
+                }
+            },
+            delAppartments(item) {
+                this.appartments.splice(item, 1);
+
+            },
+            addAppartments() {
+                console.log(this.appartment.floor_id)
+                let obj = {
+                    image: this.appartment.image,
+                    appartment_number: this.appartment.appartment_number,
+                    square: this.appartment.square,
+                    description: this.appartment.description,
+                    phone_number: this.appartment.phone_number,
+                    price: this.appartment.price,
+                    roomines: this.appartment.roomines,
+                    variety: this.appartment.variety,
+                    construction_start_date: this.appartment.construction_start_date,
+                    construction_finish_date: this.appartment.construction_finish_date,
+                    floor_id: this.appartment.floor_id
+                };
+                this.appartments.push(obj);
+                this.appartment.appartment_number = '';
+                this.appartment.square = '';
+                this.appartment.description = '';
+                this.appartment.phone_number = '';
+                this.appartment.price = '';
+                this.appartment.roomines = '';
+                this.appartment.variety = '';
+
+            },
+            appArtmentsForEach() {
+                this.appartments.forEach(item => {
+                    this.appartment.image = item.image;
+                    this.appartment.appartment_number = item.appartment_number;
+                    this.appartment.square = item.square;
+                    this.appartment.description = item.description;
+                    this.appartment.phone_number = item.phone_number;
+                    this.appartment.price = item.price;
+                    this.appartment.roomines = item.roomines;
+                    this.appartment.variety = item.variety;
+                    this.appartment.construction_start_date = item.construction_start_date;
+                    this.appartment.construction_finish_date = item.construction_finish_date;
+
+                    this.postAppartments();
+                })
+            },
+            async postAppartments() {
+                const formData = new FormData();
+
+                formData.append("image", this.appartment.image, this.appartment.image.name);
+
+                formData.append("appartment_number", this.appartment.appartment_number);
+                formData.append("square", this.appartment.square);
+                formData.append("description", this.description);
+                formData.append("phone_number", this.phone_number);
+                formData.append("price", this.appartment.price);
+                formData.append("roomines", this.appartment.roomines);
+                formData.append("variety", this.appartment.variety);
+                formData.append("construction_start_date", this.appartment.construction_start_date);
+                formData.append("construction_finish_date", this.appartment.construction_finish_date);
+                formData.append("floor_id", this.appartment.floor_id);
+
+                this.$axios.$post('/api/appartments', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+            },
 
             // form
         }
