@@ -31,11 +31,7 @@ const routes = [
   { path: '/super_admin/edit_residential_complexes', name: 'super_admin', component: page('super_admin/edit_residential_complexes.vue') },
   { path: '/super_admin/add_developer', name: 'super_admin', component: page('super_admin/add_developer.vue') },
   { path: '/super_admin/edit_houses/:id', name: 'super_admin', component: page('super_admin/edit_houses/_id.vue') },
-<<<<<<< HEAD
-  { path: '/super_admin/edit_home_page', name: 'super_admin', component: page('super_admin/edit_home_page.vue') }
-=======
   { path: '/super_admin/edit_home_page', name: 'super_admin', component: page('super_admin/edit_home_page/edit_home_page.vue') }
->>>>>>> 4862f49c43a2375ac26bd8427511909765cc166d
 ]
 // edit_home_page
 
