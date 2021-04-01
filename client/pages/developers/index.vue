@@ -14,10 +14,10 @@
                         />
                     </div>
                 </div>
-                <div class="devCards d-flex flex-wrap justify-content-center">
+                <div class="devCards d-flex flex-wrap">
                     
                     <nuxt-link 
-                        v-for="developer in developers"
+                        v-for="developer in currentPageItems"
                         :key="developer.index" 
                         :to="`/developers/developer/${developer.developer_value.id}`"
                         class="devCards__card text-decoration-none text-center rounded"
@@ -57,7 +57,7 @@
                         </svg>
                         </b-button>
                     </div>
-                    <b-col>
+                    <b-col v-if="developers.length >= 17">
                         <b-pagination
                             v-model="currentPage"
                             :total-rows="totalRows"
@@ -108,13 +108,34 @@ export default {
             // pagination Data
             totalRows: 2,
             currentPage: 1,
-            perPage: 1
+            perPage: 16,
+
+            paginated_items: {},
+            currentPageIndex:0,
+            nbPages:0
         }
     },
     computed: {
         ...mapGetters('dataBase/developers', [
             'DEVELOPERS'
-        ])
+        ]),
+        pageCount() {
+            let l = this.totalRows,
+            s = this.perPage;
+            return Math.floor(l / s);
+        },
+        currentPageItems() {
+            let lengthAll = this.developers.length;
+            this.nbPages = 0;
+            for (let i = 0; i < lengthAll; i = i + this.perPage) {
+                this.paginated_items[this.nbPages] = this.developers.slice(
+                    i,
+                    i + this.perPage
+                );
+                this.nbPages++;
+            }
+            return this.paginated_items[this.currentPage-1];
+        }
     },
     mounted() {
         this.GET_DEVELOPERS_FROM_API()
@@ -122,6 +143,7 @@ export default {
                 this.DEVELOPERS.forEach(item => {
                     this.developers.push(item);
                 })
+                this.totalRows = this.developers.length;
             })
     },
     methods: {

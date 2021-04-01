@@ -460,6 +460,12 @@
                 active: false,
                 tabsItem: [
                     {
+                        id: 3,
+                        path: "/super_admin/edit_home_page",
+                        name: 'Главная страница',
+                        active: false
+                    },
+                    {
                         id: 1,
                         path: "/super_admin/add_developer",
                         name: 'Застройщики',

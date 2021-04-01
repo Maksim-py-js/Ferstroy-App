@@ -23,8 +23,7 @@
                   <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/star.svg"></div>
                   <div class="card__rating_text">4.5</div>
                 </div>
-                <div class="d-flex align-items-center">
-                  <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/message.svg"></div>
+                <div class="d-flex align-items-center"> <div class="card__rating_image"><img src="@/assets/images/svg/card-icons/message.svg"></div>
                   <div class="card__rating_text">25</div>
                 </div>
               </div>

@@ -1,25 +1,43 @@
 <template>
     <div class="position-relative w-100">
         <VueSlickCarousel v-bind="mainSlider" class="p-0 m-0 border-0 position-absolute header__slider" style="">
-            <div class="header__slide">
+            <div class="header__slide position-relative">
                 <img src="@/assets/images/png/slide_1-min.png" alt="">
                 <div class="header__slide_blackoutTop"></div>
                 <div class="header__slide_blackout"></div>
+                <div class="position-absolute d-flex align-items-center header__statusConstruction">
+                    <div class="header__statusConstruction_txt">ЖК Фергана</div>
+                    <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>  
+                </div>
             </div>
-            <div class="header__slide">
+            <div class="header__slide position-relative">
                 <img src="@/assets/images/png/slide_2-min.png" alt="">
                 <div class="header__slide_blackoutTop"></div>
                 <div class="header__slide_blackout"></div>
+                <div class="position-absolute d-flex align-items-center header__statusConstruction">
+                    <div class="header__statusConstruction_txt">ЖК </div>
+                    <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>  
+                </div>
+
             </div>
-            <div class="header__slide">
+            <div class="header__slide position-relative">
                 <img src="@/assets/images/png/slide_3-min.png" alt="">
                 <div class="header__slide_blackoutTop"></div>
                 <div class="header__slide_blackout"></div>
+                <div class="position-absolute d-flex align-items-center header__statusConstruction">
+                    <div class="header__statusConstruction_txt">ЖК Фергана</div>
+                    <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>  
+                </div>
+
             </div>
-            <div class="header__slide">
+            <div class="header__slide position-relative">
                 <img src="@/assets/images/png/slide_4-min.png" alt="">
                 <div class="header__slide_blackoutTop"></div>
                 <div class="header__slide_blackout"></div>
+                <div class="position-absolute d-flex align-items-center header__statusConstruction">
+                    <div class="header__statusConstruction_txt">ЖК Фергана</div>
+                    <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>  
+                </div>
             </div>
         </VueSlickCarousel>
         <div class="header" v-click-outside="externalClick">
@@ -214,10 +232,6 @@
                 </div>                
                 <div class="header__selectProperty_name">Резеденция вашей мечты</div>            
             </div>                  
-        </div>
-        <div class="position-absolute d-flex align-items-center header__statusConstruction">
-            <div class="header__statusConstruction_txt">ЖК Фергана</div>
-            <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>  
         </div>
 
         <div class="header__mouse">
