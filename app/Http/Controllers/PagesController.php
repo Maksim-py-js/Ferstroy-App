@@ -54,18 +54,6 @@ class PagesController extends Controller
         $page->header_number = $request['header_number'];
         $page->header_search_button = $request['header_search_button'];
         $page->header_title = $request['header_title'];
-        $page->header_residential_complex_name = $request['header_residential_complex_name'];
-        $page->header_state_button = $request['header_state_button'];
-
-        $page->bestsellers_title = $request['bestsellers_title'];
-        $page->advantages_title = $request['advantages_title'];
-
-        $page->main_page = $request['main_page'];
-        $page->search_result = $request['search_result'];
-        $page->object_page = $request['object_page'];
-        $page->map_page = $request['map_page'];
-        $page->developers_page = $request['developers_page'];
-        $page->developer_page = $request['developer_page'];
 
         $page->save();
         return $page;

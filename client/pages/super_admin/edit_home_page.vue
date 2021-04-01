@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div class="h-panel">
         <div class="background-filter"></div>  
         <b-navbar class="panel-top p-0 mb-4">
@@ -568,3 +569,7 @@
         }
     }
 </style>
+=======
+
+</template>
+>>>>>>> 4862f49c43a2375ac26bd8427511909765cc166d

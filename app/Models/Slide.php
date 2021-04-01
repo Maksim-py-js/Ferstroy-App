@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Slide extends Model
 {
     use HasFactory;
+    public function residential_complex() {
+        return $this->belongsTo('App\Models\ResidentialComplex', 'residential_complex_id');
+    }
 }
