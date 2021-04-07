@@ -62,7 +62,6 @@
                         </div>
                     </div>
                 </b-sidebar>
-                <!-- <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
                 <nuxt-link to="/" class="header__logo admin-logo">
                     <img src="@/assets/images/svg/logo/russian-light.svg">
                 </nuxt-link>
@@ -132,20 +131,6 @@
                                 </div>
                             </template>
 
-                            <template #cell(history)="row">
-                                <div style="cursor: pointer" @click="row.toggleDetails">{{row.value}}</div>
-                            </template>
-
-                            <template #row-details="row">
-                                <b-button size="sm" class="close_history" @click="row.toggleDetails">
-                                    <img src="@/assets/images/svg/close.svg" alt="close">
-                                </b-button>
-                                <div class="woodBox">
-                                    <!-- <Wood :objects="row.item.historyWood"/> -->
-                                    asd
-                                </div>
-                            </template>
-
                             <template #cell(houses)="row">
                                 <nuxt-link :to="`/super_admin/edit_houses/${row.item.residential_complex_value.id}`">
                                     <b-button variant="primary">
@@ -155,7 +140,16 @@
                             </template>
 
                             <template #cell(edit)="row">
-                            	 <b-button 
+                                <b-button 
+                                    variant="primary" 
+                                    @click="
+                                        residential_complex_id = row.item.residential_complex_value.id,
+                                        getSlides();
+                                    "
+                                >
+                                    <span class="">Добавить в слайдер</span>
+                                </b-button>
+                            	<b-button 
                             	 	variant="primary" 
                                     @click="
                                 		residential_complex_id = row.item.residential_complex_value.id,
@@ -774,6 +768,24 @@
                     // });
                     this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
                 });
+            },
+            async addToSlide() {
+                this.$axios.$post('http://213.230.96.125/api/slides', {
+                    'residential_complex_id': this.residential_complex_id
+                })
+                .then(response => {
+                })
+            },
+            async getSlides() {
+                this.$axios.$get('http://213.230.96.125/api/slides')
+                .then(response => {
+                    console.log(response);
+                    if(response.length > 5) {
+                        alert('В слайдере может быть только 5 слайдов');
+                    } else {
+                        this.addToSlide();
+                    }
+                })
             }
         }
     }

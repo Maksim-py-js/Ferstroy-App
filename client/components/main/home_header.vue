@@ -1,6 +1,6 @@
 <template>
     <div class="position-relative w-100">
-        <VueSlickCarousel v-bind="mainSlider" class="p-0 m-0 border-0 position-absolute header__slider" style="">
+        <!-- <VueSlickCarousel v-bind="mainSlider" class="p-0 m-0 border-0 position-absolute header__slider" style="">
             <div class="header__slide position-relative">
                 <img src="@/assets/images/png/slide_1-min.png" alt="">
                 <div class="header__slide_blackoutTop"></div>
@@ -39,6 +39,28 @@
                     <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>  
                 </div>
             </div>
+        </VueSlickCarousel> -->
+        <VueSlickCarousel v-bind="mainSlider" class="p-0 m-0 border-0 position-absolute header__slider" style="">
+            <div class="header__slide">
+                <img src="@/assets/images/png/slide_1-min.png" alt="">
+                <div class="header__slide_blackoutTop"></div>
+                <div class="header__slide_blackout"></div>
+            </div>
+            <div class="header__slide">
+                <img src="@/assets/images/png/slide_2-min.png" alt="">
+                <div class="header__slide_blackoutTop"></div>
+                <div class="header__slide_blackout"></div>
+            </div>
+            <div class="header__slide">
+                <img src="@/assets/images/png/slide_3-min.png" alt="">
+                <div class="header__slide_blackoutTop"></div>
+                <div class="header__slide_blackout"></div>
+            </div>
+            <div class="header__slide">
+                <img src="@/assets/images/png/slide_4-min.png" alt="">
+                <div class="header__slide_blackoutTop"></div>
+                <div class="header__slide_blackout"></div>
+            </div>
         </VueSlickCarousel>
         <div class="header" v-click-outside="externalClick">
             <div class="container_1290 position-relative">
@@ -64,7 +86,7 @@
                             </div>
                         </b-navbar-nav>
                         <div>
-                            <div><a href="tel:+712008822" class="header__phone text-decoration-none">(71) 200 88 22</a></div>
+                            <div><a href="tel:+712008822" class="header__phone text-decoration-none">{{header.header_number}}</a></div>
                             <div><a href="tel:+712008822" class="header__phone_text">Связаться с нами</a></div>                            
                         </div>
                     </div>
@@ -228,12 +250,16 @@
                     </div>
                 </div> 
                 <div class="header__selectProperty_btn">
-                    <b-button @click="openSearsearchBar__chckbxar(SearcBarState)" variant="transparent" class="header__lightBtn shadow-none">Подобрать недвижимость</b-button>             
+                    <b-button @click="openSearsearchBar__chckbxar(SearcBarState)" variant="transparent" class="header__lightBtn shadow-none">{{header.header_search_button}}</b-button>             
                 </div>                
-                <div class="header__selectProperty_name">Резеденция вашей мечты</div>            
+                <div class="header__selectProperty_name">{{header.header_title}}</div>            
             </div>                  
         </div>
 
+        <div class="position-absolute d-flex align-items-center header__statusConstruction">
+            <div class="header__statusConstruction_txt">ЖК Фергана</div>
+            <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>  
+        </div>
         <div class="header__mouse">
             <b-button variant="transparent" class="p-0 m-0 shadow-none" @click="moveToBuildings">
                 <img src="@/assets/images/svg/mouse.svg">
@@ -255,30 +281,6 @@ import vClickOutside from 'v-click-outside'
   export default {
     directives: {
       clickOutside: vClickOutside.directive
-    },
-    components: { 
-        VueSlickCarousel,
-        VSelectize
-    },
-    methods: {
-        openSearsearchBar__chckbxar(SearcBarState) {
-            this.SearcBarState = true;
-            console.log(SearcBarState);
-        },       
-        closeSearsearchBar__chckbxar(SearcBarState) {
-            this.SearcBarState = false;
-            console.log(SearcBarState);
-        },
-        moveToBuildings () {
-            const $bestsellers = document.getElementById('bestsellers');
-            $bestsellers.scrollIntoView({ 
-                block: 'nearest',
-                behavior: 'smooth'
-            });
-        },
-        externalClick (SearcBarState) {
-            this.SearcBarState = false
-        }
     },
     data() {
       return {
@@ -422,8 +424,46 @@ import vClickOutside from 'v-click-outside'
                 class: "searchBar__chckbx-160",
                 state: false
             },
-        ]
+        ],
+        header: {
+            header_number: '',
+            header_search_button: '',
+            header_title: ''
+        }
       }
+    },
+    mounted() {
+        this.getHeaderData();
+    },
+    components: { 
+        VueSlickCarousel,
+        VSelectize
+    },
+    methods: {
+        openSearsearchBar__chckbxar(SearcBarState) {
+            this.SearcBarState = true;
+        },       
+        closeSearsearchBar__chckbxar(SearcBarState) {
+            this.SearcBarState = false;
+        },
+        moveToBuildings () {
+            const $bestsellers = document.getElementById('bestsellers');
+            $bestsellers.scrollIntoView({ 
+                block: 'nearest',
+                behavior: 'smooth'
+            });
+        },
+        externalClick (SearcBarState) {
+            this.SearcBarState = false
+        },
+        async getHeaderData() {
+            this.$axios.$get('http://213.230.96.125/api/pages/1')
+            .then(response => {
+                this.header.header_number = response[0].page_value.header_number,
+                this.header.header_search_button = response[0].page_value.header_search_button,
+                this.header.header_title = response[0].page_value.header_title
+            })
+        }
     }
   }
 </script>

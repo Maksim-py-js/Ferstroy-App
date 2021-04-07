@@ -62,7 +62,6 @@
                         </div>
                     </div>
                 </b-sidebar>
-                <!-- <b-breadcrumb variant="transparent" :items="bredcrumbsItems" class="custom-breadcrumbs mb-0 bg-transparent text-light"></b-breadcrumb> -->
                 <nuxt-link to="/" class="header__logo admin-logo">
                     <img src="@/assets/images/svg/logo/russian-light.svg">
                 </nuxt-link>
@@ -166,7 +165,6 @@
                                 >
                                     <b-icon-plus variant="light"></b-icon-plus>
                                 </b-button>
-                                <!-- <div class="model-itemName" v-if="!editData">Лимит ограничен</div> -->
                                 <b-row class="align-items-center pl-3" v-if="editData">
                                     <b-button variant="primary" class="mr-2" @click="getEditAdvantage(editAdventageId), editData = false">
                                         Изменить
@@ -275,6 +273,10 @@
         	async getPages() {
         		this.$axios.$get('/api/pages')
         		.then(response => {
+                    console.log(response);
+                    this.home_home_page.header_number = response[0].page_value.header_number;
+                    this.home_home_page.header_search_button = response[0].page_value.header_search_button;
+                    this.home_home_page.header_title = response[0].page_value.header_title;
         			response.length == 1 ? this.havePage = true : this.havePage = false;
         		});
         	},
@@ -299,19 +301,10 @@
                 })
         	},
         	async patchPage() {
-        		const formData = new FormData();
-
-        		console.log(this.home_home_page.header_number);
-        		console.log(this.home_home_page.header_search_button);
-        		console.log(this.home_home_page.header_title);
-                formData.append("header_number", this.home_home_page.header_number);
-                formData.append("header_search_button", this.home_home_page.header_search_button);
-                formData.append("header_title", this.home_home_page.header_title);
-
-                this.$axios.$patch(`/api/pages/1`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+                this.$axios.$patch(`api/pages/1`, {
+                    "header_number": this.home_home_page.header_number,
+                    "header_search_button": this.home_home_page.header_search_button,
+                    "header_title": this.home_home_page.header_title
                 })
                 .then(response => {
                     if (response.created_at) {
