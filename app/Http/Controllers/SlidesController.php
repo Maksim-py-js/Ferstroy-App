@@ -17,7 +17,9 @@ class SlidesController extends Controller
      */
     public function index()
     {
+
         $slides = Slide::all();
+        $complex = [];
         foreach ($slides as $slide) {
             $residential_complex = $slide->residential_complex()->get();
 
@@ -25,8 +27,9 @@ class SlidesController extends Controller
                 $residential_complex_id = ResidentialComplex::find($residential_complex_value->residential_complex_id);
 
             }
-            return $residential_complex;
+            array_push($complex, compact('slide', 'residential_complex'));
         }
+        return $complex;
     }
 
     /**

@@ -83,6 +83,7 @@
                                         <b-form-input
                                             id="filter-input"
                                             v-model="filter"
+                                            :value="filter"
                                             type="text"
                                             placeholder="Поиск по таблице"
                                             class="searchBar__input br-0"
@@ -121,6 +122,8 @@
                                     @click="
                                         floor.house_id = row.item.house.id,
                                         getHousesFloors(),
+                                        appartmentsNull(),
+                                        appartments = [],
                                         $bvModal.show('postFloorsForm')
                                     "
                                 >
@@ -147,41 +150,6 @@
                             </template>
                         </b-table>
 
-                        <!-- add house modal -->
-                        <b-modal id="postFloorsForm" hide-header hide-footer centered>
-                            <h2 class="panelName">Добовление этажей:</h2>
-                            <div class="dataItem">
-                                <b-col md="auto" class="p-0">
-                                    
-                                    </b-table>
-                                    <b-button 
-                                        v-if="!edit_Floors_Data"
-                                        variant="success" 
-                                        @click=""
-                                    >
-                                        <b-icon-plus variant="light"></b-icon-plus>
-                                    </b-button>
-                                    <b-row class="align-items-center pl-3" v-if="edit_Floors_Data">
-                                        <b-button variant="primary" class="mr-2" @click="edit_Floors_Data = false">
-                                            Изменить
-                                        </b-button>
-                                        <b-button @click="edit_Floors_Data = false">
-                                            Отмена
-                                        </b-button>
-                                    </b-row>
-                                </b-col>
-                            </div> 
-
-
-
-
-                            <b-row class="align-items-center pl-3 mt-4">
-                                <b-button class="m-0" @click="$bvModal.hide('postFloorsForm')">
-                                    Закрыть
-                                </b-button>
-                            </b-row>
-                        </b-modal>
-
 
                         <!-- add residential_complexes modals -->
                         <b-modal id="postFloorsForm" hide-header hide-footer centered>
@@ -191,6 +159,7 @@
                                 <b-form-input
                                     id="filter-input"
                                     v-model="floor.floor_number"
+                                    :value="floor.floor_number"
                                     type="number"
                                     placeholder="1"
                                     class="searchBar__input br-0"
@@ -201,6 +170,7 @@
                                 <b-form-input
                                     id="filter-input"
                                     v-model="floor.phone_number"
+                                    :value="floor.phone_number"
                                     type="number"
                                     placeholder="+998 (90) 456-56-67"
                                     class="searchBar__input br-0"
@@ -211,6 +181,7 @@
                                 <b-form-input
                                     id="filter-input"
                                     v-model="floor.square"
+                                    :value="floor.square"
                                     type="number"
                                     placeholder="1"
                                     class="searchBar__input br-0"
@@ -223,8 +194,34 @@
                                     v-model="floor.description"
                                     type="text"
                                     placeholder="Описание"
+                                    :value="floor.description"
                                     class="searchBar__input br-0"
                                 ></b-form-textarea>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Количество квртир на этаже:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="house_floor_descriptions.count_appartments"
+                                    :value="house_floor_descriptions.count_appartments"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Добавить изоброжение этажа:</div>
+                                <form ref="formData">
+                                    <b-form-group            
+                                        id="input"
+                                    >
+                                        <b-form-file 
+                                            id="input-file" 
+                                            v-model="floor.image"
+                                            :value="floor.image"
+                                        ></b-form-file>
+                                    </b-form-group>
+                                </form>
                             </div>
                             <div class="dataItem">
                                 <div class="label">Добавить обводку этажа:</div>
@@ -233,11 +230,59 @@
                                         id="input"
                                     >
                                         <b-form-file 
-                                            id="input-file" 
-                                            v-model="floor.image"
+                                            id="input-file-floor-hover" 
+                                            v-model="house_hovers.svg"
+                                            :value="house_hovers.svg"
                                         ></b-form-file>
                                     </b-form-group>
                                 </form>
+                            </div>
+                            <h2 class="panelName">
+                                Позиционирование таблички описания относительно дома:
+                            </h2>
+                            <div class="dataItem">
+                                <div class="label">Расстояние до верха:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="house_floor_descriptions.positionTop"
+                                    :value="house_floor_descriptions.positionTop"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Расстояние до правой стороны:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="house_floor_descriptions.positionRight"
+                                    :value="house_floor_descriptions.positionRight"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Расстояние до низа:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="house_floor_descriptions.positionBottom"
+                                    :value="house_floor_descriptions.positionBottom"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Расстояние до левой стороны:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="house_floor_descriptions.positionLeft"
+                                    :value="house_floor_descriptions.positionLeft"
+                                    type="number"
+                                    placeholder="100"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
                             </div>
                             <h2 class="panelName">Добовление квартир:</h2>
                             <div class="dataItem">
@@ -329,7 +374,7 @@
                                         class="searchBar__input br-0 mb-2"
                                     ></b-form-input>
                                     <div class="dataItem">
-                                        <div class="label">Добавить обводку квартиры:</div>
+                                        <div class="label">Добавить изоброжение квартиры:</div>
                                         <form ref="formData">
                                             <b-form-group            
                                                 id="input"
@@ -341,10 +386,49 @@
                                             </b-form-group>
                                         </form>
                                     </div>
+                                    <div class="dataItem">
+                                        <div class="label">Забронированно:</div>
+                                        <form ref="formData">
+                                            <b-form-group            
+                                                id="input"
+                                            >
+                                                <b-form-file 
+                                                    id="input-file-appartments-type1" 
+                                                    v-model="floor_hovers[0].image"
+                                                ></b-form-file>                         
+                                            </b-form-group>
+                                        </form>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Продано:</div>
+                                        <form ref="formData">
+                                            <b-form-group            
+                                                id="input"
+                                            >
+                                                <b-form-file 
+                                                    id="input-file-appartments-type2" 
+                                                    v-model="floor_hovers[1].image"
+                                                ></b-form-file>
+                                            </b-form-group>
+                                        </form>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Свободно:</div>
+                                        <form ref="formData">
+                                            <b-form-group            
+                                                id="input"
+                                            >
+                                                <b-form-file 
+                                                    id="input-file-appartments-type3" 
+                                                    v-model="floor_hovers[2].image"
+                                                ></b-form-file>
+                                            </b-form-group>
+                                        </form>
+                                    </div>
                                     <b-button 
                                         v-if="!edit_appartments_Data"
                                         variant="success" 
-                                        @click="addAppartments();"
+                                        @click="addAppartments()"
                                     >
                                         <b-icon-plus variant="light"></b-icon-plus>
                                     </b-button>
@@ -385,7 +469,16 @@
                                 </li>
                             </ul> -->
                             <b-row class="align-items-center pl-3 mt-4">
-                                <b-button variant="primary" class="ml-2" @click="postFloors(), $bvModal.hide('postFloorsApprove'), $bvModal.hide('postFloorsForm')">
+                                <b-button 
+                                    variant="primary" 
+                                    class="ml-2" 
+                                    @click="
+                                        postFloors(),
+                                        postFloorDescriptions(),
+                                        $bvModal.hide('postFloorsApprove'), 
+                                        $bvModal.hide('postFloorsForm') 
+                                    "
+                                >
                                     Добавить
                                 </b-button>
                                 <b-button class="ml-4" @click="$bvModal.hide('postFloorsApprove')">
@@ -519,6 +612,47 @@
                 floors: [],
                 edit_Floors_Data: false,
 
+                // houses floor hovers
+                house_hovers: {
+                    svg: [],
+                    house_id: '',
+                    floor_id: ''
+                },
+
+                // house floor descriptions
+                house_floor_descriptions: {
+                    number: '',
+                    count_appartments: '',
+                    positionTop: '',
+                    positionRight: '',
+                    positionBottom: '',
+                    positionLeft: '',
+                    house_id: ''
+                },
+
+                // apartment hovers
+                floor_hovers: [
+                    {
+                        image: [],
+                        state: '1',
+                        floor_id: '',
+                        appartment_id: ''
+                    },
+                    {
+                        image: [],
+                        state: '2',
+                        floor_id: '',
+                        appartment_id: ''
+                    },
+                    {
+                        image: [],
+                        state: '3',
+                        floor_id: '',
+                        appartment_id: ''
+                    }
+                ],
+
+
                 // Features Residential Complexes
                 appartment: {
                     image: '',
@@ -580,13 +714,13 @@
                 this.$axios.$get(`/api/residential_complexes/${this.id}`)
                     .then(response => {
                         this.houses = response[0].houses;
- ;                   })
+                })
             },
             async getHousesFloors() {
                 this.$axios.$get(`/api/houses/${this.floor.house_id}`)
                     .then(response => {
-                        this.floors = response[0].floors
- ;                  })
+                        this.floors = response[0].floors;
+                })
             },
             async postFloors() {
 
@@ -604,18 +738,20 @@
                     }
                 })
                 .then(response => {
-                    console.log(response.id);
                     this.appartment.floor_id = response.id;
                     if (response.created_at) {
                         this.floor.image = [],
-                        this.floor.floor_number = '',
                         this.floor.square = '',
                         this.floor.description = '',
                         this.floor.phone_number = '',
+
                         this.getHousesFloors();
                         this.appArtmentsForEach();
                         // this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
                     }
+                })
+                .then(() => {
+                    this.postHousesFloorHovers();
                 })
             },
             async patchFloor(id) {
@@ -629,7 +765,91 @@
                     })
             },
 
+            async postFloorDescriptions() {
+                const formData = new FormData();
+                formData.append("number", this.floor.floor_number);
+                formData.append("count_appartments", this.house_floor_descriptions.count_appartments);
+
+                formData.append("positionTop", this.house_floor_descriptions.positionTop);
+                formData.append("positionRight", this.house_floor_descriptions.positionRight);
+                formData.append("positionBottom", this.house_floor_descriptions.positionBottom);
+                formData.append("positionLeft", this.house_floor_descriptions.positionLeft);
+
+                formData.append("house_id", this.floor.house_id);
+
+                this.$axios.$post('/api/house_floor_descriptions', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    if (response.created_at) {
+                        this.house_floor_descriptions.count_appartments = '',
+
+                        this.house_floor_descriptions.positionTop = '',
+                        this.house_floor_descriptions.positionRight = '',
+                        this.house_floor_descriptions.positionBottom = '',
+                        this.house_floor_descriptions.positionLeft = ''
+                    }
+                })  
+            },
+
+            async postHousesFloorHovers() {
+                const formData = new FormData();
+                formData.append("svg", this.house_hovers.svg, this.house_hovers.svg.name);
+
+                formData.append("house_id", this.floor.house_id);
+                formData.append("floor_id", this.appartment.floor_id);
+
+                this.$axios.$post('/api/house_hovers', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    this.postHouseNavigations(response.id);
+                })
+            },
+
+            async postHouseNavigations(house_hover_id) {
+                const formData = new FormData();
+                formData.append("number", this.floor.floor_number);
+                formData.append("house_id", this.floor.house_id);
+                formData.append("floor_id", this.appartment.floor_id);
+                formData.append("house_hover_id", house_hover_id);
+
+                this.$axios.$post('/api/house_navigations', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+            },
+
+            async postFloorsApertmentHovers(item, appartment_id) {
+                const formData = new FormData();
+                formData.append("image", item.image, item.image.name);
+
+                formData.append("state", item.state);
+                formData.append("floor_id", this.appartment.floor_id);
+                formData.append("appartment_id", appartment_id);
+
+                this.$axios.$post('/api/floor_hovers', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+            },
+
             // appartments complexes
+            appartmentsNull() {
+                this.appartment.appartment_number = '';
+                this.appartment.square = '';
+                this.appartment.description = '';
+                this.appartment.phone_number = '';
+                this.appartment.price = '';
+                this.appartment.roomines = '';
+                this.appartment.variety = '';
+            },
             editAppartments(item) {
                 let obj = this.appartments[item];
 
@@ -658,21 +878,9 @@
                     obj.construction_start_date = this.appartment.construction_start_date;
                     obj.construction_finish_date = this.appartment.construction_finish_date;
 
-                    this.appartment.appartment_number = '';
-                    this.appartment.square = '';
-                    this.appartment.description = '';
-                    this.appartment.phone_number = '';
-                    this.appartment.price = '';
-                    this.appartment.roomines = '';
-                    this.appartment.variety = '';
+                    this.appartmentsNull();
                 } else {
-                    this.appartment.appartment_number = '';
-                    this.appartment.square = '';
-                    this.appartment.description = '';
-                    this.appartment.phone_number = '';
-                    this.appartment.price = '';
-                    this.appartment.roomines = '';
-                    this.appartment.variety = '';
+                    this.appartmentsNull();
                 }
             },
             delAppartments(item) {
@@ -680,7 +888,6 @@
 
             },
             addAppartments() {
-                console.log(this.appartment.floor_id)
                 let obj = {
                     image: this.appartment.image,
                     appartment_number: this.appartment.appartment_number,
@@ -695,13 +902,7 @@
                     floor_id: this.appartment.floor_id
                 };
                 this.appartments.push(obj);
-                this.appartment.appartment_number = '';
-                this.appartment.square = '';
-                this.appartment.description = '';
-                this.appartment.phone_number = '';
-                this.appartment.price = '';
-                this.appartment.roomines = '';
-                this.appartment.variety = '';
+                this.appartmentsNull();
 
             },
             appArtmentsForEach() {
@@ -741,6 +942,11 @@
                             'Content-Type': 'multipart/form-data'
                         }
                     })
+                .then(response => {
+                    this.floor_hovers.forEach(item => {
+                        this.postFloorsApertmentHovers(item, response.id);
+                    })
+                })
             },
 
             // form

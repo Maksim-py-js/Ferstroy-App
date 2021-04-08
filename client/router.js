@@ -33,6 +33,7 @@ const routes = [
   { path: '/super_admin/edit_houses/:id', name: 'super_admin', component: page('super_admin/edit_houses/_id.vue') },
   { path: '/super_admin/edit_home_page', name: 'super_admin', component: page('super_admin/edit_home_page/edit_home_page.vue') }
 ]
+// edit_home_page
 
 export function createRouter () {
   return new Router({
