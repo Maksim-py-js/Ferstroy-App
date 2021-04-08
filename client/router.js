@@ -17,9 +17,9 @@ const routes = [
   { path: '/developers/developer/:id', name: 'developers', component: page('developers/developer/_id.vue') },
   { path: '/developers/developer/object/:id', name: 'developers', component: page('developers/developer/object/_id.vue') },
   {
-    path: '/developers/developer/object/house',
+    path: '/developers/developer/object/house/:id',
     name: 'house',
-    component: page('developers/developer/object/house/index.vue')
+    component: page('developers/developer/object/house/_id.vue')
   },
 
   { path: '/parlament', name: 'parlament', component: page('parlament/developer_users.vue') },
@@ -31,9 +31,8 @@ const routes = [
   { path: '/super_admin/edit_residential_complexes', name: 'super_admin', component: page('super_admin/edit_residential_complexes.vue') },
   { path: '/super_admin/add_developer', name: 'super_admin', component: page('super_admin/add_developer.vue') },
   { path: '/super_admin/edit_houses/:id', name: 'super_admin', component: page('super_admin/edit_houses/_id.vue') },
-  { path: '/super_admin/edit_home_page', name: 'super_admin', component: page('super_admin/edit_home_page/edit_home_page.vue') }
+  { path: '/super_admin/edit_home_page', name: 'super_admin', component: page('super_admin/edit_home_page.vue') }
 ]
-// edit_home_page
 
 export function createRouter () {
   return new Router({
