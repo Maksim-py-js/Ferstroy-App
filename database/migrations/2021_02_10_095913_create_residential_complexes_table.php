@@ -40,6 +40,8 @@ class CreateResidentialComplexesTable extends Migration
             $table->string('year_id')->nullable();
             $table->string('developer_id')->nullable();
 
+            $table->boolean('bestseller')->nullable();
+
             $table->timestamps();
         });
     }

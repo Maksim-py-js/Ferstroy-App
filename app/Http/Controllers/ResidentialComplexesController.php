@@ -158,6 +158,8 @@ class ResidentialComplexesController extends Controller
         $residential_complex->year_id = $request['year_id'];
         $residential_complex->developer_id = $request['developer_id'];
 
+        $residential_complex->bestseller = $request['bestseller'];        
+
         $residential_complex->save();
         return $residential_complex;
     }
@@ -295,6 +297,8 @@ class ResidentialComplexesController extends Controller
         $residential_complex->marker_id = $request['marker_id'];
         $residential_complex->year_id = $request['year_id'];
         $residential_complex->developer_id = $request['developer_id'];
+
+        $residential_complex->bestseller = $request['bestseller'];
 
         $residential_complex->save();
         return $residential_complex;
