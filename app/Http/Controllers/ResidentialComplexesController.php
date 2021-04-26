@@ -139,15 +139,10 @@ class ResidentialComplexesController extends Controller
         $residential_complex->rating = $request['rating'];
 
 
-        $residential_complex->number = $request['number'];
         $residential_complex->address = $request['address'];
-        $residential_complex->email = $request['email'];
 
         $residential_complex->about_title = $request['about_title'];
         $residential_complex->about_description = $request['about_description'];
-
-        $residential_complex->count_workers = $request['count_workers'];
-        $residential_complex->count_machinery = $request['count_machinery'];
 
         $residential_complex->construction_start_date = $request['construction_start_date'];
         $residential_complex->construction_finish_date = $request['construction_finish_date'];
@@ -279,15 +274,10 @@ class ResidentialComplexesController extends Controller
         $residential_complex->title = $request['title'];
         $residential_complex->rating = $request['rating'];
 
-        $residential_complex->number = $request['number'];
         $residential_complex->address = $request['address'];
-        $residential_complex->email = $request['email'];
 
         $residential_complex->about_title = $request['about_title'];
         $residential_complex->about_description = $request['about_description'];
-
-        $residential_complex->count_workers = $request['count_workers'];
-        $residential_complex->count_machinery = $request['count_machinery'];
 
         $residential_complex->construction_start_date = $request['construction_start_date'];
         $residential_complex->construction_finish_date = $request['construction_finish_date'];

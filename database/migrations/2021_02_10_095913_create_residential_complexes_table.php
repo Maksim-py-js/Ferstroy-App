@@ -20,18 +20,13 @@ class CreateResidentialComplexesTable extends Migration
             $table->string('title');
             $table->string('rating')->nullable();
 
-            $table->string('number')->nullable();
             $table->string('address')->nullable();
-            $table->string('email')->nullable();
 
             $table->string('about_title');
             $table->string('about_description');
 
             $table->string('advantages_title')->default('Наши приемущества');
             $table->string('comments_title')->default('Отзывы наших клиентов');
-
-            $table->string('count_workers')->nullable();
-            $table->string('count_machinery')->nullable();
 
             $table->string('construction_start_date')->nullable();
             $table->string('construction_finish_date')->nullable();

@@ -21,7 +21,6 @@ class CreateAppartmentsTable extends Migration
             $table->string('appartment_number');
             $table->string('square');
             $table->longText('description');
-            $table->string('phone_number');
 
             $table->string('price')->nullable();
             $table->string('roomines')->nullable();
