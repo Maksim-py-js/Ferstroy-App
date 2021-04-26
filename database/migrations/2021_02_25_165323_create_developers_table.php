@@ -39,6 +39,9 @@ class CreateDevelopersTable extends Migration
             $table->string('count_constructed_objects')->nullable();
             $table->string('count_under_constructed_objects')->nullable();
 
+            $table->string('email')->nullable();
+            $table->string('marker_id')->nullable();
+
             $table->timestamps();
         });
     }

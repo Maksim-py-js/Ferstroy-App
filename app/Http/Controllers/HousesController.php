@@ -70,6 +70,7 @@ class HousesController extends Controller
 
         $house->svg = env("CLIENT_URL", 'http://localhost').'/storage/images/houses/' . $name . '.' . $extension;
         $house->residential_complex_id = $request['residential_complex_id'];
+        $house->house_number = $request['house_number'];
 
         $house->save();
         return $house;
@@ -126,6 +127,7 @@ class HousesController extends Controller
             $house->svg = env("CLIENT_URL", 'http://localhost').'/storage/images/houses/'.$request['svg'];
         }
         $house->residential_complex_id = $request['residential_complex_id'];
+        $house->house_number = $request['house_number'];
         $house->save();
         return $house;
     }

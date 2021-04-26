@@ -6,6 +6,7 @@ use App\Models\Advantage;
 use App\Models\Developer;
 use App\Models\ResidentialComplex;
 use App\Models\Year;
+use App\Models\MapMarker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -43,13 +44,20 @@ class DevelopersController extends Controller
             }
             $years = array_unique($years_data, SORT_REGULAR);
 
+            $map_marker = $developer->map_marker()->get();
+
+            foreach ($map_marker as $map_marker_value) {
+                $marker_id = MapMarker::find($map_marker_value->marker_id);
+            }
+
             $developer_value = $developer;
             array_push($data, compact(
                 'developer_value',
                 'developer_advantages',
                 'comments',
                 'years',
-                'residential_complexes'
+                'residential_complexes',
+                'map_marker'
             ));
         }
         return json_encode($data);
@@ -100,6 +108,9 @@ class DevelopersController extends Controller
         $developer->count_constructed_objects = $request['count_constructed_objects'];
         $developer->count_under_constructed_objects = $request['count_under_constructed_objects'];
 
+        $developer->email = $request['email'];
+        $developer->marker_id = $request['marker_id'];
+
         $developer->save();
         return $developer;
     }
@@ -135,13 +146,20 @@ class DevelopersController extends Controller
         }
         $years = array_unique($years_data, SORT_REGULAR);
 
+        $map_marker = $developer->map_marker()->get();
+
+        foreach ($map_marker as $map_marker_value) {
+            $marker_id = MapMarker::find($map_marker_value->marker_id);
+        }
+
         $developer_value = $developer;
         array_push($data, compact(
             'developer_value',
             'developer_advantages',
             'comments',
             'years',
-            'residential_complexes'
+            'residential_complexes',
+            'map_marker'
         ));
         return json_encode($data);
     }
@@ -181,6 +199,9 @@ class DevelopersController extends Controller
         $developer->count_objects = $request['count_objects'];
         $developer->count_constructed_objects = $request['count_constructed_objects'];
         $developer->count_under_constructed_objects = $request['count_under_constructed_objects'];
+
+        $developer->email = $request['email'];
+        $developer->marker_id = $request['marker_id'];
 
         $developer->save();
         return $developer;

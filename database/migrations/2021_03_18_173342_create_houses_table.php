@@ -17,6 +17,7 @@ class CreateHousesTable extends Migration
             $table->id();
             $table->string('svg')->default(env("CLIENT_URL", 'http://localhost').'/storage/images/houses/no_image.img');
             $table->string('residential_complex_id');
+            $table->string('house_number');
             $table->timestamps();
         });
     }
