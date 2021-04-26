@@ -93,6 +93,21 @@ class AdvantagesIconsController extends Controller
         }
         $advantages_icon->save();
         return $advantages_icon;*/
+        $request->validate([
+            'icon' => 'required|image|mimes:jpeg,png,jpg,svg',
+        ]);
+
+        $file = $request->file('icon');
+        $name = date('dmyhis');
+        $extension = $file->getClientOriginalExtension();
+        $fullName = ($name . '.' . $extension);
+
+        Storage::disk('local')->putFileAs('public/images/advantages_icons/', $file, $fullName);
+
+        $advantages_icon = new AdvantagesIcon();
+        $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/' . $name . '.' . $extension;
+        $advantages_icon->save();
+        return $advantages_icon;
     }
 
     /**

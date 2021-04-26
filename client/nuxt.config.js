@@ -45,9 +45,10 @@ module.exports = {
 
   css: [
     { src: '~assets/sass/app.scss', lang: 'scss' },
-    '~assets/styles/main.css',
+    // '~assets/styles/main.css',
     '~assets/styles/map.css',
-    '~assets/styles/developers.css'
+    '~assets/styles/developers.css',
+    '../styles/adaptive.css'
   ],
 
   plugins: [

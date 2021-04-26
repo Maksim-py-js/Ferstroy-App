@@ -69,7 +69,7 @@
                         <nuxt-link to="/" class="header__logo">
                             <img src="@/assets/images/svg/logo/russian-light.svg">
                         </nuxt-link>
-                        <b-navbar-nav class="text-center align-items-center h-100">
+                        <b-navbar-nav class="text-center align-items-center h-100 d-flex flex-nowrap">
                             <nuxt-link to="/" class="header__navItem text-decoration-none">О компании</nuxt-link>
                             <nuxt-link to="/developers" class="header__navItem text-decoration-none">Застройщики</nuxt-link>
                             <nuxt-link to="/" class="header__navItem text-decoration-none">Уникальность проектов</nuxt-link>
@@ -85,21 +85,16 @@
                                 </div>
                             </div>
                         </b-navbar-nav>
-                        <div>
-<<<<<<< HEAD
-                            <div><a href="tel:+712008822" class="header__phone text-decoration-none">(71) 200 88 22</a></div>
-                            <div><a href="tel:+712008822" class="header__phone_text">Связаться с нами</a></div>
-=======
-                            <div><a href="tel:+712008822" class="header__phone text-decoration-none">{{header.header_number}}</a></div>
-                            <div><a href="tel:+712008822" class="header__phone_text">Связаться с нами</a></div>                            
->>>>>>> b49158ea815be3184a32073b642a26e27d8b9777
+                        <div> 
+                            <a href="tel:+712008822" class="d-block header__phone text-decoration-none">(71) 200 88 22</a>
+                            <a href="tel:+712008822" class="d-block header__phone_text">Связаться с нами</a>
                         </div>
                     </div>
                 </b-navbar>
             </div>
             <div class="container_1290 position-relative">
                 <div v-bind:class="{ header__searchBar_open: SearcBarState }" class="header__searchBar_close bg-white">
-                    <div class="container_1290 px-20">
+                    <div class="w-100 px-20">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="m-0 h-100 searchBar__title">Поиск новостроек</div>
                             <b-button
@@ -108,14 +103,14 @@
                                 class="header__searchBar_closeBtn align-items-center p-0 m-0 shadow-none d-flex algn-items-center"
                             >
                                 <span>Скрыть поиск</span>
-                                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-15">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-15">
                                     <path d="M16.772 0L19.9809 3.21199L3.20893 20L0 16.788L16.772 0Z"/>
                                     <path d="M3.22801 0L0.0190783 3.21199L16.7911 20L20 16.788L3.22801 0Z"/>
                                 </svg>
                             </b-button>
                         </div>
                     </div>
-                    <div class="container_1290">
+                    <div class="w-100">
                         <div>
                             <input type="text" placeholder="Название новостройки или застройщика" class="searchBar__input"></input>
                         </div>
@@ -255,26 +250,18 @@
                     </div>
                 </div>
                 <div class="header__selectProperty_btn">
-<<<<<<< HEAD
-                    <b-button @click="openSearsearchBar__chckbxar(SearcBarState)" variant="transparent" class="header__lightBtn shadow-none">Подобрать недвижимость</b-button>
+                    <b-button 
+                        @click="openSearsearchBar__chckbxar(SearcBarState)" 
+                        variant="transparent" 
+                        class="header__lightBtn shadow-none d-flex align-items-center mx-auto"    
+                    >
+                        Подобрать недвижимость
+                        <div class="header__selectProperty_icon"><img src="@/assets/images/png/search.png"></div>
+                    </b-button>
                 </div>
                 <div class="header__selectProperty_name">Резеденция вашей мечты</div>
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="position-absolute d-flex align-items-center header__statusConstruction">
-            <div class="header__statusConstruction_txt">ЖК Фергана</div>
-            <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>
-=======
-                    <b-button @click="openSearsearchBar__chckbxar(SearcBarState)" variant="transparent" class="header__lightBtn shadow-none">{{header.header_search_button}}</b-button>             
-                </div>                
-                <div class="header__selectProperty_name">{{header.header_title}}</div>            
-            </div>                  
->>>>>>> b49158ea815be3184a32073b642a26e27d8b9777
-        </div>
-=======
->>>>>>> 2ddfa16cd202f68a90b1e58feee2d135225fba6b
-
         <div class="position-absolute d-flex align-items-center header__statusConstruction">
             <div class="header__statusConstruction_txt">ЖК Фергана</div>
             <b-button variant="transparent" class="header__lightBtn_md shadow-none">Идут продажи</b-button>  
@@ -301,33 +288,10 @@ import vClickOutside from 'v-click-outside'
     directives: {
       clickOutside: vClickOutside.directive
     },
-<<<<<<< HEAD
     components: {
         VueSlickCarousel,
         VSelectize
     },
-    methods: {
-        openSearsearchBar__chckbxar(SearcBarState) {
-            this.SearcBarState = true;
-            console.log(SearcBarState);
-        },
-        closeSearsearchBar__chckbxar(SearcBarState) {
-            this.SearcBarState = false;
-            console.log(SearcBarState);
-        },
-        moveToBuildings () {
-            const $bestsellers = document.getElementById('bestsellers');
-            $bestsellers.scrollIntoView({
-                block: 'nearest',
-                behavior: 'smooth'
-            });
-        },
-        externalClick (SearcBarState) {
-            this.SearcBarState = false
-        }
-    },
-=======
->>>>>>> b49158ea815be3184a32073b642a26e27d8b9777
     data() {
       return {
         SearcBarState: false,
@@ -335,7 +299,7 @@ import vClickOutside from 'v-click-outside'
             arrows: false,
             dots: true,
             slidesToShow: 1,
-            autoplay: true,
+            autoplay: false,
             autoplaySpeed: 3500,
             vertical: true,
             speed: 1400,
@@ -480,10 +444,6 @@ import vClickOutside from 'v-click-outside'
     },
     mounted() {
         this.getHeaderData();
-    },
-    components: { 
-        VueSlickCarousel,
-        VSelectize
     },
     methods: {
         openSearsearchBar__chckbxar(SearcBarState) {
