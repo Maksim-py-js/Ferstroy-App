@@ -38,33 +38,71 @@
                     <div class="filterName">Цена</div>
                     <div class="justify-content-between inputBox">
                         <b-input-group class="d-flex shadow-none justify-content-between align-items-center">
-                            <div class="main__text filter__inpputText">от {{sale[0]}} млрд сум</div>
+                            <!-- <div class="main__text filter__inpputText">от {{sale[0]}} млн сум</div> -->
+                            <label class="saleFirstValue">
+                                <input 
+                                    type="number" 
+                                    :max="maxSaleValue"
+                                    class="main__text filter__inpputText" 
+                                    v-model="sale[0]"
+                                    @change="filterBySale()"
+                                    @click="filterBySale()"
+                                >
+                            </label>
                             <div class="line">-</div>
-                            <div class="main__text filter__inpputText text-right">до {{sale[1]}} млрд сум</div>
+                            <!-- <div class="main__text filter__inpputText text-right">до {{sale[1]}} млн сум</div> -->
+                            <label class="saleSecondValue">
+                                <input 
+                                    type="number" 
+                                    :max="maxSaleValue"
+                                    class="main__text filter__inpputText"
+                                    v-model="sale[1]"
+                                    @change="filterBySale()"
+                                    @click="filterBySale()"
+                                >
+                            </label>
                         </b-input-group>
                     </div>
-                    <no-ssr>
-                        <div class="filter__rangeSlider">
-                            <vue-range-slider v-model="sale" :dotSize="30" :height="10" :min="0" :max="300"></vue-range-slider>
-                        </div>
-                    </no-ssr>
+                    <div class="filter__rangeSlider">
+
+                        <vue-slider v-model="sale" :enable-cross="false" :min="0" :max="999" :tooltip="'none'" @change="filterBySale()"></vue-slider>
+                    </div>
                 </div>
                 <div class="filter">
                     <div class="filterName">Срок сдачи</div>
                     <div class="justify-content-between inputBox">
                         <b-input-group class="d-flex shadow-none justify-content-between align-items-center">
-                            <div class="main__text filter__inpputText">{{deadline[0] == map_deadlineRangeMinValue ? 'Сданы' : deadline[0]}}</div>
+                            <!-- <div class="main__text filter__inpputText">от {{sale[0]}} млн сум</div> -->
+                            <label class="saleFirstValue">
+                                <input 
+                                    type="number" 
+                                    :max="maxSaleValue"
+                                    class="main__text filter__inpputText" 
+                                    v-model="deadline[0]"
+                                    @change="filterBySale()"
+                                    @click="filterBySale()"
+                                >
+                            </label>
                             <div class="line">-</div>
-                            <div class="main__text filter__inpputText text-right">по {{deadline[1]}}</div>
+                            <!-- <div class="main__text filter__inpputText text-right">до {{sale[1]}} млн сум</div> -->
+                            <label class="saleSecondValue">
+                                <input 
+                                    type="number" 
+                                    :max="maxSaleValue"
+                                    class="main__text filter__inpputText"
+                                    v-model="deadline[1]"
+                                    @change="filterBySale()"
+                                    @click="filterBySale()"
+                                >
+                            </label>
                         </b-input-group>
                     </div>
-                    <no-ssr>
-                        <div class="filter__rangeSlider">
-                            <vue-range-slider v-model="deadline" :dotSize="30" :height="10" :min="2021" :max="2024"></vue-range-slider>
-                        </div>
-                    </no-ssr>
+                    <div class="filter__rangeSlider">
+                        <vue-slider v-model="deadline" :enable-cross="false" :min="0" :max="999" :tooltip="'none'" @change="filterBySale()"></vue-slider>
+                       <!--  <vue-range-slider v-model="sale" :dotSize="30" :height="10" :min="0" :max="999"></vue-range-slider> -->
+                    </div>
                 </div>
-                
+
                 <div class="filter">
                     <b-form-group v-slot="{ ariaDescribedby }">
                         <b-form-radio-group
@@ -77,21 +115,42 @@
                         ></b-form-radio-group>
                     </b-form-group>
                 </div>
+
                 <div class="filter">
                     <div class="filterName">Площадь</div>
                     <div class="justify-content-between inputBox">
                         <b-input-group class="d-flex shadow-none justify-content-between align-items-center">
-                            <div class="main__text filter__inpputText">от {{square[0]}}</div>
+                            <!-- <div class="main__text filter__inpputText">от {{sale[0]}} млн сум</div> -->
+                            <label class="saleFirstValue">
+                                <input 
+                                    type="number" 
+                                    :max="maxSaleValue"
+                                    class="main__text filter__inpputText" 
+                                    v-model="square[0]"
+                                    @change="filterBySale()"
+                                    @click="filterBySale()"
+                                >
+                            </label>
                             <div class="line">-</div>
-                            <div class="main__text filter__inpputText text-right">до {{square[1]}}</div>
+                            <!-- <div class="main__text filter__inpputText text-right">до {{sale[1]}} млн сум</div> -->
+                            <label class="saleSecondValue">
+                                <input 
+                                    type="number" 
+                                    :max="maxSaleValue"
+                                    class="main__text filter__inpputText"
+                                    v-model="square[1]"
+                                    @change="filterBySale()"
+                                    @click="filterBySale()"
+                                >
+                            </label>
                         </b-input-group>
                     </div>
-                    <no-ssr>
-                        <div class="filter__rangeSlider">
-                            <vue-range-slider v-model="square" :dotSize="30" :height="10" :min="20" :max="200"></vue-range-slider>
-                        </div>
-                    </no-ssr>
+                    <div class="filter__rangeSlider">
+                        <vue-slider v-model="square" :enable-cross="false" :min="0" :max="999" :tooltip="'none'" @change="filterBySale()"></vue-slider>
+                       <!--  <vue-range-slider v-model="sale" :dotSize="30" :height="10" :min="0" :max="999"></vue-range-slider> -->
+                    </div>
                 </div>
+
                 <div class="filter" @click="filterMarkers()">
                     <div class="filterName">Застройщики</div>
                     <v-selectize 
@@ -116,7 +175,7 @@
                 </div>
             </div>
         </div>
-        <div class="container_1290">
+        <!-- <div class="container_1290">
             <b-breadcrumb :items="breadcrumbItems" variant="transparent" class="mt-5 mb-4"></b-breadcrumb>
             <h3 class="main__title">Карта Новостроек или как найти идеальное жильё в Фергане</h3>
             <b-row>
@@ -300,25 +359,30 @@
                     </span>
                 </b-col>
             </b-row>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
     import 'selectize/dist/css/selectize.css'
-    import 'vue-range-component/dist/vue-range-slider.css'
+
     import VSelectize from '@isneezy/vue-selectize'
-    import VueRangeSlider from 'vue-range-component'
     import {mapActions, mapGetters} from 'vuex'
     import { loadYmap } from 'vue-yandex-maps'
+
+    import VueSlider from 'vue-slider-component'
+    import 'vue-slider-component/theme/default.css'
+
+
     export default { 
         layout: 'main',
         components: {
             VSelectize,
-            VueRangeSlider
+            VueSlider
         },
         data() {
             return {
+                message: '',
                 breadcrumbItems: [
                     {
                         text: 'Главная',
@@ -370,7 +434,11 @@
                 ],
                 selected_developer: null,
                 selected_finishing: null,
-                sale: [0, 300],
+
+                sale: [0, 999],
+                minSaleValue: 0,
+                maxSaleValue : 999,
+
                 deadline: [2021, 2024],
                 square: [20, 200],
                 coords: [40.388404, 71.780839],
@@ -385,23 +453,68 @@
                 showMap: false,
                 searchMarker: '',
                 getMarkers: [],
-                markers: []
+                markers: [],
+                filterBy: {
+                    maxSale: null,
+                    minSale: null,
+                    minYear: null,
+                    maxYear: null,
+                    minSquer: null,
+                    maxSquer: null,
+                    numberOfRooms: null,
+                    developer: null
+                }
             }
         },
         mounted() { 
-            this.GET_RESIDENTIAL_COMPLEXES_FROM_API(),
             this.GET_DEVELOPERS_FROM_API()
+                .then(() => {
+                    this.GET_RESIDENTIAL_COMPLEXES_FROM_API()
+                })
+                .then(() => {
+
+                })
+                .then(() => {
+                    let arrComplexes = [],
+                        cloneComplexArray = this.RESIDENTIAL_COMPLEXES.slice();
+
+                    cloneComplexArray.forEach(complex => {
+                        let arrAppartments = [],                       
+                            complex_data = {        
+                                min: null,
+                                max: null,
+                                id: null
+                            };
+
+                        complex_data.id = complex.residential_complex_value.id;
+                        complex.houses.forEach(house => {
+                            house.floors.forEach(floor => {
+                                floor.appartments.forEach(appartment => {
+                                    arrAppartments.push(appartment);
+                                })
+                            })
+                        })
+                        complex_data.max = Math.max.apply(null, arrAppartments.map(item => item.price));
+                        complex_data.min = Math.min.apply(null, arrAppartments.map(item => item.price));
+                        // complex_data.max = arrAppartments.reduce((prev, current) => (+prev.price > +current.price) ? prev : current);
+                        // complex_data.min = arrAppartments.reduce((prev, current) => (+prev.price < +current.price) ? prev : current);
+                        arrComplexes.push(complex_data);
+                    });
+                    
+                    // console.log(arrComplexes);
+                })
                 .then(() => {
                     let arr = [];
                     this.RESIDENTIAL_COMPLEXES.forEach(complex => {
                         arr.push(complex);
                     });
                     this.getMarkers = arr;
-                    console.log(this.getMarkers);
+                    // console.log(this.getMarkers);
                 })
                 .then(() => {
                     this.getDevelopersName()
                 }),
+
             this.showMap = true
             // this.getMarkerTemplate()
         },
@@ -416,6 +529,18 @@
                 return this.DEVELOPERS.filter(developer => {
                     return developer.developer_value.company_name.indexOf(this.selected_developer) !== -1
                 })
+            },
+            firstSaleValue() {
+                // если значение больше 999
+                return this.sale[0] >= this.maxSaleValue 
+                    // вернуть 999
+                    ? this.maxSaleValue : 
+                        // если значение меньше 0 или равно пустой строке
+                        this.sale[0] <= this.minSaleValue || this.sale[0] == '' 
+                            // вернуть 0
+                            ? this.minSaleValue : 
+                                // а если всё норм вернуть имеющееся значение
+                                parseInt(this.sale[0], 10);
             }
         },
         methods: {
@@ -426,19 +551,31 @@
                 'GET_DEVELOPERS_FROM_API'
             ]),
             filterMarkers() {
+                let arr = [],
+                    cloneComplexArray = this.RESIDENTIAL_COMPLEXES.slice();
+
+                    console.log(cloneComplexArray);
+                // если выбрали значение "все"
                 if(this.selected_developer == 'все') {
-                    let arr = [];
-                    this.RESIDENTIAL_COMPLEXES.forEach(complex => {
+                    // добавить в массив все элементы
+                    cloneComplexArray.forEach(complex => {
                         arr.push(complex);
                     });
+                    // this.getMarkers это массив маркеров которые выводятся на карте
                     this.getMarkers = arr;
                 } else {
+                    // нашёл фильтр под это дело в stackOverflow пока не понял как он работет(даж не старался понять xD)
                     this.filterDevelopers.forEach(item => {
-                        this.getMarkers = this.RESIDENTIAL_COMPLEXES.filter(complex => {
+                        this.getMarkers = cloneComplexArray.filter(complex => {
                             return complex.residential_complex_value.developer_id.toString().indexOf(item.developer_value.id.toString()) !== -1
                         })
                     })
                 }
+            },
+            filterBySale() {
+                this.sale[0] >= 999 ? this.sale[0] = 999 : this.sale[0] <= 0 || this.sale[0] == '' ? this.sale[0] = 0 : this.sale[0] = parseInt(this.sale[0], 10);
+
+                this.sale[1] >= 999 ? this.sale[1] = 999 : this.sale[1] <= 0 || this.sale[1] == '' ? this.sale[1] = 0 : this.sale[1] = parseInt(this.sale[1], 10);
             },
             filterByFloors() {
                 this.filterMarkers();
@@ -493,7 +630,7 @@
             //     this.markerIcon.contentLayout = ;
             // },
             ymapInitialized() {
-                console.log('ymaps');
+                // console.log('ymaps');
             },
             markerMouseEnter() {
                 this.markerIcon.markerColor = '#FF9800';

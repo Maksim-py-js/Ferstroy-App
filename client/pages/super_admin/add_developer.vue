@@ -112,8 +112,6 @@
 
                         <!-- Main table element -->
                         <b-table
-                            striped 
-                            hover
                             :items="DEVELOPERS"
                             :fields="fields"
                             :current-page="currentPage"
@@ -131,25 +129,335 @@
                                 {{ row.value }}
                             </template>
 
-                            <template #cell(information)="row">
-                                <div @click="info(row.item, row.index, $event.target)" class="infoBtn border-0 rounded-circle">
-                                    <div class="h4 mb-0">
-                                        <b-icon-exclamation-circle-fill variant="secondary"></b-icon-exclamation-circle-fill>
-                                    </div>
+                            <template #cell(complexes)="row">
+                                <div style="cursor: pointer" @click="row.toggleDetails">
+                                    <b-button 
+                                        variant="success" 
+                                        @click=" 
+                                            residential_complex_id = row.item.developer_value.id
+                                        "
+                                    >
+                                        Дома
+                                    </b-button>
                                 </div>
-                            </template>
-
-                            <template #cell(years)="row">
-                                <div style="cursor: pointer" @click="row.toggleDetails">2020-20205</div>
                             </template>
 
                             <template #row-details="row">
                                 <b-button size="sm" class="close_history" @click="row.toggleDetails">
                                     <img src="@/assets/images/svg/close.svg" alt="close">
                                 </b-button>
-                                <div class="woodBox">
-                                    <Wood :objects="row.item"/>
-                                </div>
+                                <!-- Main table element -->
+                                <b-table
+                                    striped 
+                                    hover
+                                    :items="RESIDENTIAL_COMPLEXES"
+                                    :fields="complexFields"
+                                    :current-page="complexCurrentPage"
+                                    :per-page="complexPerPage"
+                                    :filter="complexFilter"
+                                    :filter-included-fields="filterOn"
+                                    :sort-by.sync="complexSortBy"
+                                    :sort-desc.sync="complexSortDesc"
+                                    :sort-direction="complexSortDirection"
+                                    stacked="md"
+                                    show-empty
+                                    small         
+                                    class="small-table"
+                                 >
+                                    <template #cell(name)="row">
+                                        {{ row.value }}
+                                    </template>
+
+                                    <template #cell(houses)="row">
+                                        <nuxt-link :to="`/super_admin/edit_houses/${row.item.residential_complex_value.id}`">
+                                            <b-button variant="primary">
+                                                <b-icon-arrow-right-short variant="light"></b-icon-arrow-right-short>
+                                            </b-button>
+                                        </nuxt-link>
+                                    </template>
+
+                                    <template #cell(edit)="row">
+                                        <b-button 
+                                            variant="primary" 
+                                            @click="
+                                                residential_complex_id = row.item.residential_complex_value.id,
+                                                getSlides();
+                                            "
+                                        >
+                                            <span class="">Добавить в слайдер</span>
+                                        </b-button>
+                                        <b-button 
+                                            variant="primary" 
+                                            @click="
+                                                residential_complex_id = row.item.residential_complex_value.id,
+                                                r_c_house_id = row.item.residential_complex_houses[0].residential_complex_house[0].id,
+                                                $bvModal.show('postHouseForm')
+                                            "
+                                        >
+                                            <b-icon-plus variant="light"></b-icon-plus>
+                                        </b-button>
+                                        <b-button variant="success" @click="$bvModal.show('editForm'), idPatchObj=row.item.residential_complex_value.id, edit(row.item, row.index, $event.target)">
+                                            <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
+                                        </b-button>
+                                        <b-button variant="danger" @click="$bvModal.show('deleteObj'), idDeleteObj=row.item.residential_complex_value.id">
+                                            <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
+                                        </b-button>
+                                    </template>
+                                </b-table>
+
+                                <!-- add house modal -->
+                                <b-modal id="postHouseForm" hide-header hide-footer centered>
+                                    <h2 class="panelName">
+                                        Добовление дома:
+                                    </h2>
+                                    <div class="dataItem">
+                                        <div class="label">Добавить изброжение дома:</div>
+                                        <form ref="formData">
+                                            <b-form-group            
+                                                id="input"
+                                            >
+                                                <b-form-file 
+                                                    id="input-file" 
+                                                    v-model="house.svg"
+                                                ></b-form-file>
+                                            </b-form-group>
+                                        </form>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Добавить ободку дома:</div>
+                                        <form ref="formData">
+                                            <b-form-group            
+                                                id="input"
+                                            >
+                                                <b-form-file 
+                                                    id="input-file-excretion" 
+                                                    v-model="r_c_house_hovers.svg"
+                                                ></b-form-file>
+                                            </b-form-group>
+                                        </form>
+                                    </div>
+                                    <h2 class="panelName">
+                                        Описание дома:
+                                    </h2>
+                                    <div class="dataItem">
+                                        <div class="label">Заголовок описания:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="residential_complex_house_description.name"
+                                            type="text"
+                                            placeholder="заголовок"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Текст описания:</div>
+                                        <b-form-textarea
+                                            id="filter-textarea"
+                                            v-model="residential_complex_house_description.text"
+                                            type="text"
+                                            placeholder="описание"
+                                            class="searchBar__input br-0"
+                                        ></b-form-textarea>
+                                    </div>
+                                    <h2 class="panelName">
+                                        Позиционирование таблички описания относительно дома:
+                                    </h2>
+                                    <div class="dataItem">
+                                        <div class="label">Расстояние до верха:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="residential_complex_house_description.positionTop"
+                                            type="number"
+                                            placeholder="100"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Расстояние до правой стороны:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="residential_complex_house_description.positionRight"
+                                            type="number"
+                                            placeholder="100"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Расстояние до низа:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="residential_complex_house_description.positionBottom"
+                                            type="number"
+                                            placeholder="100"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Расстояние до левой стороны:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="residential_complex_house_description.positionLeft"
+                                            type="number"
+                                            placeholder="100"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+
+                                    <b-row class="align-items-center pl-3 mt-4">
+                                        <b-button variant="primary" v-b-modal.addHouseApprove>
+                                            Добавить дом
+                                        </b-button>
+                                        <b-button class="ml-4" @click="$bvModal.hide('postHouseForm')">
+                                            Отмена
+                                        </b-button>
+                                    </b-row>
+                                </b-modal>
+                                <b-modal id="addHouseApprove" hide-header hide-footer centered>
+                                    <b-row class="align-items-center pl-3 mt-4">
+                                        <b-button 
+                                            variant="primary" 
+                                            class="ml-2" 
+                                            @click="
+                                                postHouse(), 
+                                                $bvModal.hide('addHouseApprove'), 
+                                                $bvModal.hide('postHouseForm')
+                                            "
+                                        >
+                                            Подтвердить!
+                                        </b-button>
+                                        <b-button class="ml-4" @click="$bvModal.hide('addHouseApprove')">
+                                            Назад
+                                        </b-button>
+                                    </b-row>
+                                </b-modal>
+
+                                <!-- Info modal -->
+                                <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
+                                    <ul class="model-data">
+                                        <li class="model-item">
+                                            <strong class="model-itemName">Название компании:</strong>
+                                            <span class="model-itemData">{{infoModal.comapanyName}}</span>
+                                        </li>
+                                        <li class="model-item">
+                                            <strong class="model-itemName">Рейтинг:</strong>
+                                            <span class="model-itemData">{{infoModal.rating}}</span>
+                                        </li>
+                                        <li class="model-item d-flex">
+                                            <strong class="model-itemName mr-1">Контакты:</strong>
+                                            <div class="model-itemData">{{infoModal.phone}},<br/> {{infoModal.address}}</div>
+                                        </li>
+                                    </ul>
+                                </b-modal>
+
+                                <!-- edit modal -->
+                                <b-modal id="editForm" hide-header hide-footer centered>
+                                    <h2 class="panelName">
+                                        Редактирование объекта:
+                                    </h2>
+                                    <div class="dataItem">
+                                        <div class="label">Название объекта:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="editModal.companyName"
+                                            type="text"
+                                            placeholder="ЖК мир"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Телефон:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="editModal.number"
+                                            type="text"
+                                            placeholder="+998 (90) 999-99-99"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Адресс:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="editModal.address"
+                                            type="text"
+                                            placeholder="ул. А.Яссовий 39/10"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Электронная почта:</div>
+                                        <b-form-input
+                                            id="filter-input"
+                                            v-model="editModal.email"
+                                            type="text"
+                                            placeholder="primer@gmail.com"
+                                            class="searchBar__input br-0"
+                                        ></b-form-input>
+                                    </div>
+                                    <div class="dataItem">
+                                        <div class="label">Выберете изоброжение:</div>
+                                        <!-- <input type="file" @change="onFileChangeTwo" /> -->
+                                        <form ref="formData">
+                                            <b-form-group            
+                                                id="input"
+                                            >
+                                                <b-form-file 
+                                                    id="input-file" 
+                                                    v-model="editModal.selectImg"
+                                                ></b-form-file>
+                                            </b-form-group>
+                                        </form>
+                                    </div>
+                                    <b-row class="align-items-center pl-3 mt-4">
+                                        <b-button variant="primary" v-b-modal.editApprove>
+                                            Подтвердить!
+                                        </b-button>
+                                        <b-button class="ml-4" @click="$bvModal.hide('editForm')">
+                                            Отмена
+                                        </b-button>
+                                    </b-row>
+                                </b-modal>
+                                <b-modal id="editApprove" hide-header hide-footer centered>
+                                    <ul class="model-data">
+                                        <li class="model-item">
+                                            <strong class="model-itemName">Название объекта:</strong>
+                                            <span class="model-itemData">{{editModal.companyName}}</span>
+                                        </li>
+                                        <li class="model-item">
+                                            <strong class="model-itemName">Электронная почта:</strong>
+                                            <span class="model-itemData">{{editModal.email}}</span>
+                                        </li>
+                                        <li class="model-item d-flex">
+                                            <strong class="model-itemName mr-1">Контакты:</strong>
+                                            <div class="model-itemData">{{editModal.number}},<br/> {{editModal.address}}</div>
+                                        </li>
+                                        <li class="model-item d-flex">
+                                            <strong class="model-itemName mr-1">Изоброжения:</strong>
+                                            <div class="model-itemData">{{editModal.selectImg}}</div>
+                                        </li>
+                                    </ul>
+                                    <b-row class="align-items-center pl-3 mt-4">
+                                        <b-button variant="primary" class="ml-2" @click="patchObject(), $bvModal.hide('editApprove'), $bvModal.hide('editForm')">
+                                            Добавить изменения
+                                        </b-button>
+                                        <b-button class="ml-4" @click="$bvModal.hide('editApprove')">
+                                            Назад
+                                        </b-button>
+                                    </b-row>
+                                </b-modal>
+
+                                <!-- delete modal -->
+                                <b-modal id="deleteObj" hide-header hide-footer centered>
+                                    <h1>Вы уверены что хотите удалить объект?</h1>
+                                    <b-row class="align-items-center pl-3 mt-4">
+                                        <b-button variant="primary" class="ml-2" @click="deleteObject(), $bvModal.hide('deleteObj')">
+                                            Удалить
+                                        </b-button>
+                                        <b-button class="ml-4" @click="$bvModal.hide('deleteObj')">
+                                            Отмена
+                                        </b-button>
+                                    </b-row>
+                                </b-modal>
                             </template>
 
                             <template #cell(edit)="row">
@@ -157,8 +465,7 @@
                                     variant="primary" 
                                     @click="
                                         $bvModal.show('postResidentialComplexesForm'), 
-                                        residential_complexes.developer_id=row.item.developer_value.id,
-                                        hotNumber = row.item.developer_value.company_number
+                                        residential_complexes.developer_id=row.item.developer_value.id
                                     "
                                 >
                                     <b-icon-plus variant="light"></b-icon-plus>
@@ -187,7 +494,7 @@
                         </b-table>
 
                         <!-- developers add modals -->
-                        <b-modal id="postDeveloperForm" hide-header hide-footer centered>
+                        <b-modal body-class="admin-modal-body" size="xl" id="postDeveloperForm" hide-header hide-footer centered>
                             <h2 class="panelName">
                                 Добовление данных компании:
                             </h2>
@@ -212,7 +519,7 @@
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Телефон застройщика:</div>
+                                <div class="label">Телефон отдела продаж:</div>
                                 <b-form-input
                                     id="filter-input"
                                     v-model="developer.number"
@@ -221,21 +528,41 @@
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
-                            <div class="dataItem">
-                                <div class="label">Телефон компании:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="developer.company_number"
-                                    type="text"
-                                    placeholder="+998 (90) 999-99-99"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Адресс офиса:</div>
+                            <!-- <div class="dataItem">
+                                <div class="label">Адресс отдела продаж:</div>
                                 <b-form-input
                                     id="filter-input"
                                     v-model="developer.company_address"
+                                    type="text"
+                                    placeholder="ул. А.Яссовий 39/10"
+                                    class="searchBar__input br-0"
+                                ></b-form-input>
+                            </div> -->
+                            <div class="dataItem">
+                                <div class="label">Местонохождение отдела продаж:</div>
+                                <div class="map">
+                                    <no-ssr>
+                                        <yandex-map
+                                            :coords="coords"
+                                            :zoom="10"
+                                            style="height: 300px"
+                                            @click="onClick"
+                                        >
+                                            <ymap-marker
+                                                marker-id="123"
+                                                :coords="coords"
+                                                :icon="markerIcon"
+                                                class="mapMarker"
+                                            />
+                                        </yandex-map>
+                                    </no-ssr>
+                                </div>
+                            </div>
+                            <div class="dataItem">
+                                <div class="label">Эллектронная почта отдела продаж:</div>
+                                <b-form-input
+                                    id="filter-input"
+                                    v-model="developer.email"
                                     type="text"
                                     placeholder="ул. А.Яссовий 39/10"
                                     class="searchBar__input br-0"
@@ -294,7 +621,7 @@
                                 </b-button>
                             </b-row>
                         </b-modal>
-                        <b-modal id="postDeveloperAprove" hide-header hide-footer centered>
+                        <b-modal body-class="admin-modal-body" size="xl" id="postDeveloperAprove" hide-header hide-footer centered>
                             <ul class="model-data">
                                 <li class="model-item">
                                     <strong class="model-itemName">Название компании:</strong>
@@ -348,7 +675,7 @@
                         </b-modal>
 
                         <!-- add residential_complexes modals -->
-                        <b-modal id="postResidentialComplexesForm" hide-header hide-footer centered>
+                        <b-modal body-class="admin-modal-body" size="xl" id="postResidentialComplexesForm" hide-header hide-footer centered>
                             <h2 class="panelName">
                                 Добовление ЖК:
                             </h2>
@@ -373,47 +700,6 @@
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Телефон для оброщения:</div>
-                                <div>
-                                    <b-form-input
-                                        @change="hotLine = 'false'"
-                                        id="filter-input"
-                                        v-model="residential_complexes.number"
-                                        type="text"
-                                        placeholder="+998 (90) 999-99-99"
-                                        class="searchBar__input br-0"
-                                    ></b-form-input>
-                                    <b-form-checkbox
-                                        id="checkbox-1"
-                                        v-model="hotLine"
-                                        value="false"
-                                        unchecked-value="true"
-                                    >
-                                        Использовать телефон выбранной компании?
-                                    </b-form-checkbox>
-                                </div>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Количество рабочих:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="residential_complexes.count_workers"
-                                    type="number"
-                                    placeholder="1000"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Количество рабочей техники:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="residential_complexes.count_machinery"
-                                    type="number"
-                                    placeholder="1000"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
                                 <div class="label">Местонохождение объекта:</div>
                                 <div class="map">
                                     <no-ssr>
@@ -432,16 +718,6 @@
                                         </yandex-map>
                                     </no-ssr>
                                 </div>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Электронная почта для оброщений:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="residential_complexes.email"
-                                    type="text"
-                                    placeholder="primer@gmail.com"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
                             </div>
                             <div class="dataItem">
                                 <div class="label">Год постройки:</div>
@@ -716,7 +992,7 @@
                                 </b-button>
                             </b-row>
                         </b-modal>
-                        <b-modal id="postResidentialComplexesApprove" hide-header hide-footer centered>
+                        <b-modal body-class="admin-modal-body" size="xl" id="postResidentialComplexesApprove" hide-header hide-footer centered>
                             <ul class="model-data">
                                 <li class="model-item">
                                     <strong class="model-itemName">Название ЖК:</strong>
@@ -741,38 +1017,8 @@
                             </b-row>
                         </b-modal>
 
-                        <!-- Info modal -->
-                        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
-                            <ul class="model-data">
-                                <li class="model-item">
-                                    <strong class="model-itemName">Название компании:</strong>
-                                    <span class="model-itemData">{{infoModal.comapanyName}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Рейтинг:</strong>
-                                    <span class="model-itemData">{{infoModal.rating}}</span>
-                                </li>
-                                <!-- <li class="model-item">
-                                    <strong class="model-itemName">Дата основания:</strong>
-                                    <span class="model-itemData">{{infoModal.foundationDate}}</span>
-                                </li> -->
-                                <!-- <li class="model-item">
-                                    <strong class="model-itemName">Количество техники:</strong>
-                                    <span class="model-itemData">{{infoModal.machinery}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Количество рабочих:</strong>
-                                    <span class="model-itemData">{{infoModal.numberWorkers}}</span>
-                                </li> -->
-                                <li class="model-item d-flex">
-                                    <strong class="model-itemName mr-1">Контакты:</strong>
-                                    <div class="model-itemData">{{infoModal.phone}},<br/> {{infoModal.address}}</div>
-                                </li>
-                            </ul>
-                        </b-modal>
-
                         <!-- edit modals -->
-                        <b-modal id="editForm" hide-header hide-footer centered>
+                        <b-modal body-class="admin-modal-body" size="xl" id="editForm" hide-header hide-footer centered>
                             <h2 class="panelName">
                                 Редактирование объекта:
                             </h2>
@@ -839,7 +1085,7 @@
                                 </b-button>
                             </b-row>
                         </b-modal>
-                        <b-modal id="editApprove" hide-header hide-footer centered>
+                        <b-modal body-class="admin-modal-body" size="xl" id="editApprove" hide-header hide-footer centered>
                             <ul class="model-data">
                                 <li class="model-item">
                                     <strong class="model-itemName">Название объекта:</strong>
@@ -869,7 +1115,7 @@
                         </b-modal>
 
                         <!-- delete modal -->
-                        <b-modal id="deleteComp" hide-header hide-footer centered>
+                        <b-modal body-class="admin-modal-body" size="xl" id="deleteComp" hide-header hide-footer centered>
                             <h1>Вы уверены что хотите удалить объект?</h1>
                             <b-row class="align-items-center pl-3 mt-4">
                                 <b-button variant="primary" class="ml-2" @click="deleteCompany(), $bvModal.hide('deleteComp')">
@@ -922,20 +1168,12 @@
                         path: "/super_admin/add_developer",
                         name: 'Застройщики',
                         active: true
-                    },
-                    {
-                        id: 2,
-                        path: "/super_admin/edit_residential_complexes",
-                        name: 'Жилые комплексы',
-                        active: false
                     }
                 ],
                 fields: [
                     { key: 'developer_value.company_name', label: 'Название', sortable: true },
                     { key: 'developer_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
-                    { key: 'developer_value.number', label: 'Номер', sortable: false, class: 'centerBlock' },
-                    { key: 'information', label: 'Доп. информация', sortable: false, class: 'centerBlock' },
-                    { key: 'years', label: 'История', sortable: false, class: 'centerBlock' },
+                    { key: 'complexes', label: 'Дома', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
                 // advanteges tables
@@ -1001,11 +1239,10 @@
                 // hover on house
                 houses_hover: [],
                 // form
-                hotLine: false,
-                hotNumber: '',
                 idDeleteCompany: null,
                 idPatchCompany: null,
                 idPostObject: null,
+
                 value: '',
                 coords: [40.385245, 71.786176],
                 context: null,
@@ -1025,15 +1262,12 @@
                     name: "",
                     title: "",
                     rating: "5",
-                    number: "",
                     address: "",
                     email: "",
                     about_title: "",
                     about_description: "",
                     advantages_title: "advantages_title",
                     comments_title: "comments_title",
-                    count_workers: "",
-                    count_machinery: "",
                     construction_start_date: "construction_start_date",
                     construction_finish_date: "construction_finish_date",
                     marker_id: "",
@@ -1056,6 +1290,7 @@
                     logo: [],
                     name: "",
                     number: "",
+                    email: "",
                     rating: "5",
                     rating_votes: "",
                     company_name: "",
@@ -1103,7 +1338,100 @@
                 },
                 edit_FeaturesResidentialComplexes_Data: false,
                 edit_FeaturesResidentialComplexes_Id: null,
-                featuresResidentialComplexes: []
+                featuresResidentialComplexes: [],
+
+
+
+
+
+
+
+
+
+
+                // form
+                idDeleteObj: null,
+                idPatchObj: null,
+                idPostHouse: null,
+                residential_complex_id: null,
+                r_c_house_id: null,
+                residential_complex_houses: {
+                    residential_complex_id: null,
+                    svg: []
+                },
+                residential_complex_house_description: {
+                    name: '',
+                    text: '',
+                    is_open: false,
+                    positionTop: '',
+                    positionRight: '',
+                    positionBottom: '',
+                    positionLeft: '',
+                    residential_complex_house_id: ''
+                },
+
+                house: {
+                    residential_complex_id: null,
+                    svg: []
+                },
+
+                r_c_house_hovers: {
+                    svg: [],
+                    r_c_house_id: '',
+                    r_c_house_description_id: '',
+                    house_link_id: ''
+                },
+
+                appartment: {
+                    image: [],
+                    appartment_number: '',
+                    square: '',
+                    dascription: '',
+                    phone_number: '',
+                    price: '',
+                    roomines: '',
+                    veriety: '',
+                    construction_start_date: '',
+                    construction_finish_date: '',
+                    floor_id: ''
+                },
+
+                form: {
+                    companyName: '',
+                    number: '',
+                    address: '',
+                    email: '',
+                    selectImg: [],
+                    marker_id: '1',
+                    year_id: '1',
+                    about_title: 'Заголовок',
+                    about_description: 'Описание описание которое описываеться в описании',
+                    comments_title: 'comments_title',
+                    title: "Новосторйки в центре Киргили",
+                    rating: "5",
+                    advantages_title: "Наши приемущества"
+                },
+                hotLine: '',
+                complexFields: [
+                    { key: 'residential_complex_value.name', label: 'Жилой комплекс', sortable: true },
+                    { key: 'residential_complex_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
+                    { key: 'houses', label: 'Ссылка на дома', sortable: false, class: 'centerBlock' },
+                    { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
+                ],
+                complexFields_floors: [
+                    { key: 'floor_number', label: 'Номер этажа', sortable: false },
+                    { key: 'square', label: 'Площадь этажа', sortable: false, class: 'centerBlock' },
+                    { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
+                ],
+                complexTotalRows: 100,
+                complexCurrentPage: 1,
+                complexPerPage: 5,
+                complexPageOptions: [5, 10, 20],
+                complexSortBy: '',
+                complexSortDesc: false,
+                complexSortDirection: 'asc',
+                complexFilter: null,
+                complexFilterOn: [],
             }
         },
         computed: {
@@ -1123,15 +1451,36 @@
             ]),
             ...mapGetters('dataBase/markers', [
                 'MARKERS'
+            ]),
+            ...mapGetters('dataBase/residential_complexes', [
+                'RESIDENTIAL_COMPLEXES'
+            ]),
+            ...mapGetters('dataBase/floors', [
+                'FLOORS'
+            ]),
+            ...mapGetters('dataBase/houses', [
+                'HOUSES'
             ])
         },
         mounted() {
+            this.GET_FLOORS_FROM_API(),
+            this.GET_RESIDENTIAL_COMPLEXES_FROM_API(),
+            this.GET_HOUSES_FROM_API(),
             this.GET_DEVELOPERS_FROM_API()
                 .then(() => {
                     this.totalRows = this.DEVELOPERS.length
                 });
         },
         methods: {
+            ...mapActions('dataBase/residential_complexes', [
+                'GET_RESIDENTIAL_COMPLEXES_FROM_API'
+            ]),
+            ...mapActions('dataBase/houses', [
+                'GET_HOUSES_FROM_API'
+            ]),
+            ...mapActions('dataBase/floors', [
+                'GET_FLOORS_FROM_API'
+            ]),
             ...mapActions('dataBase/developers', [
                 'GET_DEVELOPERS_FROM_API'
             ]),
@@ -1141,35 +1490,6 @@
             ...mapActions('dataBase/markers', [
                 'GET_MARKERS_FROM_API'
             ]),
-            info(item, index, button) {
-                this.infoModal.title = `${item.developer_value.company_name}`
-                this.infoModal.rating = `${item.developer_value.rating}`
-                this.infoModal.phone = `${item.developer_value.number}`
-                this.infoModal.address = `${item.developer_value.company_address}`
-                // this.infoModal.history = `${item.developer_value.history}`
-                // this.infoModal.machinery = `${item.developer_value.machinery}`
-                // this.infoModal.foundationDate = `${item.developer_value.foundationDate}`
-                // this.infoModal.numberWorkers = `${item.developer_value.numberWorkers}`
-                // this.infoModal.constructedObjects = `${item.developer_value.constructedObjects}`
-                this.infoModal.comapanyName = `${item.developer_value.company_name}`
-                // this.infoModal.foreman = `${item.developer_value.foreman}`
-                this.infoModal.content = JSON.stringify(item, null, 2)
-                this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-            },
-            resetInfoModal() {
-                this.infoModal.title = ''
-                this.infoModal.content = ''
-                this.infoModal.rating = ''
-                this.infoModal.phone = ''
-                this.infoModal.address = ''
-                this.infoModal.history = ''
-                this.infoModal.machinery = ''
-                this.infoModal.foundationDate = ''
-                this.infoModal.numberWorkers = ''
-                this.infoModal.constructedObjects = ''
-                this.infoModal.comapanyName = ''
-                this.infoModal.foreman = ''
-            },
             edit(item, index, button) {
                 this.editModal.companyName = `${item.developer_value.name}`
                 this.editModal.number = `${item.developer_value.number}`
@@ -1179,12 +1499,8 @@
                 this.editModal.content = JSON.stringify(item, null, 2)
                 this.$root.$emit('bv::show::modal', this.editModal.id, button)
             },
-            onFiltered(filteredItems) {
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
-            },
+
             // axios
-            
             async postDeveloper() {
                 const formData = new FormData();
 
@@ -1284,7 +1600,6 @@
                         this.featuresAppartmentsForEach();
                         this.FeaturesResidentialComplexesForEach();
 
-                        this.hotLine = false;
                         this.advantages = [];
                     }
                 })
@@ -1601,22 +1916,162 @@
                 return false;
             },
             // form
-            hotLineChange() {
-                if(this.hotLine == "true") {
-                    this.residential_complexes.number = this.hotNumber
-                }
-            },
             onClick(e) {
                 this.coords = e.get('coords');
             },
             onContext(ctx) {
                 this.context = ctx
+            },
+
+
+
+
+
+
+
+            // axios
+            async postHouse() {
+                const formData = new FormData();
+
+                formData.append("svg", this.house.svg, this.house.svg.name);
+                formData.append("residential_complex_id", this.residential_complex_id);
+
+                this.$axios.$post('/api/houses', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    this.r_c_house_hovers.house_link_id = response.id;
+                    this.postHouseDiscription();
+                })
+            },
+            async postHouseExcretion() {
+                const formData = new FormData();
+
+                formData.append("svg", this.r_c_house_hovers.svg, this.r_c_house_hovers.svg.name);
+
+                formData.append("r_c_house_id", this.r_c_house_id);
+                formData.append("r_c_house_description_id", this.residential_complex_id);
+                formData.append("house_link_id", this.residential_complex_id);
+
+                this.$axios.$post('/api/r_c_house_hovers', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+            },
+            async postHouseDiscription() {
+                const formData = new FormData();
+
+                formData.append("name", this.residential_complex_house_description.name);
+                formData.append("text", this.residential_complex_house_description.text);
+
+                formData.append("is_open", this.residential_complex_house_description.is_open);
+
+                formData.append("positionTop", this.residential_complex_house_description.positionTop);
+                formData.append("positionRight", this.residential_complex_house_description.positionRight);
+                formData.append("positionBottom", this.residential_complex_house_description.positionBottom);
+                formData.append("positionLeft", this.residential_complex_house_description.positionLeft);
+
+                formData.append("residential_complex_house_id", this.r_c_house_id);
+
+                this.$axios.$post('/api/residential_house_descriptions', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    this.r_c_house_hovers.r_c_house_description_id = response.id;
+                    if (response.created_at) {
+                        this.residential_complex_house_description.name = '';
+                        this.residential_complex_house_description.text = '';
+                        this.residential_complex_house_description.positionTop = '';
+                        this.residential_complex_house_description.positionRight = '';
+                        this.residential_complex_house_description.positionBottom = '';
+                        this.residential_complex_house_description.positionLeft = '';
+
+                        this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
+                        this.postHouseExcretion();
+                    }
+                })
+            },
+            async patchObject() {
+                const formData = new FormData();
+                formData.append("image", this.editModal.selectImg, this.editModal.selectImg.name);
+
+                formData.append("name", this.editModal.companyName);
+                formData.append("title", this.form.title);
+                formData.append("rating", this.form.rating);
+                formData.append("number", this.editModal.number);
+                formData.append("address", this.editModal.address);
+                formData.append("email", this.editModal.email);
+                formData.append("about_title", this.form.about_title);
+                formData.append("about_description", this.form.about_description);
+                formData.append("advantages_title", this.form.advantages_title);
+                formData.append("comments_title", this.form.comments_title);
+                formData.append("marker_id", this.form.marker_id);
+                formData.append("year_id", this.form.year_id);
+
+                this.$axios.$patch(`/api/residential_complexes/${this.idPatchObj}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    if (response.created_at) {
+                        this.editModal.comapanyName = '';
+                        this.editModal.number = '';
+                        this.editModal.address = '';
+                        this.editModal.email = '';
+
+                        // this.$notify({
+                        //     group: 'admin-notification',
+                        //     title: 'Post successfully created',
+                        //     type: 'success'
+                        // });
+                        this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
+                    }
+                })
+            },
+            async deleteObject() {
+                await this.$axios.delete(`/api/residential_complexes/${this.idDeleteObj}`).then(response => {
+                    // this.$notify({
+                    //     group: 'admin-notification',
+                    //     title: 'Product was deleted',
+                    //     type: 'success'
+                    // });
+                    this.GET_RESIDENTIAL_COMPLEXES_FROM_API();
+                });
+            },
+            async addToSlide() {
+                this.$axios.$post('http://213.230.96.125/api/slides', {
+                    'residential_complex_id': this.residential_complex_id
+                })
+                .then(response => {
+                })
+            },
+            async getSlides() {
+                this.$axios.$get('http://213.230.96.125/api/slides')
+                .then(response => {
+                    console.log(response);
+                    if(response.length > 5) {
+                        alert('В слайдере может быть только 5 слайдов');
+                    } else {
+                        this.addToSlide();
+                    }
+                })
             }
         }
     }
 </script>
 
 <style>
+    .small-table {
+        max-width: 1100px;
+        width: 100%;   
+        margin: 0 auto;
+    }
     .map {
         height: 300px;
     }
@@ -1624,7 +2079,6 @@
         margin: 20px 0;
     }
     .dataItem .searchBar__input {
-        max-width: 300px;
         width: 100%;
         padding: 24px 35px 24px 20px;
     }
@@ -1740,9 +2194,8 @@
     }
 
     div div .admin-modal-body {
-        max-width: 500px;
-        width: 100%;
         padding: 16px;
+        width: 100%;
     }
     .woodBox {
         margin: 50px auto 67px; 

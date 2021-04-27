@@ -472,7 +472,7 @@
                         active: true
                     }
                 ],
-                fields: [
+                complexFields: [
                     { key: 'residential_complex_value.name', label: 'Жилой комплекс', sortable: true },
                     { key: 'residential_complex_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
                     { key: 'residential_complex_value.number', label: 'Контакт', sortable: false, class: 'centerBlock' },
@@ -480,20 +480,20 @@
                     { key: 'houses', label: 'Ссылка на дома', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
-                fields_floors: [
+                complexFields_floors: [
                     { key: 'floor_number', label: 'Номер этажа', sortable: false },
                     { key: 'square', label: 'Площадь этажа', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
-                totalRows: 100,
-                currentPage: 1,
-                perPage: 5,
-                pageOptions: [5, 10, 20],
-                sortBy: '',
-                sortDesc: false,
-                sortDirection: 'asc',
-                filter: null,
-                filterOn: [],
+                complexTotalRows: 100,
+                complexCurrentPage: 1,
+                complexPerPage: 5,
+                complexPageOptions: [5, 10, 20],
+                complexSortBy: '',
+                complexSortDesc: false,
+                complexSortDirection: 'asc',
+                complexFilter: null,
+                complexFilterOn: [],
                 infoModal: {
                     title: 'title',
                     id: 'info',
@@ -796,7 +796,6 @@
         margin: 20px 0;
     }
     .dataItem .searchBar__input {
-        max-width: 300px;
         width: 100%;
         padding: 24px 35px 24px 20px;
     }
@@ -912,8 +911,6 @@
     }
 
     div div .admin-modal-body {
-        max-width: 500px;
-        width: 100%;
         padding: 16px;
     }
     .woodBox {

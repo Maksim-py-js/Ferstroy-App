@@ -54,7 +54,7 @@ $text-color: #515151;
 
 .inputBox {
     border: vwSize(1) solid #D2DFE8;
-    padding: vwSize(10) vwSize(17);
+    // padding: vwSize(10) vwSize(17);
     box-sizing: border-box
 }
 
@@ -73,7 +73,7 @@ input[type=number]::-webkit-outer-spin-button {
     top: 50%;
     transform: translateY(-50%);
     right: vwSize(20);
-    width: vwSize(363);
+    width: vwSize(350);
     padding: vwSize(20);
     box-sizing: border-box;
 }
@@ -87,38 +87,134 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: vwSize(16);
         font-weight: 500;
         color: #7E8E9D;
-        width: vwSize(140);
+        width: vwSize(35);
+        border: none;
+        outline: none;
+        box-shadow: none;
+        vertical-align: middle;
+        text-align: center;
+        // font-size: vwSize(16);
+        // font-weight: 500;
+        // color: #7E8E9D;
+        // width: vwSize(140);
+        // padding: vwSize(10) vwSize(17);
+        // border: none;
+        // outline: none;
+        // box-shadow: none;
+    }
+    .saleFirstValue {
+        position: relative;
+        padding: vwSize(10) vwSize(17);
+        font-size: vwSize(16);
+        line-height: vwSize(16);
+        font-weight: 500;
+        color: #7E8E9D;
+        width: vwSize(150);
+        margin: 0;
+        &::before {
+            content: "от";
+            vertical-align: middle;
+            display: contents;
+        }
+        &::after {
+            content: "млн сум";
+            vertical-align: middle;
+            display: contents;
+        }
+    }
+    .saleSecondValue {
+        position: relative;
+        padding: vwSize(10) vwSize(17);
+        font-size: vwSize(16);
+        line-height: vwSize(16);
+        font-weight: 500;
+        color: #7E8E9D;
+        width: vwSize(150);
+        margin: 0;
+        text-align: right;
+        &::before {
+            content: "до";
+            vertical-align: middle;
+            display: contents;
+        }
+        &::after {
+            content: "млн сум";
+            vertical-align: middle;
+            display: contents;
+        }
     }
     // rangel slider begin
     &__rangeSlider {
         margin-top: vwSize(19);
-        .vue-range-slider {
-            &.slider-component {
-                .slider {
-                    .slider-piecewise {
-                        background: #fff;
-                        border: vwSize(1) solid #D2DFE8;
-                        border-radius: 100px;
-                    }
-                    .slider-process {
-                        border: vwSize(1) solid #D2DFE8;
-                        background: rgba(126, 142, 157, 0.35);
-                        box-shadow: inset 0px 0px 0px 2px #fff;
-                        padding: vwSize(2) 0;
-                    }
-                    .slider-dot  {
-                        background: url('../images/svg/rangeSlIcon.svg') no-repeat 50% 50%, #FF9800;
-                        &.slider-always {
-                            .slider-tooltip-wrap {
-                                display: none !important;
-                            }
-                        }
-                    }
-                }
+        .vue-slider-rail {
+            background: #fff;
+            border: vwSize(1) solid #D2DFE8;
+            border-radius: 100px;
+            height: vwSize(10);
+            box-shadow: none;
+            outline: none;
+            .vue-slider-process {
+                border: vwSize(1) solid #D2DFE8;
+                background: rgba(126, 142, 157, 0.35);
+                box-shadow: inset 0px 0px 0px 2px #fff;
+                padding: vwSize(2) 0;
+            }
+            .vue-slider-dot {
+                transform: translate(-50%, -100%) !important;
+                box-shadow: none;
+                outline: none;
+            }
+            .vue-slider-dot-handle  {
+                background: url('../images/svg/rangeSlIcon.svg') no-repeat 50% 50%, vwSize(12) vwSize(10), #FF9800;
+                padding: vwSize(15);
+                box-sizing: border-box;
+                box-shadow: none;
+                outline: none;
+                // &.slider-always {
+                //     .slider-tooltip-wrap {
+                //         display: none !important;
+                //     }
+                // }
             }
         }
     }
     // rangel slider end
+    input[type=range] {
+        box-sizing: border-box;
+        appearance: none;
+        width: 400px;
+        margin: 0;
+        padding: 0 2px;
+        /* Add some L/R padding to ensure box shadow of handle is shown */
+        overflow: hidden;
+        border: 0;
+        border-radius: 1px;
+        outline: none;
+        background: linear-gradient(grey, grey) no-repeat center;
+        /* Use a linear gradient to generate only the 2px height background */
+        background-size: 100% 2px;
+        pointer-events: none;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+
+        &::-webkit-slider-thumb {
+            height: 28px;
+            width: 28px;
+            border-radius: 28px;
+            background-color: #f00;
+            position: relative;
+            margin: 5px 0;
+            /* Add some margin to ensure box shadow is shown */
+            cursor: pointer;
+            appearance: none;
+            pointer-events: all;
+            box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
+
+        }
+    }
 }
 
 .filterName {
