@@ -229,13 +229,7 @@
                         path: "/super_admin/add_developer",
                         name: 'Застройщики',
                         active: false
-                    },
-                    {
-                        id: 2,
-                        path: "/super_admin/edit_residential_complexes",
-                        name: 'Жилые комплексы',
-                        active: false
-                    },
+                    }
                 ],
                 // advantages
                 fieldsAdvant: [
@@ -508,8 +502,6 @@
     }
 
     div div .admin-modal-body {
-        max-width: 500px;
-        width: 100%;
         padding: 16px;
     }
     .woodBox {

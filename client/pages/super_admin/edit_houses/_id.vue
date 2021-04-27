@@ -98,7 +98,7 @@
                             striped 
                             hover
                             :items="houses"
-                            :fields="fields"
+                            :fields="houseFields"
                             :filter="filter"
                             :filter-included-fields="filterOn"
                             :sort-by.sync="sortBy"
@@ -162,17 +162,6 @@
                                     :value="floor.floor_number"
                                     type="number"
                                     placeholder="1"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Телефон для оброщений:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="floor.phone_number"
-                                    :value="floor.phone_number"
-                                    type="number"
-                                    placeholder="+998 (90) 456-56-67"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
@@ -317,14 +306,6 @@
                                             </b-button>
                                         </template>
                                     </b-table>
-                                    <b-form-input
-                                        id="filter-input"
-                                        v-model="appartment.appartment_number"
-                                        type="text"
-                                        :value="appartment.appartment_number"
-                                        placeholder="Номер квартиры"
-                                        class="searchBar__input br-0 mb-2"
-                                    ></b-form-input>
                                     <b-form-input
                                         id="filter-input"
                                         v-model="appartment.square"
@@ -527,21 +508,21 @@
                 active: false,
                 tabsItem: [
                     {
-                        id: 1,
-                        path: "/super_admin/add_developer",
-                        name: 'Застройщики',
+                        id: 3,
+                        path: "/super_admin/edit_home_page",
+                        name: 'Главная страница',
                         active: false
                     },
                     {
-                        id: 2,
-                        path: "/super_admin/edit_residential_complexes",
-                        name: 'Жилые комплексы',
+                        id: 1,
+                        path: "/super_admin/add_developer",
+                        name: 'Застройщики',
                         active: false
                     }
                 ],
 
                 // tables data 
-                fields: [
+                houseFields: [
                     { key: 'number', label: 'Номер дома', sortable: true },
                     { key: 'floor', label: 'Количество этажей', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
@@ -959,7 +940,6 @@
         margin: 20px 0;
     }
     .dataItem .searchBar__input {
-        max-width: 300px;
         width: 100%;
         padding: 24px 35px 24px 20px;
     }
@@ -1075,7 +1055,6 @@
     }
 
     div div .admin-modal-body {
-        max-width: 500px;
         width: 100%;
         padding: 16px;
     }

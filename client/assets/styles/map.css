@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .map-body {
   padding-bottom: 60px; }
   .map-body .ymaps-2-1-78-balloon__content ymaps {
@@ -37,7 +38,6 @@
 
 .inputBox {
   border: 0.05208vw solid #D2DFE8;
-  padding: 0.52083vw 0.88542vw;
   box-sizing: border-box; }
 
 div .numInput {
@@ -53,7 +53,7 @@ input[type=number]::-webkit-outer-spin-button {
   top: 50%;
   transform: translateY(-50%);
   right: 1.04167vw;
-  width: 18.90625vw;
+  width: 18.22917vw;
   padding: 1.04167vw;
   box-sizing: border-box; }
 
@@ -65,22 +65,100 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 0.83333vw;
     font-weight: 500;
     color: #7E8E9D;
-    width: 7.29167vw; }
+    width: 1.82292vw;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    vertical-align: middle;
+    text-align: center; }
+  .filter .saleFirstValue {
+    position: relative;
+    padding: 0.52083vw 0.88542vw;
+    font-size: 0.83333vw;
+    line-height: 0.83333vw;
+    font-weight: 500;
+    color: #7E8E9D;
+    width: 7.8125vw;
+    margin: 0; }
+    .filter .saleFirstValue::before {
+      content: "от";
+      vertical-align: middle;
+      display: contents; }
+    .filter .saleFirstValue::after {
+      content: "млн сум";
+      vertical-align: middle;
+      display: contents; }
+  .filter .saleSecondValue {
+    position: relative;
+    padding: 0.52083vw 0.88542vw;
+    font-size: 0.83333vw;
+    line-height: 0.83333vw;
+    font-weight: 500;
+    color: #7E8E9D;
+    width: 7.8125vw;
+    margin: 0;
+    text-align: right; }
+    .filter .saleSecondValue::before {
+      content: "до";
+      vertical-align: middle;
+      display: contents; }
+    .filter .saleSecondValue::after {
+      content: "млн сум";
+      vertical-align: middle;
+      display: contents; }
   .filter__rangeSlider {
     margin-top: 0.98958vw; }
-    .filter__rangeSlider .vue-range-slider.slider-component .slider .slider-piecewise {
+    .filter__rangeSlider .vue-slider-rail {
       background: #fff;
       border: 0.05208vw solid #D2DFE8;
-      border-radius: 100px; }
-    .filter__rangeSlider .vue-range-slider.slider-component .slider .slider-process {
-      border: 0.05208vw solid #D2DFE8;
-      background: rgba(126, 142, 157, 0.35);
-      box-shadow: inset 0px 0px 0px 2px #fff;
-      padding: 0.10417vw 0; }
-    .filter__rangeSlider .vue-range-slider.slider-component .slider .slider-dot {
-      background: url("../images/svg/rangeSlIcon.svg") no-repeat 50% 50%, #FF9800; }
-      .filter__rangeSlider .vue-range-slider.slider-component .slider .slider-dot.slider-always .slider-tooltip-wrap {
-        display: none !important; }
+      border-radius: 100px;
+      height: 0.52083vw;
+      box-shadow: none;
+      outline: none; }
+      .filter__rangeSlider .vue-slider-rail .vue-slider-process {
+        border: 0.05208vw solid #D2DFE8;
+        background: rgba(126, 142, 157, 0.35);
+        box-shadow: inset 0px 0px 0px 2px #fff;
+        padding: 0.10417vw 0; }
+      .filter__rangeSlider .vue-slider-rail .vue-slider-dot {
+        transform: translate(-50%, -100%) !important;
+        box-shadow: none;
+        outline: none; }
+      .filter__rangeSlider .vue-slider-rail .vue-slider-dot-handle {
+        background: url("../images/svg/rangeSlIcon.svg") no-repeat 50% 50%, 0.625vw 0.52083vw, #FF9800;
+        padding: 0.78125vw;
+        box-sizing: border-box;
+        box-shadow: none;
+        outline: none; }
+  .filter input[type=range] {
+    box-sizing: border-box;
+    appearance: none;
+    width: 400px;
+    margin: 0;
+    padding: 0 2px;
+    /* Add some L/R padding to ensure box shadow of handle is shown */
+    overflow: hidden;
+    border: 0;
+    border-radius: 1px;
+    outline: none;
+    background: linear-gradient(grey, grey) no-repeat center;
+    /* Use a linear gradient to generate only the 2px height background */
+    background-size: 100% 2px;
+    pointer-events: none; }
+    .filter input[type=range]:active, .filter input[type=range]:focus {
+      outline: none; }
+    .filter input[type=range]::-webkit-slider-thumb {
+      height: 28px;
+      width: 28px;
+      border-radius: 28px;
+      background-color: #f00;
+      position: relative;
+      margin: 5px 0;
+      /* Add some margin to ensure box shadow is shown */
+      cursor: pointer;
+      appearance: none;
+      pointer-events: all;
+      box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25); }
 
 .filterName {
   font-size: 0.83333vw;
