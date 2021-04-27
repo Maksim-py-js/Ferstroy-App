@@ -66,11 +66,46 @@ class AdvantagesIconsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $advantages_icon = AdvantagesIcon::find($id);
+        /*$advanrages_icon = AdvantagesIcon::find($id);
+
+        if($request->file != ''){
+            $path = public_path().'/uploads/images/';
+
+            //code for remove old file
+            if($advanrages_icon->file != ''  && $advanrages_icon->file != null){
+                $file_old = $path.$advanrages_icon->file;
+                unlink($file_old);
+            }
+
+            //upload new file
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move($path, $filename);
+
+            //for update in table
+            $advanrages_icon->update(['file' => $filename]);
+        }*/
+
+        /*$advantages_icon = AdvantagesIcon::find($id);
 
         if ($request['icon']) {
             $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/'.$request['icon'];
         }
+        $advantages_icon->save();
+        return $advantages_icon;*/
+        $request->validate([
+            'icon' => 'required|image|mimes:jpeg,png,jpg,svg',
+        ]);
+
+        $file = $request->file('icon');
+        $name = date('dmyhis');
+        $extension = $file->getClientOriginalExtension();
+        $fullName = ($name . '.' . $extension);
+
+        Storage::disk('local')->putFileAs('public/images/advantages_icons/', $file, $fullName);
+
+        $advantages_icon = new AdvantagesIcon();
+        $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/' . $name . '.' . $extension;
         $advantages_icon->save();
         return $advantages_icon;
     }

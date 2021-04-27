@@ -46,7 +46,6 @@ class AppartmentsController extends Controller
         $appartment->appartment_number = $request['appartment_number'];
         $appartment->square = $request['square'];
         $appartment->description = $request['description'];
-        $appartment->phone_number = $request['phone_number'];
 
         $appartment->price = $request['price'];
         $appartment->roomines = $request['roomines'];
@@ -90,7 +89,6 @@ class AppartmentsController extends Controller
         $appartment->appartment_number = $request['appartment_number'];
         $appartment->square = $request['square'];
         $appartment->description = $request['description'];
-        $appartment->phone_number = $request['phone_number'];
 
         $appartment->price = $request['price'];
         $appartment->roomines = $request['roomines'];

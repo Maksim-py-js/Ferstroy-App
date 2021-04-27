@@ -21,7 +21,6 @@ class CreateFloorsTable extends Migration
             $table->string('floor_number');
             $table->string('square');
             $table->longText('description');
-            $table->string('phone_number');
 
             $table->string('house_id');
 

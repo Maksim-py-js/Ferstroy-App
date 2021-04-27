@@ -60,7 +60,6 @@ class FloorsController extends Controller
         $floor->floor_number = $request['floor_number'];
         $floor->square = $request['square'];
         $floor->description = $request['description'];
-        $floor->phone_number = $request['phone_number'];
 
         $floor->house_id = $request['house_id'];
 
@@ -111,7 +110,6 @@ class FloorsController extends Controller
         $floor->floor_number = $request['floor_number'];
         $floor->square = $request['square'];
         $floor->description = $request['description'];
-        $floor->phone_number = $request['phone_number'];
 
         $floor->house_id = $request['house_id'];
 
