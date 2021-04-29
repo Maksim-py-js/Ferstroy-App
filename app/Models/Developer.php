@@ -20,4 +20,7 @@ class Developer extends Model
     public function residential_complexes() {
         return $this->hasMany('App\Models\ResidentialComplex', 'developer_id');
     }
+    public function map_marker() {
+        return $this->belongsTo('App\Models\MapMarker', 'marker_id');
+    }
 }

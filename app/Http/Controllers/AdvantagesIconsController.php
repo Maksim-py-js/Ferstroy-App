@@ -66,25 +66,42 @@ class AdvantagesIconsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*$advanrages_icon = AdvantagesIcon::find($id);
+        
+        $advantages_icon = AdvantagesIcon::find($id);
 
-        if($request->file != ''){
-            $path = public_path().'/uploads/images/';
+        return $request->all();
+        // code who delete file
+
+        // $icon_value = explode('/', $advantages_icon->icon);
+        // ob_start();
+        // echo end ($icon_value);
+        // $icon_name = ob_get_clean();
+
+        // File::delete('storage/images/advantages_icons/'.$icon_name);
+
+
+        
+
+        if($request->icon != ''){
+            // $path = public_path().'/uploads/images/';
 
             //code for remove old file
-            if($advanrages_icon->file != ''  && $advanrages_icon->file != null){
-                $file_old = $path.$advanrages_icon->file;
+            if($advantages_icon->icon != ''  && $advantages_icon->icon != null){
+                $file_old = $path.$advantages_icon->icon;
                 unlink($file_old);
             }
 
             //upload new file
-            $file = $request->file;
+            $file = $request->icon;
             $filename = $file->getClientOriginalName();
             $file->move($path, $filename);
 
             //for update in table
-            $advanrages_icon->update(['file' => $filename]);
-        }*/
+            $advantages_icon->update(['icon' => $filename]);
+        }
+        
+        $advantages_icon->save();
+        return $advantages_icon;
 
         /*$advantages_icon = AdvantagesIcon::find($id);
 
@@ -93,21 +110,51 @@ class AdvantagesIconsController extends Controller
         }
         $advantages_icon->save();
         return $advantages_icon;*/
-        $request->validate([
-            'icon' => 'required|image|mimes:jpeg,png,jpg,svg',
-        ]);
+        
+        // $request->validate([
+        //     'icon' => 'required|image|mimes:jpeg,png,jpg,svg',
+        // ]);
 
-        $file = $request->file('icon');
-        $name = date('dmyhis');
-        $extension = $file->getClientOriginalExtension();
-        $fullName = ($name . '.' . $extension);
+        // $file = $request->file('icon');
+        // $name = date('dmyhis');
+        // $extension = $file->getClientOriginalExtension();
+        // $fullName = ($name . '.' . $extension);
 
-        Storage::disk('local')->putFileAs('public/images/advantages_icons/', $file, $fullName);
+        // Storage::disk('local')->putFileAs('public/images/advantages_icons/', $file, $fullName);
 
-        $advantages_icon = new AdvantagesIcon();
-        $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/' . $name . '.' . $extension;
-        $advantages_icon->save();
-        return $advantages_icon;
+        // $advantages_icon = new AdvantagesIcon();
+        // $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/' . $name . '.' . $extension;
+        // $advantages_icon->save();
+        // return $advantages_icon;
+
+
+
+
+        // $advantages_icon = AdvantagesIcon::find($id);
+
+        // if ($request->hasFile('icon')) {
+
+        //     $request->validate([
+        //         'icon' => 'required|image|mimes:jpeg,png,jpg,svg',
+        //     ]);
+    
+        //     $file = $request->file('icon');
+        //     $name = date('dmyhis');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $fullName = ($name . '.' . $extension);
+    
+        //     Storage::disk('local')->putFileAs('public/images/advantages_icons/', $file, $fullName);
+
+        //     $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/' . $name . '.' . $extension;
+            
+
+        // }
+
+        // if ($request['icon']) {
+        //     $advantages_icon->icon = env("CLIENT_URL", 'http://localhost').'/storage/images/advantages_icons/'.$request['icon'];
+        // }
+        // $advantages_icon->save();
+        // return $advantages_icon;
     }
 
     /**
