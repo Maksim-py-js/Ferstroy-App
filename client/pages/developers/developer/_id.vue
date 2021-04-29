@@ -217,6 +217,35 @@
                         </div>
                     </div>
                 </div>
+
+               <yandex-map 
+                    :coords="coords" 
+                    :zoom="14" 
+                    :controls="['zoomControl']"
+                    ymap-class="mainYmap"
+                    >
+                    <ymap-marker 
+                        v-for="complex in getMarkers"
+                        :key="complex.index"
+
+                        marker-id="123" 
+                        :coords="[complex.map_marker[0].markerX, complex.map_marker[0].markerY]"
+                        :icon="markerIcon(complex.map_marker[0].image)"
+                        :options="balloonOptions"
+                        class="mapMarker"
+
+                        @mouseenter="markerMouseEnter()"  
+                        @mouseleave="markerMouseLeave()"
+                    >
+                        <nuxt-link :to="`/developers/developer/object/${complex.residential_complex_value.id}`" class="buildCard" slot="balloon">
+                            <h6 class="buildName">{{complex.residential_complex_value.name}}</h6>
+                            <div class="buildImage">
+                                <img :src="`${complex.map_marker[0].image}`"/>
+                            </div>
+                            <span class="buildText">880 квартир До 18 Этажей Квартиры от 52 м2 Начало строительства 2018 год</span>
+                        </nuxt-link>
+                    </ymap-marker>
+                </yandex-map>
             </div>
         <Footer />
     </div>

@@ -70,6 +70,7 @@
                 
             </b-navbar-nav>
         </b-navbar>
+
         <b-col class="bg-light w-100 p-0">                
             <div class="main">
                 <div no-body class="border-0 w-100 p-0">
@@ -137,7 +138,7 @@
                                             residential_complex_id = row.item.developer_value.id
                                         "
                                     >
-                                        Дома
+                                        ЖК
                                     </b-button>
                                 </div>
                             </template>
@@ -177,14 +178,15 @@
                                     </template>
 
                                     <template #cell(edit)="row">
-                                        <b-button 
+                                        <b-button
+                                            v-if="() => {main_sliders}" 
                                             variant="primary" 
                                             @click="
                                                 residential_complex_id = row.item.residential_complex_value.id,
                                                 getSlides();
                                             "
                                         >
-                                            <span class="">Добавить в слайдер</span>
+                                            <span>Добавить в слайдер</span>
                                         </b-button>
                                         <b-button 
                                             variant="primary" 
@@ -212,6 +214,7 @@
                                     </h2>
                                     <div class="dataItem">
                                         <div class="label">Добавить изброжение дома:</div>
+                                        
                                         <form ref="formData">
                                             <b-form-group            
                                                 id="input"
@@ -331,24 +334,6 @@
                                     </b-row>
                                 </b-modal>
 
-                                <!-- Info modal -->
-                                <b-modal :id="infoModal.id" :title="infoModal.title" ok-only centered body-class="admin-modal-body">
-                                    <ul class="model-data">
-                                        <li class="model-item">
-                                            <strong class="model-itemName">Название компании:</strong>
-                                            <span class="model-itemData">{{infoModal.comapanyName}}</span>
-                                        </li>
-                                        <li class="model-item">
-                                            <strong class="model-itemName">Рейтинг:</strong>
-                                            <span class="model-itemData">{{infoModal.rating}}</span>
-                                        </li>
-                                        <li class="model-item d-flex">
-                                            <strong class="model-itemName mr-1">Контакты:</strong>
-                                            <div class="model-itemData">{{infoModal.phone}},<br/> {{infoModal.address}}</div>
-                                        </li>
-                                    </ul>
-                                </b-modal>
-
                                 <!-- edit modal -->
                                 <b-modal id="editForm" hide-header hide-footer centered>
                                     <h2 class="panelName">
@@ -463,12 +448,13 @@
                             <template #cell(edit)="row">
                                 <b-button 
                                     variant="primary" 
+                                    title="Добавить ЖК"
                                     @click="
                                         $bvModal.show('postResidentialComplexesForm'), 
                                         residential_complexes.developer_id=row.item.developer_value.id
                                     "
                                 >
-                                    <b-icon-plus variant="light"></b-icon-plus>
+                                    <b-icon-plus variant="light" title="Добавить ЖК"></b-icon-plus>
                                 </b-button>
                                 <b-button 
                                     variant="success" 
@@ -479,16 +465,17 @@
                                         edit(row.item, row.index, $event.target)
                                     "
                                 >
-                                    <b-icon-pencil-fill variant="light"></b-icon-pencil-fill>
+                                    <b-icon-pencil-fill variant="light" title="Редактировать данные компании"></b-icon-pencil-fill>
                                 </b-button>
                                 <b-button 
                                     variant="danger" 
+                                    title="Удалить Компанию"
                                     @click="
                                         $bvModal.show('deleteComp'), 
                                         idDeleteCompany=row.item.developer_value.id
                                     "
                                 >
-                                    <b-icon-backspace-fill variant="light"></b-icon-backspace-fill>
+                                    <b-icon-backspace-fill variant="light" title="Удалить Компанию"></b-icon-backspace-fill>
                                 </b-button>
                             </template>
                         </b-table>
@@ -528,7 +515,7 @@
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
-                            <!-- <div class="dataItem">
+                            <div class="dataItem">
                                 <div class="label">Адресс отдела продаж:</div>
                                 <b-form-input
                                     id="filter-input"
@@ -537,25 +524,24 @@
                                     placeholder="ул. А.Яссовий 39/10"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
-                            </div> -->
+                            </div>
                             <div class="dataItem">
-                                <div class="label">Местонохождение отдела продаж:</div>
+                                <div class="label">Местонохождение отдела продаж на карте:</div>
                                 <div class="map">
-                                    <no-ssr>
-                                        <yandex-map
-                                            :coords="coords"
-                                            :zoom="10"
-                                            style="height: 300px"
-                                            @click="onClick"
+                                    <yandex-map 
+                                        :coords="developer.coords" 
+                                        :zoom="10" 
+                                        :controls="['zoomControl', 'searchControl']"
+                                        style="height: 300px"
+                                        @click="changeDeveloperPosition"
+                                    >
+                                        <ymap-marker 
+                                            marker-id="123" 
+                                            :coords="developer.coords"
+                                            :icon="markerIcon"
                                         >
-                                            <ymap-marker
-                                                marker-id="123"
-                                                :coords="coords"
-                                                :icon="markerIcon"
-                                                class="mapMarker"
-                                            />
-                                        </yandex-map>
-                                    </no-ssr>
+                                        </ymap-marker>
+                                    </yandex-map>
                                 </div>
                             </div>
                             <div class="dataItem">
@@ -563,8 +549,8 @@
                                 <b-form-input
                                     id="filter-input"
                                     v-model="developer.email"
-                                    type="text"
-                                    placeholder="ул. А.Яссовий 39/10"
+                                    type="email"
+                                    placeholder="exemple@gmail.com"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
@@ -583,7 +569,7 @@
                                 <b-form-input
                                     id="filter-input"
                                     v-model="developer.count_workers"
-                                    type="text"
+                                    type="number"
                                     placeholder="100"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
@@ -593,14 +579,32 @@
                                 <b-form-input
                                     id="filter-input"
                                     v-model="developer.count_machinery"
-                                    type="text"
+                                    type="number"
                                     placeholder="1000"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
                                 <div class="label">Выберите логотип:</div>
-                                <form ref="formData">
+                                <div
+                                    class="base-image-input"
+                                    :style="{ 'background-image': `url(${developer.previev})` }"
+                                    @click="chooseImage"
+                                  >
+                                    <span
+                                      v-if="!developer.previev"
+                                      class="placeholder"
+                                    >
+                                      Choose an Image
+                                    </span>
+                                    <input
+                                      class="file-input"
+                                      ref="fileInput"
+                                      type="file"
+                                      @input="onSelectFile"
+                                    >
+                                  </div>
+                                <!-- <form ref="formData">
                                     <b-form-group            
                                         id="input"
                                     >
@@ -609,7 +613,7 @@
                                             v-model="developer.logo"
                                         ></b-form-file>
                                     </b-form-group>
-                                </form>
+                                </form> -->
                             </div>
 
                             <b-row class="align-items-center pl-3 mt-4">
@@ -622,48 +626,6 @@
                             </b-row>
                         </b-modal>
                         <b-modal body-class="admin-modal-body" size="xl" id="postDeveloperAprove" hide-header hide-footer centered>
-                            <ul class="model-data">
-                                <li class="model-item">
-                                    <strong class="model-itemName">Название компании:</strong>
-                                    <span class="model-itemData">{{developer.company_name}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Дата основания компании:</strong>
-                                    <span class="model-itemData">{{developer.company_foundation_date}}</span>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName mr-1">"Контакты компании"</strong>
-                                    <div class="model-itemData">
-                                        <div>*---------------------------------------*</div>
-                                        <div>
-                                            <strong>Номер компании:</strong>
-                                            <span>{{developer.company_number}}</span>
-                                        </div>
-                                        <div>
-                                            <strong>Адресс офиса:</strong>
-                                            <span>{{developer.company_address}}</span>
-                                        </div>
-                                        <div>*---------------------------------------*</div>
-                                        <div>
-                                            <strong>Имя застройщика:</strong>
-                                            <span>{{developer.name}}</span>
-                                        </div>
-                                        <div>
-                                            <strong>Номер застройщика:</strong>
-                                            <span>{{developer.number}}</span>
-                                        </div>
-                                        <div>*---------------------------------------*</div>
-                                    </div>
-                                </li>
-                                <li class="model-item">
-                                    <strong class="model-itemName">Общее количство рабочих:</strong>
-                                    <span class="model-itemData">{{developer.count_workers}}</span>
-                                </li>
-                                <li class="model-item d-flex">
-                                    <strong class="model-itemName mr-1">Общее количство рабочей техники:</strong>
-                                    <div class="model-itemData">{{developer.count_machinery}}</div>
-                                </li>
-                            </ul>
                             <b-row class="align-items-center pl-3 mt-4">
                                 <b-button variant="primary" class="ml-2" @click="postDeveloper(), $bvModal.hide('postDeveloperAprove'), $bvModal.hide('postDeveloperForm')">
                                     Добавить
@@ -685,42 +647,31 @@
                                     id="filter-input"
                                     v-model="residential_complexes.name"
                                     type="text"
-                                    placeholder="ЖК Мир"
-                                    class="searchBar__input br-0"
-                                ></b-form-input>
-                            </div>
-                            <div class="dataItem">
-                                <div class="label">Подзаголовок страницы:</div>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="residential_complexes.title"
-                                    type="text"
-                                    placeholder="Новосторйки в центре Киргили"
+                                    placeholder="Мир"
                                     class="searchBar__input br-0"
                                 ></b-form-input>
                             </div>
                             <div class="dataItem">
                                 <div class="label">Местонохождение объекта:</div>
                                 <div class="map">
-                                    <no-ssr>
-                                        <yandex-map
-                                            :coords="coords"
-                                            :zoom="10"
-                                            style="height: 300px"
-                                            @click="onClick"
+                                    <yandex-map 
+                                        :coords="residential_complexes.coords" 
+                                        :zoom="10" 
+                                        :controls="['zoomControl', 'searchControl']"
+                                        style="height: 300px"
+                                        @click="changeComplexPosition"
+                                    >
+                                        <ymap-marker 
+                                            marker-id="124" 
+                                            :coords="residential_complexes.coords"
+                                            :icon="markerIcon"
                                         >
-                                            <ymap-marker
-                                                marker-id="123"
-                                                :coords="coords"
-                                                :icon="markerIcon"
-                                                class="mapMarker"
-                                            />
-                                        </yandex-map>
-                                    </no-ssr>
+                                        </ymap-marker>
+                                    </yandex-map>
                                 </div>
                             </div>
                             <div class="dataItem">
-                                <div class="label">Год постройки:</div>
+                                <div class="label">Год окончания застройки:</div>
                                 <b-col md="auto" class="p-0">
                                     <b-form-input
                                         id="filter-input"
@@ -1148,6 +1099,8 @@
     import Wood from '@/components/wood'
     import axios from 'axios'
     import {mapActions, mapGetters} from 'vuex'
+    import { loadYmap } from 'vue-yandex-maps'
+
     export default {
         components: { 
             VSelectize,
@@ -1155,7 +1108,6 @@
         },
         data() {
             return {
-                active: false,
                 tabsItem: [
                     {
                         id: 3,
@@ -1173,7 +1125,7 @@
                 fields: [
                     { key: 'developer_value.company_name', label: 'Название', sortable: true },
                     { key: 'developer_value.rating', label: 'Рейтинг', sortable: true, class: 'centerBlock' },
-                    { key: 'complexes', label: 'Дома', sortable: false, class: 'centerBlock' },
+                    { key: 'complexes', label: 'ЖК', sortable: false, class: 'centerBlock' },
                     { key: 'edit', label: 'Редактирование', sortable: false, class: 'centerBlock' }
                 ],
                 // advanteges tables
@@ -1209,20 +1161,6 @@
                 pageOptions: [5, 10, 20],
                 
                 // madal Data
-                infoModal: {
-                    title: 'title',
-                    id: 'info',
-                    rating: 0,
-                    phone: 'phone',
-                    address: 'address',
-                    history: 'history',
-                    machinery: 0,
-                    foundationDate: 0,
-                    numberWorkers: 0,
-                    constructedObjects: 0,
-                    foreman: 'foreman',
-                    content: ''
-                },
                 editModal: {
                     companyName: '',
                     number: '',
@@ -1232,6 +1170,7 @@
                     id: 'edit',
                     content: ''
                 },
+
                 // axios
                 residential_complex: [],
                 residential_complex_value: [],
@@ -1258,6 +1197,7 @@
                     contentLayout: '<div class="marksItem"><svg width="89" height="114" viewBox="0 0 89 114" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M66.1622 67.2483C50.6719 59.392 34.1273 60.7714 29.2829 70.3232C27.3658 74.1032 27.4804 78.6769 29.6201 83.5506L41.6343 111.317C41.665 111.385 41.7361 111.441 41.7748 111.508C42.4647 112.719 44.049 113.306 45.0962 113.073C53.5679 111.187 69.1827 107.558 75.1525 106.23C75.1525 106.23 75.1553 106.228 75.1576 106.227L75.1944 106.219C80.08 105 83.6326 102.442 85.4696 98.8198C90.314 89.2681 81.6524 75.1046 66.1622 67.2483Z" fill="url(#paint0_linear)"/><path d="M44.5 0C19.9634 0 0 19.3071 0 43.0371C0 52.428 3.06708 61.3511 8.87718 68.8373L41.757 111.665C41.8391 111.769 41.9646 111.808 42.0559 111.901C43.699 113.603 46.0701 113.175 47.2407 111.665C56.709 99.4468 74.064 76.6281 80.7367 68.0207C80.7367 68.0207 80.739 68.0141 80.7413 68.0097L80.7823 67.9567C86.1588 60.6514 89 52.0352 89 43.0371C89 19.3071 69.0366 0 44.5 0ZM44.5 66.2551C31.2892 66.2551 20.4928 55.8136 20.4928 43.0371C20.4928 30.2606 31.2892 19.8191 44.5 19.8191C57.7108 19.8191 68.5072 30.2606 68.5072 43.0371C68.5072 55.8136 57.7108 66.2551 44.5 66.2551Z" fill="#77C85B"/><defs><linearGradient id="paint0_linear" x1="66.1622" y1="67.2483" x2="43.0934" y2="112.733" gradientUnits="userSpaceOnUse"><stop offset="0.34375" stop-opacity="0"/><stop offset="1" stop-opacity="0.28"/></linearGradient></defs></svg></div>'
                 },
                 residential_complexes: {
+                    coords: [40.385245, 71.786176],
                     image: [],
                     name: "",
                     title: "",
@@ -1287,11 +1227,14 @@
                     year: ''
                 },
                 developer: {
-                    logo: [],
+                    previev: null,
+                    marker_id: '1',
+                    logo: null,
                     name: "",
                     number: "",
                     email: "",
                     rating: "5",
+                    coords: [40.385245, 71.786176],
                     rating_votes: "",
                     company_name: "",
                     company_number: "",
@@ -1301,8 +1244,6 @@
                     company_website: "",
                     company_about_title: "",
                     company_about_text: "",
-                    count_workers: "",
-                    count_machinery: "",
                     count_objects: "",
                     count_constructed_objects: "",
                     count_under_constructed_objects: ""
@@ -1339,6 +1280,8 @@
                 edit_FeaturesResidentialComplexes_Data: false,
                 edit_FeaturesResidentialComplexes_Id: null,
                 featuresResidentialComplexes: [],
+                resultSearch: false,
+                main_sliders: null,
 
 
 
@@ -1470,6 +1413,8 @@
                 .then(() => {
                     this.totalRows = this.DEVELOPERS.length
                 });
+
+
         },
         methods: {
             ...mapActions('dataBase/residential_complexes', [
@@ -1504,7 +1449,7 @@
             async postDeveloper() {
                 const formData = new FormData();
 
-                formData.append("logo", this.developer.logo, this.developer.logo.name);
+                formData.append("logo", this.developer.logo[0], this.developer.logo[0].name);
 
                 formData.append("name", this.developer.name);
                 formData.append("number", this.developer.number);
@@ -1524,6 +1469,10 @@
                 formData.append("count_constructed_objects", this.developer.count_constructed_objects);
                 formData.append("count_under_constructed_objects", this.developer.count_under_constructed_objects);
 
+
+                formData.append("email", this.developer.email);
+                formData.append("marker_id", this.developer.marker_id);
+
                 this.$axios.$post('/api/developers', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -1539,7 +1488,10 @@
                         this.developer.company_foundation_date = '';
                         this.developer.company_address = '';
                         this.developer.company_number = '';
-                        this.developer.company_address = '';
+                        this.developer.count_machinery = '';
+
+                        this.developer.count_objects = '';
+                        this.developer.email = '';
 
                         this.GET_DEVELOPERS_FROM_API();
                     }
@@ -1619,9 +1571,11 @@
             async postDate() {
                 this.GET_YEARS_FROM_API()
                     .then(() => {
-                        let array = this.YEARS.sort((a, b) => a.year_value.name.localeCompare(b.year_value.name)), //отсортированный массив
-                            resultSearch = this.search(array.sort(), this.date.year); //результата поиска
-
+                        // let array = this.YEARS.sort((a, b) => a.year_value.name.localeCompare(b.year_value.name)); //отсортированный массив
+                            // resultSearch = this.search(array.sort(), this.date.year); //результата поиска
+                        this.YEARS.forEach(item => {
+                            item === this.date.year ? this.resultSearch = true : this.resultSearch = false;
+                        });
                         if (resultSearch) { //если год найден
                             this.dateId = resultSearch; //записать id года
                             this.addObjectAct = true; //объявить что год добавлен
@@ -1923,6 +1877,13 @@
                 this.context = ctx
             },
 
+            changeDeveloperPosition(e) {
+                this.developer.coords = e.get('coords');
+            },
+            changeComplexPosition(e) {
+                this.developer.coords = e.get('coords');
+            },
+
 
 
 
@@ -2045,32 +2006,95 @@
                 });
             },
             async addToSlide() {
-                this.$axios.$post('http://213.230.96.125/api/slides', {
+                this.$axios.$post('/api/slides', {
                     'residential_complex_id': this.residential_complex_id
                 })
                 .then(response => {
+                    // console.log(response);
                 })
             },
             async getSlides() {
                 this.$axios.$get('http://213.230.96.125/api/slides')
                 .then(response => {
-                    console.log(response);
+                    this.main_sliders = response;
+                    console.log(this.main_sliders);
                     if(response.length > 5) {
                         alert('В слайдере может быть только 5 слайдов');
                     } else {
                         this.addToSlide();
                     }
                 })
+            },
+
+
+            chooseImage () {
+              this.$refs.fileInput.click();
+              // console.log(this.developer.logo);
+            },
+            onSelectFile () {
+                const input = this.$refs.fileInput
+                const files = input.files
+
+                if (files && files[0]) {
+                    this.developer.logo = files;
+                    const reader = new FileReader
+                    reader.onload = e => {
+                        this.developer.previev = e.target.result
+                    }
+                    reader.readAsDataURL(files[0]);
+                    this.$emit('input', files[0]);
+                }
             }
         }
     }
 </script>
 
 <style>
+    .base-image-input {
+      display: block;
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center center;
+    }
+    .placeholder {
+      background: #F0F0F0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+      font-size: 18px;
+      font-family: Helvetica;
+    }
+    .placeholder:hover {
+      background: #E0E0E0;
+    }
+    .file-input {
+      display: none;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     .small-table {
-        max-width: 1100px;
+        max-width: 1500px;
         width: 100%;   
-        margin: 0 auto;
+        margin: 0 0 0 auto;
     }
     .map {
         height: 300px;

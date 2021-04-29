@@ -443,7 +443,7 @@ import vClickOutside from 'v-click-outside'
       }
     },
     mounted() {
-        this.getHeaderData();
+        // this.getHeaderData();
     },
     methods: {
         openSearsearchBar__chckbxar(SearcBarState) {
@@ -462,14 +462,14 @@ import vClickOutside from 'v-click-outside'
         externalClick (SearcBarState) {
             this.SearcBarState = false
         },
-        async getHeaderData() {
-            this.$axios.$get('http://213.230.96.125/api/pages/1')
-            .then(response => {
-                this.header.header_number = response[0].page_value.header_number,
-                this.header.header_search_button = response[0].page_value.header_search_button,
-                this.header.header_title = response[0].page_value.header_title
-            })
-        }
+        // async getHeaderData() {
+        //     this.$axios.$get('http://213.230.96.125/api/pages/1')
+        //     .then(response => {
+        //         this.header.header_number = response[0].page_value.header_number,
+        //         this.header.header_search_button = response[0].page_value.header_search_button,
+        //         this.header.header_title = response[0].page_value.header_title
+        //     })
+        // }
     }
   }
 </script>
