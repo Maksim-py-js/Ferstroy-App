@@ -3043,6 +3043,37 @@
                   left: calculateVw(250);
               }
           }
+
+          &OneHouse {
+              .house__description {
+                  top: calculateVw(790);
+                  left: calculateVw(450);
+              }
+          }
+          &TwoHouse {
+              .house__description {
+                  top: calculateVw(670);
+                  left: calculateVw(450);
+              }
+          }
+          &ThreeHouse {
+              .house__description {
+                  top: calculateVw(560);
+                  left: calculateVw(450);
+              }
+          }
+          &FourHouse {
+              .house__description {
+                  top: calculateVw(440);
+                  left: calculateVw(450);
+              }
+          }
+          &FiveHouse {
+              .house__description {
+                  top: calculateVw(315);
+                  left: calculateVw(450);
+              }
+          } 
           &.active {
               opacity: 1;
           }

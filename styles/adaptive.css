@@ -2832,6 +2832,26 @@ a.linkCard {
   top: 10.41667vw;
   left: 13.02083vw; }
 
+.house__descriptionOneHouse .house__description {
+  top: 41.14583vw;
+  left: 23.4375vw; }
+
+.house__descriptionTwoHouse .house__description {
+  top: 34.89583vw;
+  left: 23.4375vw; }
+
+.house__descriptionThreeHouse .house__description {
+  top: 29.16667vw;
+  left: 23.4375vw; }
+
+.house__descriptionFourHouse .house__description {
+  top: 22.91667vw;
+  left: 23.4375vw; }
+
+.house__descriptionFiveHouse .house__description {
+  top: 16.40625vw;
+  left: 23.4375vw; }
+
 .house__description.active {
   opacity: 1; }
 
