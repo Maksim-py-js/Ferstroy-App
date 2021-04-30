@@ -1200,9 +1200,9 @@
                     coords: [40.385245, 71.786176],
                     image: [],
                     name: "",
-                    title: "",
+                    title: "sdfsdf",
                     rating: "5",
-                    address: "",
+                    address: "asdasd",
                     email: "",
                     about_title: "",
                     about_description: "",
@@ -1280,7 +1280,6 @@
                 edit_FeaturesResidentialComplexes_Data: false,
                 edit_FeaturesResidentialComplexes_Id: null,
                 featuresResidentialComplexes: [],
-                resultSearch: false,
                 main_sliders: null,
 
 
@@ -1510,17 +1509,13 @@
                 formData.append("name", this.residential_complexes.name);
                 formData.append("title", this.residential_complexes.title);
                 formData.append("rating", this.residential_complexes.rating);
-                formData.append("number", this.residential_complexes.number);
                 formData.append("address", this.residential_complexes.address);
-                formData.append("email", this.residential_complexes.email);
                 formData.append("about_title", this.residential_complexes.about_title);
                 formData.append("about_description", this.residential_complexes.about_description);
                 formData.append("advantages_title", this.residential_complexes.advantages_title);
                 formData.append("comments_title", this.residential_complexes.comments_title);
                 formData.append("marker_id", this.marker.marker_id);
                 formData.append("year_id", this.dateId);
-                formData.append("count_workers", this.residential_complexes.count_workers);
-                formData.append("count_machinery", this.residential_complexes.count_machinery);
                 formData.append("construction_start_date", this.residential_complexes.construction_start_date);
                 formData.append("construction_finish_date", this.residential_complexes.construction_finish_date);
                 formData.append("developer_id", this.residential_complexes.developer_id);
@@ -1534,16 +1529,12 @@
                     this.residential_complex_id = response.id;
                     if (response.created_at) {
                         this.residential_complexes.name = '';
-                        this.residential_complexes.title = '';
                         this.residential_complexes.number = '';
-                        this.residential_complexes.address = '';
                         this.residential_complexes.email = '';
                         this.residential_complexes.about_title = '';
                         this.residential_complexes.about_description = '';
                         // this.residential_complexes.advantages_title = '';
                         // this.residential_complexes.comments_title = '';
-                        this.residential_complexes.count_workers = '';
-                        this.residential_complexes.count_machinery = '';
                         // this.residential_complexes.construction_start_date = '';
                         // this.residential_complexes.construction_finish_date = '';
 
@@ -1571,8 +1562,8 @@
             async postDate() {
                 this.GET_YEARS_FROM_API()
                     .then(() => {
-                        // let array = this.YEARS.sort((a, b) => a.year_value.name.localeCompare(b.year_value.name)); //отсортированный массив
-                            // resultSearch = this.search(array.sort(), this.date.year); //результата поиска
+                        let array = this.YEARS.sort((a, b) => a.year_value.name.localeCompare(b.year_value.name)), //отсортированный массив
+                            resultSearch = this.search(array.sort(), this.date.year); //результата поиска
                         this.YEARS.forEach(item => {
                             item === this.date.year ? this.resultSearch = true : this.resultSearch = false;
                         });
@@ -1590,7 +1581,6 @@
                         if (this.dateId == '') {
                             const formData = new FormData();
                             formData.append("name", this.date.year);
-
                             this.$axios.$post('/api/years', formData, {
                                 headers: {
                                     'Content-Type': 'multipart/form-data'

@@ -29,6 +29,60 @@
                         <span class="buildText">880 квартир До 18 Этажей Квартиры от 52 м2 Начало строительства 2018 год</span>
                     </nuxt-link>
                 </ymap-marker>
+                <ymap-marker 
+                    marker-id="1233" 
+                    :coords="[40.394522, 71.808552]"
+                    :icon="markerIcon('https://admin.nsp.ru/storage/medialibrary/3890/conversions/%D0%A6%D0%94%D0%A1-%D0%A1%D0%B5%D0%B2%D0%B5%D1%80%D0%BD%D1%8B%D0%B9-%D1%84%D0%B0%D1%81%D0%B0%D0%B4%D1%8B-cropped-sm-1589806003.jpg')"
+                    :options="balloonOptions"
+                    class="mapMarker"
+
+                    @mouseenter="markerMouseEnter()"  
+                    @mouseleave="markerMouseLeave()"
+                >
+                    <nuxt-link :to="`/developers/developer/object/bud`" class="buildCard" slot="balloon">
+                        <h6 class="buildName">ЖК Фергана</h6>
+                        <div class="buildImage">
+                            <img src="https://admin.nsp.ru/storage/medialibrary/3890/conversions/%D0%A6%D0%94%D0%A1-%D0%A1%D0%B5%D0%B2%D0%B5%D1%80%D0%BD%D1%8B%D0%B9-%D1%84%D0%B0%D1%81%D0%B0%D0%B4%D1%8B-cropped-sm-1589806003.jpg"/>
+                        </div>
+                        <span class="buildText">880 квартир До 18 Этажей Квартиры от 52 м2 Начало строительства 2018 год</span>
+                    </nuxt-link>
+                </ymap-marker>
+                <ymap-marker 
+                    marker-id="1233" 
+                    :coords="[40.386122, 71.766924]"
+                    :icon="markerIcon('https://www.ltcompany.com/media/cache/a9/ca/a9ca42249e857d9003b91911aade2a8c.jpg')"
+                    :options="balloonOptions"
+                    class="mapMarker"
+
+                    @mouseenter="markerMouseEnter()"  
+                    @mouseleave="markerMouseLeave()"
+                >
+                    <nuxt-link :to="`/developers/developer/object/bud`" class="buildCard" slot="balloon">
+                        <h6 class="buildName">ЖК Фергана</h6>
+                        <div class="buildImage">
+                            <img src="https://www.ltcompany.com/media/cache/a9/ca/a9ca42249e857d9003b91911aade2a8c.jpg"/>
+                        </div>
+                        <span class="buildText">880 квартир До 18 Этажей Квартиры от 52 м2 Начало строительства 2018 год</span>
+                    </nuxt-link>
+                </ymap-marker>
+                <ymap-marker 
+                    marker-id="1233" 
+                    :coords="[40.409745, 71.764716]"
+                    :icon="markerIcon(require('../assets/images/png/cards/exCard.png'))"
+                    :options="balloonOptions"
+                    class="mapMarker"
+
+                    @mouseenter="markerMouseEnter()"  
+                    @mouseleave="markerMouseLeave()"
+                >
+                    <nuxt-link :to="`/developers/developer/object/ex`" class="buildCard" slot="balloon">
+                        <h6 class="buildName">Muruvvat MFY</h6>
+                        <div class="buildImage">
+                            <img src="@/assets/images/png/exHeader.png"/>
+                        </div>
+                        <span class="buildText">1000 квартир До 5 Этажей Квартиры от 38 м2</span>
+                    </nuxt-link>
+                </ymap-marker>
             </yandex-map>
             <div class="position-absolute h-99 bg-white filterBox">
                 <div class="mb-2">
@@ -472,7 +526,13 @@
                     this.GET_RESIDENTIAL_COMPLEXES_FROM_API()
                 })
                 .then(() => {
-
+                    let arr = [];
+                    this.RESIDENTIAL_COMPLEXES.forEach(complex => {
+                        arr.push(complex);
+                        console.log(complex);
+                    });
+                    this.getMarkers = arr;
+                    // console.log(this.getMarkers);
                 })
                 .then(() => {
                     let arrComplexes = [],
@@ -502,14 +562,6 @@
                     });
                     
                     // console.log(arrComplexes);
-                })
-                .then(() => {
-                    let arr = [];
-                    this.RESIDENTIAL_COMPLEXES.forEach(complex => {
-                        arr.push(complex);
-                    });
-                    this.getMarkers = arr;
-                    // console.log(this.getMarkers);
                 })
                 .then(() => {
                     this.getDevelopersName()

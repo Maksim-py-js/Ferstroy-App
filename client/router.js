@@ -15,7 +15,7 @@ const routes = [
 
   { path: '/developers', name: 'developers', component: page('developers/index.vue') },
   { path: '/developers/developer/:id', name: 'developers', component: page('developers/developer/_id.vue') },
-  { path: '/developers/developer/object/', name: 'developers', component: page('developers/developer/object/') },
+  // { path: '/developers/developer/object/:id', name: 'developers', component: page('developers/developer/object/_id.vue') },
 
   { path: '/developers/developer/object/ex', name: 'ex', component: page('developers/developer/object/ex.vue') },
   { path: '/developers/developer/object/bud', name: 'bud', component: page('developers/developer/object/bud.vue') },

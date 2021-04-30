@@ -51,12 +51,18 @@
                             <span class="greyText">Адрес:</span>
                             {{this.developer.developer_value.company_address}}
                         </div>
-                        <div 
+<!--                         <div 
                             class="dev__dataText main__text" 
                             v-if="this.developer.developer_value.company_website != null"
                         >
                             <span class="greyText">Сайт:</span>
                             {{this.developer.developer_value.company_website}}
+                        </div> -->
+                        <div 
+                            class="dev__dataText main__text" 
+                        >
+                            <span class="greyText">Сайт:</span>
+                            www.fergana-mcj.uz
                         </div>
                         <a :href="`tel:${this.developer.developer_value.number}`">
                             <div class="dev__phoneBtn rounded text-center">
@@ -65,7 +71,7 @@
                         </a>
                     </div>
                 </div>
-                <div 
+                <!-- <div 
                     class="dev__about" 
                     v-if="
                         this.developer.developer_value.company_about_title != null 
@@ -87,6 +93,28 @@
                             <div class="advantages__card_count">{{item.advantage.count}}</div> 
                             <div class="advantages__card_name">{{item.advantage.title}}</div> 
                         </div>
+                    </div>
+                </div> -->
+                <div class="dev__about">
+                    <h5 class="main__title text-center">О застройщике</h5>
+                    <h6 class="discription__title">Квартиры в новостройках Ферганы</h6>
+                    <span class="main__text">пользуются большим спросом, на нашем сайте можете размещать не ограниченное колличество квартир в любой из категорий. А так же размещать рекламные и информационные статьи. Удачи! Пользуются большим спросом, на нашем сайте можете размещать не ограниченное колличество квартир в любой из категорий. А так же размещать рекламные и информационные статьи. Удачи!</span>
+                </div>
+                <div class="dev__statistics">
+                    <div class="main__title text-center">Количество объектов</div>
+                    <div class="d-flex flex-wrap advantages__cards">
+                        <div class="advantages__card_sm">
+                            <div class="advantages__card_count">2274</div> 
+                            <div class="advantages__card_name">Кол.во построенных объектов</div> 
+                        </div>
+                        <div class="advantages__card_sm">
+                            <div class="advantages__card_count">350</div> 
+                            <div class="advantages__card_name">Кол.во строящихся объектов</div> 
+                        </div>
+                        <div class="advantages__card_sm">
+                            <div class="advantages__card_count">7850</div> 
+                            <div class="advantages__card_name">Кол.во квартир в продаже</div> 
+                        </div>  
                     </div>
                 </div>
 
@@ -118,7 +146,7 @@
                                     </b-button>
                                 </div>
                                 <div v-else>
-                                    <div class="main__title text-center">Отзывов пока нет, но вы можете исправить это:)</div>
+                                    <div class="main__title text-center">Отзывов пока нет</div>
                                 </div>
                                 <div class="reviews__form">
                                     <form>
@@ -218,7 +246,7 @@
                     </div>
                 </div>
 
-               <yandex-map 
+               <!-- <yandex-map 
                     :coords="coords" 
                     :zoom="14" 
                     :controls="['zoomControl']"
@@ -245,7 +273,7 @@
                             <span class="buildText">880 квартир До 18 Этажей Квартиры от 52 м2 Начало строительства 2018 год</span>
                         </nuxt-link>
                     </ymap-marker>
-                </yandex-map>
+                </yandex-map> -->
             </div>
         <Footer />
     </div>

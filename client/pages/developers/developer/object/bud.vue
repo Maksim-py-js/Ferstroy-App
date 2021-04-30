@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>    
-        <div class="svg__object position-relative">
+        <div class="svg__object position-relative" id="appartments">
             <svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="1920" height="1080" fill="url(#patternObject)"/>
                 <a xlink:href="/developers/developer/object/house/budhouse" v-for="path in object" :key="path.id">

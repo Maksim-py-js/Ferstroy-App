@@ -29,8 +29,8 @@
               </div>
             </div>
             <div class="card__content_bottom">
-              <b-button variant="transparent" class="card__btnStay shadow-none">Осталось - 100 квартир</b-button>
-              <div class="card__price">от <span>2.07</span> млн сум м2</div>
+              <b-button variant="transparent" class="card__btnStay shadow-none">Осталось - 850 квартир</b-button>
+              <div class="card__price">от <span>3.5</span> млн сум м2</div>
               <div class="card__status d-flex justify-content-between">
                 <div class="d-flex">
                   <div class="card__status_image">

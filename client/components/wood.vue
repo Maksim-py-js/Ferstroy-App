@@ -5,17 +5,23 @@
             <div class="woodItem" v-for="object in woodData" :key="object.year.id">
                 <div class="woodLinks"></div>
                 <div class="woodMiddle text-center">
-                    <div class="woodYear">{{object.year.name}}</div>
+                    <div class="woodYear">{{object.year.name}}  г.</div>
                     <div class="woodArrow">
                         <img src="@/assets/images/svg/arrayYear.svg"/>
                     </div>
                 </div>
                 <div class="woodLinks">
-                    <nuxt-link 
+                    <!-- <nuxt-link 
                         class="objectItem text-decoration-none"
                         v-for="item in object.year_residential_complexes" 
                         :key="item.id"
                         :to="`/developers/developer/object/${item.id}`" 
+                    > -->
+                    <nuxt-link 
+                        class="objectItem text-decoration-none"
+                        v-for="item in object.year_residential_complexes" 
+                        :key="item.id"
+                        :to="`/developers/developer/object/bud`" 
                     >
                         <div class="woodImage">
                             <img :src="item.image">
