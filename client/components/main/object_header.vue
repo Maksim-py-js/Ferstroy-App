@@ -23,8 +23,8 @@
                             <nuxt-link to="/" class="header__navItem text-decoration-none">Контакты</nuxt-link>
                         </b-navbar-nav>
                         <div>
-                            <div><a href="tel:+712008822" class="header__phone text-decoration-none">(71) 200 88 22</a></div>
-                            <div><a href="tel:+712008822" class="header__phone_text">Связаться с нами</a></div>                            
+                            <a href="tel:+998732440535" class="d-block header__phone text-decoration-none">(73) 244 05 35</a>
+                            <a href="tel:+998732440535" class="d-block header__phone_text">Связаться с нами</a>                           
                         </div>
                     </div>
                 </b-navbar> 

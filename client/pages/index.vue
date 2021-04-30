@@ -7,16 +7,16 @@
         <nuxt-link to="/" class="bestsellers__seeAll text-decoration-none">367</nuxt-link>
       </div>
       <div class="d-flex flex-wrap bestsellers__cards">
-        <nuxt-link to="/developers/developer/object/bud" class="linkCard">
+        <nuxt-link to="/developers/developer/object/ex" class="linkCard">
           <div class="card">
             <div class="card__image">
-              <img src="@/assets/images/png/cards/image 52.png">
+              <img src="@/assets/images/png/cards/exCard.png">
             </div>
             <div class="card__image_bg"></div>
             <div class="card__content_top d-flex justify-content-between align-items-top">
               <div>
-                <div class="card__companyName">BudCapital</div>
-                <div class="card__buildName">ЖК Star City</div>
+                <div class="card__companyName">Bag'dod</div>
+                <div class="card__buildName">Muruvvat MFY</div>
               </div>
               <div class="card__rating d-flex">
                 <div class="d-flex align-items-center">
@@ -61,7 +61,7 @@
 
           </div>
         </nuxt-link>
-        <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+        <nuxt-link to="/developers/developer/object/bud" class="linkCard">
           <div class="card">
             <div class="card__image">
               <img src="@/assets/images/png/cards/image 53.png">
@@ -116,7 +116,7 @@
 
           </div>
         </nuxt-link>
-        <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+        <nuxt-link to="/developers/developer/object/bud" class="linkCard">
           <div class="card">
             <div class="card__image">
               <img src="@/assets/images/png/cards/image 54.png">
@@ -171,7 +171,7 @@
 
           </div>
         </nuxt-link>
-        <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+        <nuxt-link to="/developers/developer/object/bud" class="linkCard">
           <div class="card">
             <div class="card__image">
               <img src="@/assets/images/png/cards/image 55.png">
@@ -226,7 +226,7 @@
 
           </div>
         </nuxt-link>
-        <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+        <nuxt-link to="/developers/developer/object/bud" class="linkCard">
           <div class="card">
             <div class="card__image">
               <img src="@/assets/images/png/cards/image 56.png">
@@ -281,7 +281,7 @@
 
           </div>
         </nuxt-link>
-        <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+        <nuxt-link to="/developers/developer/object/bud" class="linkCard">
           <div class="card">
             <div class="card__image">
               <img src="@/assets/images/png/cards/image 57.png">
@@ -336,7 +336,7 @@
 
           </div>
         </nuxt-link>
-        <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+        <nuxt-link to="/developers/developer/object/bud" class="linkCard">
           <div class="card">
             <div class="card__image">
               <img src="@/assets/images/png/cards/image 58.png">
@@ -391,7 +391,7 @@
 
           </div>
         </nuxt-link>
-        <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+        <nuxt-link to="/developers/developer/object/bud" class="linkCard">
           <div class="card">
             <div class="card__image">
               <img src="@/assets/images/png/cards/image 59.png">
@@ -535,7 +535,7 @@
 
         </div>
       </nuxt-link>
-      <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+      <nuxt-link to="/developers/developer/object/bud" class="linkCard">
         <div class="card">
           <div class="card__image">
             <img src="@/assets/images/png/cards/image 53.png">
@@ -590,7 +590,7 @@
 
         </div>
       </nuxt-link>
-      <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+      <nuxt-link to="/developers/developer/object/bud" class="linkCard">
         <div class="card">
           <div class="card__image">
             <img src="@/assets/images/png/cards/image 54.png">
@@ -645,7 +645,7 @@
 
         </div>
       </nuxt-link>
-      <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+      <nuxt-link to="/developers/developer/object/bud" class="linkCard">
         <div class="card">
           <div class="card__image">
             <img src="@/assets/images/png/cards/image 55.png">
@@ -700,7 +700,7 @@
 
         </div>
       </nuxt-link>
-      <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+      <nuxt-link to="/developers/developer/object/bud" class="linkCard">
         <div class="card">
           <div class="card__image">
             <img src="@/assets/images/png/cards/image 56.png">
@@ -755,7 +755,7 @@
 
         </div>
       </nuxt-link>
-      <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+      <nuxt-link to="/developers/developer/object/bud" class="linkCard">
         <div class="card">
           <div class="card__image">
             <img src="@/assets/images/png/cards/image 57.png">
@@ -810,7 +810,7 @@
 
         </div>
       </nuxt-link>
-      <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+      <nuxt-link to="/developers/developer/object/bud" class="linkCard">
         <div class="card">
           <div class="card__image">
             <img src="@/assets/images/png/cards/image 58.png">
@@ -865,7 +865,7 @@
 
         </div>
       </nuxt-link>
-      <nuxt-link to="/developers/developer/object/ex" class="linkCard">
+      <nuxt-link to="/developers/developer/object/bud" class="linkCard">
         <div class="card">
           <div class="card__image">
             <img src="@/assets/images/png/cards/image 59.png">
