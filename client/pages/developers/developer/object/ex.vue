@@ -238,29 +238,23 @@
                                     <div class="container_1290">            
                                         <div class="gallery__row d-flex">                                
                                             <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/1.png">
+                                                <img src="https://img.avaho.ru/rsz/upload/objects_construct_photo/18657_a9b89489f90c0557a29c37d6ff1765d0.w850_h450_strict.jpg">
                                                 <div class="gallery__image_bg">
                                                     <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
                                                 </div>
                                             </div>                
                                             <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/2.png">
+                                                <img src="https://3m2.ua/wp-content/uploads/old-gallery/uploaded/2404/2604/0205/0705/1005/1405/1605/1805/2205/3m2_news_hod_stroitelstva_stolichnogo_zhk_mirax.jpg">
                                                 <div class="gallery__image_bg">
                                                     <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
                                                 </div>
                                             </div>
                                             <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/3.png">
+                                                <img src="https://img.lunstatic.net/construction-800x450/309838.jpg">
                                                 <div class="gallery__image_bg">
                                                     <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
                                                 </div>
-                                            </div>
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/4.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>              
+                                            </div>             
                                         </div>
                                     </div>
                                 </div>                        
@@ -270,121 +264,25 @@
                                     <div class="container_1290">            
                                         <div class="gallery__row d-flex">                                
                                             <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/5.png">
+                                                <img src="https://s0.rbk.ru/v6_top_pics/media/img/0/21/755855015755210.jpg">
                                                 <div class="gallery__image_bg">
                                                     <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
                                                 </div>
                                             </div>                
                                             <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/1.png">
+                                                <img src="https://www.tvtomsk.ru/uploads/images/2021/02/02/thumbs/565bccbbf06f0d.jpg">
                                                 <div class="gallery__image_bg">
                                                     <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
                                                 </div>
                                             </div>
                                             <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/2.png">
+                                                <img src="https://www.business-class.su/uploads/material/42/45/84/424584729b7b143abc62ef430fc040fc.jpg">
                                                 <div class="gallery__image_bg">
                                                     <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
                                                 </div>
                                             </div>
                                             <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/3.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>              
-                                        </div>
-                                    </div>
-                                </div>                        
-                            </b-tab>
-                            <b-tab title="2021 05 2" active>                        
-                                <div class="gallery">
-                                    <div class="container_1290">            
-                                        <div class="gallery__row d-flex">                                
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/4.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>                
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/5.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/1.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/2.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>              
-                                        </div>
-                                    </div>
-                                </div>                        
-                            </b-tab>
-                            <b-tab title="2021 05 3" active>                        
-                                <div class="gallery">
-                                    <div class="container_1290">            
-                                        <div class="gallery__row d-flex">                                
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/3.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>                
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/4.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/5.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/1.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>              
-                                        </div>
-                                    </div>
-                                </div>                        
-                            </b-tab>
-                            <b-tab title="2021 05 4" active>                        
-                                <div class="gallery">
-                                    <div class="container_1290">            
-                                        <div class="gallery__row d-flex">                                
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/2.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>                
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/3.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/4.png">
-                                                <div class="gallery__image_bg">
-                                                    <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
-                                                </div>
-                                            </div>
-                                            <div class="gallery__image gallery__image_sm">
-                                                <img src="@/assets/images/png/gallery/5.png">
+                                                <img src="https://www.radidomapro.ru/images/unique/585-640-20200416_121122_strojka.jpg">
                                                 <div class="gallery__image_bg">
                                                     <b-button variant="transparent" class="gallery__image_btn shadow-none"></b-button>
                                                 </div>
